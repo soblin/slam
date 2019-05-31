@@ -30,6 +30,7 @@ before_script:
   - cd $CI_ROOT_PATH/lib/googletest/googletest
   - mkdir build && cd build
   - cmake .. -DCMAKE_CXX_STANDARD=11
+  - make
   - cd $CI_ROOT_PATH
 
 script:
