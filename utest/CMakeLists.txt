@@ -1,6 +1,22 @@
 cmake_minimum_required(VERSION 2.8.3)
 
 add_compile_options(-std=c++11)
+
+# gtest
+add_library(gtest STATIC IMPORTED)
+set_property(
+  TARGET gtest
+  PROPERTY IMPORTED_LOCATION ${CMAKE_CURRENT_SOURCE_DIR}/../lib/googletest/googletest/build/lib/libgtest.a
+  )
+
+add_library(gtest_main STATIC IMPORTED)
+set_property(
+  TARGET gtest_main
+  PROPERTY IMPORTED_LOCATION ${CMAKE_CURRENT_SOURCE_DIR}/../lib/googletest/googletest/build/lib/libgtest_main.a
+  )
+
+include_directories(${CMAKE_CURRENT_SOURCE_DIR}/../lib/googletest/googletest/include)
+
 add_executable(sensor_data_reader_test sensor_data_reader.cpp)
 target_link_libraries(sensor_data_reader_test
   slam

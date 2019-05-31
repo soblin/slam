@@ -31,7 +31,6 @@ target_link_libraries(main ${PROJECT_NAME} ${Boost_LIBRARY})
 
 if(NOT without-test)
   enable_testing()
-  include(cmake/gtest.cmake)
   add_subdirectory(utest)
 endif()
 

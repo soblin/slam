@@ -1,4 +1,5 @@
 #include <fstream>
+#include <cmath>
 #include <gtest/gtest.h>
 
 #include "slam/io/SensorDataReader.h"

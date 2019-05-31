@@ -1,19 +1,39 @@
 sudo: required
+cache:
+  - apt
 
 language: cpp
+
+env:
+  global:
+    - CI_ROOT_PATH=$(pwd)
+
+branches:
+  only:
+    master
+
+notifications:
+  email:
+    on_success: never
+    on_failure: never
 
 compiler:
   - gcc
   - clang
 
-install:
-  - sudo apt-get install libeigen3-dev
-  - sudo apt-get install libboost-all-dev
+#install:
+#  - sudo apt-get install libeigen3-dev
+#  - sudo apt-get install libboost-all-dev
   
 before_script:
+  - git submodule update
+  - cd $CI_ROOT_PATH/lib/googletest/googletest
+  - mkdir build && cd build
+  - cmake .. -DCMAKE_CXX_STANDARD=11
+  - cd $CI_ROOT_PATH
+
+script:
   - mkdir build
   - cd build
   - cmake ..
-
-script:
   - make && make test
