@@ -6,13 +6,13 @@ set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
 add_compile_options(-std=c++11 -Wall -DDEBUG)
 
-find_package(Boost REQUIRED)
-find_package(Eigen3)
+#find_package(Boost REQUIRED)
+#find_package(Eigen3)
 
 include_directories(
   include/
-  ${EIGEN3_INCLUDE_DIR}
-  ${Boost_INCLUDE_DIR}
+#  ${EIGEN3_INCLUDE_DIR}
+#  ${Boost_INCLUDE_DIR}
   )
 
 file(GLOB lib_sources "lib/geometry/*.cpp" "lib/io/*.cpp")
