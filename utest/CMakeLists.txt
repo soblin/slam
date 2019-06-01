@@ -24,10 +24,21 @@ target_link_libraries(sensor_data_reader_test
   gtest_main
   pthread
   )
-
-set(EXECUTABLE_OUTPUT_PATH ${CMAKE_CURRENT_SOURCE_DIR}/bin)
-
 add_test(
   NAME sensor-data-reader
   COMMAND $<TARGET_FILE:sensor_data_reader_test>
   )
+
+add_executable(pose2d_test pose2d.cpp)
+target_link_libraries(pose2d_test
+  slam
+  gtest
+  gtest_main
+  pthread)
+add_test(
+  NAME pose2d_test
+  COMMAND $<TARGET_FILE:pose2d_test>
+  )
+
+set(EXECUTABLE_OUTPUT_PATH ${CMAKE_CURRENT_SOURCE_DIR}/bin)
+

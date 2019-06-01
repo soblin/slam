@@ -9,6 +9,7 @@ class Pose2D {
 private:
   double m_tx;
   double m_ty;
+  // angle is restricted to (-M_PI, M_PI]
   double m_th; // [rad]
   double m_Rmat[2][2];
 
@@ -25,10 +26,10 @@ public:
 
 public:
   Pose2D();
-  Pose2D(double tx, double ty, double th /*[rad]*/);
+  Pose2D(double tx, double ty, double th /*[deg]*/);
 
   void Reset();
-  void SetVal(double x, double y, double th);
+  void SetVal(double x, double y, double th /*[rad]*/);
   void SetTranslation(double tx, double ty);
   void SetAngle(double th /*[rad]*/);
   void CalcRmat();

@@ -17,7 +17,8 @@ Pose2D::Pose2D() : m_tx(0), m_ty(0), m_th(0) {
 }
 
 Pose2D::Pose2D(double tx, double ty, double th) : m_tx(tx), m_ty(ty) {
-  m_th = normalize(th);
+  double rad = th / 180.0 * M_PI;
+  m_th = normalize(rad);
   CalcRmat();
 }
 

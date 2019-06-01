@@ -1,5 +1,5 @@
-#include <fstream>
 #include <cmath>
+#include <fstream>
 #include <gtest/gtest.h>
 
 #include "slam/io/SensorDataReader.h"
@@ -34,24 +34,41 @@ TEST(SensorDataReader, read_test) {
   ASSERT_EQ(3, scan2.scaned_points().size());
 }
 
-TEST(SensorDataReader, scaned_local_position_test){
+TEST(SensorDataReader, scaned_local_position_test) {
   slam::SensorDataReader reader;
   reader.OpenScanFile("test.lsc");
   slam::Scan2D scan;
+
+  // read the first line
+
   reader.LoadScan(0, scan);
   // attention!! angle_offset = 180[deg]
+
+  // for (-180, 1) -> (0[deg], 1[m]), x == 1, y == 0
   ASSERT_FLOAT_EQ(1.0, scan.scaned_points()[0].x());
   ASSERT_FLOAT_EQ(0, scan.scaned_points()[0].y());
+
+  // for (-150, 2) -> (30[deg], 2[m]), x == sqrt(3), y == 1.0
   ASSERT_FLOAT_EQ(std::sqrt(3.0), scan.scaned_points()[1].x());
   ASSERT_FLOAT_EQ(1.0, scan.scaned_points()[1].y());
 
+  // for (-120, 3) -> (60[deg], 3[m]), x == 1.5, y == 1.5*sqrt(3)
+  ASSERT_FLOAT_EQ(1.5, scan.scaned_points()[2].x());
+  ASSERT_FLOAT_EQ(1.5 * std::sqrt(3.0), scan.scaned_points()[2].y());
+
+  // read the second line
   decltype(scan) scan2;
   reader.LoadScan(1, scan2);
+  // for (-120, 3) -> (60[deg], 3[m])
   ASSERT_FLOAT_EQ(1.5, scan2.scaned_points()[1].x());
   ASSERT_FLOAT_EQ(std::sqrt(3.) * 1.5, scan2.scaned_points()[1].y());
+
+  // for (-60, 5) -> (120[deg], 5[m])
+  ASSERT_FLOAT_EQ(-2.5, scan2.scaned_points()[2].x());
+  ASSERT_FLOAT_EQ(2.5 * std::sqrt(3.0), scan2.scaned_points()[2].y());
 }
 
-int main(int argc, char **argv){
+int main(int argc, char **argv) {
   ::testing::InitGoogleTest(&argc, argv);
   return RUN_ALL_TESTS();
 }

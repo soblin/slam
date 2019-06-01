@@ -17,6 +17,7 @@ include_directories(
 
 file(GLOB lib_sources "lib/geometry/*.cpp" "lib/io/*.cpp")
 file(GLOB lib_headers "include/slam/geoemetry/*.h" "include/slam/io/*.h")
+file(GLOB test_sources "utest/*.cpp")
 file(GLOB sources "src/*.cpp")
 
 add_library(
@@ -60,10 +61,12 @@ set(project_sources
   ${lib_sources}
   ${lib_headers}
   ${sources}
+  ${test_sources}
   )
 add_sources(${project_sources})
 get_property(all_sources GLOBAL PROPERTY SRCS_LIST)
 
+# Run clang-format
 find_program(CLANG_FORMAT_EXE clang-format)
 if(CLANG_FORMAT_EXE)
   add_custom_target(format ALL

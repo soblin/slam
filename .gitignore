@@ -1,6 +1,4 @@
 main
-libslam.so
-build/
 dataset/
-lib/google_test
 utest/bin
+utest/test.lsc
