@@ -1,0 +1,17 @@
+- Scan2D:
+    - MAX_SCAN_RANGE: 6
+    - MIN_SCAN_RANGE: 0.1
+
+- PointCloudMap:
+    - MAX_POINT_NUM: 100000
+    - AddPoints_skip: 5
+
+- SensorDataReader:
+    - angle_offset: 180
+
+- MapDrawer:
+    - DrawGp_skip_point: 1
+    - DrawGp_skip_pose: 10
+
+- SlamLauncher:
+    - usleep_time: 100000

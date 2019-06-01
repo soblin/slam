@@ -17,3 +17,15 @@ Pose2Dの設計はデータの一貫性が問われるケーススタディで�
 SlamLauncherがSetFilenameでテストファイルをオープンする時, その動作はSensorDataReaderのOpenScanFileが行う. そしてLoadScan(size_t cnt_id, Scan2D &output)よりoutputへとその行の姿勢とスキャンデータを保持していく.
 
 SlamLauncherのm_mapが保持されるデータの全て. 基本的に(1)ファイルを1行読んで (2)Scan2D型としてSensorDataReader内部で一旦バッファリングされたあと (3)MapByOdometry()によりPointCloudMapへと観測された点は保存されていく.
+
+ハイパーパラメータをyamlに書いておいて, それを読み込む形式にしたい. 今の所かなり分散しているし, まとまりがついていない感じがする.
+
+- geometry/Pose2D なし
+- geometry/ScanPoint2D なし
+- geometry/Scan2D MAX_SCAN_RANGE(6), MIN_SCAN_RANGE(0.1)
+- geometry/PointCloudMap AddPoints()におけるskip, MAX_POINT_NUM
+- io/SensorDataReader angle_offset(180)
+- io/MapDrawer {x, y}{min, max}の初期値, DrawGPのskip(point cloud, robot pose)
+- io/SlamLauncher Run()におけるsleep時間, usleep
+
+面倒だしやっぱりいいや.
