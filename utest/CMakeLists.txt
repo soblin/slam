@@ -40,5 +40,16 @@ add_test(
   COMMAND $<TARGET_FILE:pose2d_test>
   )
 
+add_executable(scanpoint2d_test scanpoint2d.cpp)
+target_link_libraries(scanpoint2d_test
+  slam
+  gtest
+  gtest_main
+  pthread)
+add_test(
+  NAME scanpoint2d_test
+  COMMAND $<TARGET_FILE:scanpoint2d_test>
+  )
+
 set(EXECUTABLE_OUTPUT_PATH ${CMAKE_CURRENT_SOURCE_DIR}/bin)
 

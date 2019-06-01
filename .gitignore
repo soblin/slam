@@ -2,3 +2,4 @@ main
 dataset/
 utest/bin
 utest/test.lsc
+bin/

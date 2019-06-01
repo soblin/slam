@@ -4,6 +4,7 @@
 #include <stdio.h>
 #include <vector>
 
+#include <slam/geometry/PointCloudMap.h>
 #include <slam/geometry/Pose2D.h>
 #include <slam/geometry/Scan2D.h>
 
@@ -30,7 +31,7 @@ public:
   void DrawTrajectoryGp(const std::vector<Pose2D> &poses);
   void DrawGp(const std::vector<ScanPoint2D> &scaned_points,
               const std::vector<Pose2D> &poses, bool flush = true);
-  // void DrawMapGp(const PointCloudMapPtr& pcmap);
+  void DrawGp(const PointCloudMap &pcmap);
 };
 
 } // namespace slam

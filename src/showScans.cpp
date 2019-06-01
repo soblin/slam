@@ -60,6 +60,6 @@ int main(int argc, char **argv) {
   if (!sl.SetFilename(filepath)) {
     std::cout << "failed to open " << filepath << std::endl;
   }
-  //  sl.Run();
+  sl.ShowScans();
   std::cout << "finished completely" << std::endl;
 }

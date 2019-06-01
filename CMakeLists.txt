@@ -20,20 +20,28 @@ file(GLOB lib_headers "include/slam/geoemetry/*.h" "include/slam/io/*.h")
 file(GLOB test_sources "utest/*.cpp")
 file(GLOB sources "src/*.cpp")
 
+# libslam
 add_library(
   ${PROJECT_NAME}
   SHARED
   ${lib_sources}
   )
 
-set(EXECUTABLE_OUTPUT_PATH "${CMAKE_CURRENT_SOURCE_DIR}")
-add_executable(main src/main.cpp)
-target_link_libraries(main ${PROJECT_NAME} ${Boost_LIBRARY})
 
+# main programs
+set(EXECUTABLE_OUTPUT_PATH "${CMAKE_CURRENT_SOURCE_DIR}/bin")
+
+add_executable(showScans src/showScans.cpp)
+target_link_libraries(showScans ${PROJECT_NAME})
+add_executable(mapByOdometry src/mapByOdometry.cpp)
+target_link_libraries(mapByOdometry ${PROJECT_NAME})
+
+# unit tests
 if(NOT without-test)
   enable_testing()
   add_subdirectory(utest)
 endif()
+
 
 # clang format
 function(add_sources)

@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE ipe SYSTEM "ipe.dtd">
 <ipe version="70206" creator="Ipe 7.2.7">
-<info created="D:20190601160538" modified="D:20190601160538"/>
+<info created="D:20190601160538" modified="D:20190601173116"/>
 <ipestyle name="basic">
 <symbol name="arrow/arc(spx)">
 <path stroke="sym-stroke" fill="sym-stroke" pen="sym-pen">
@@ -220,13 +220,13 @@ h
 <dashstyle name="dash dotted" value="[4 2 1 2] 0"/>
 <dashstyle name="dash dot dotted" value="[4 2 1 2 1 2] 0"/>
 <textsize name="large" value="\large"/>
+<textsize name="small" value="\small"/>
+<textsize name="tiny" value="\tiny"/>
 <textsize name="Large" value="\Large"/>
 <textsize name="LARGE" value="\LARGE"/>
 <textsize name="huge" value="\huge"/>
 <textsize name="Huge" value="\Huge"/>
-<textsize name="small" value="\small"/>
 <textsize name="footnote" value="\footnotesize"/>
-<textsize name="tiny" value="\tiny"/>
 <textstyle name="center" begin="\begin{center}" end="\end{center}"/>
 <textstyle name="itemize" begin="\begin{itemize}" end="\end{itemize}"/>
 <textstyle name="item" begin="\begin{itemize}\item{}" end="\end{itemize}"/>
@@ -274,17 +274,7 @@ h
 192 384 l
 </path>
 <text transformations="translations" pos="152 336" stroke="red" type="label" width="43.254" height="11.158" depth="3.35" valign="baseline" size="LARGE">\it{origin}</text>
-<path stroke="black" dash="dashed" pen="heavier">
-160 704 m
-160 320 l
-160 320 l
-</path>
 <path matrix="1 0 0 1 32 0" stroke="black" dash="dashed" pen="heavier">
-160 704 m
-160 320 l
-160 320 l
-</path>
-<path matrix="1 0 0 1 64 0" stroke="black" dash="dashed" pen="heavier">
 160 704 m
 160 320 l
 160 320 l
@@ -294,17 +284,7 @@ h
 160 320 l
 160 320 l
 </path>
-<path matrix="1 0 0 1 128 0" stroke="black" dash="dashed" pen="heavier">
-160 704 m
-160 320 l
-160 320 l
-</path>
 <path matrix="1 0 0 1 160 0" stroke="black" dash="dashed" pen="heavier">
-160 704 m
-160 320 l
-160 320 l
-</path>
-<path matrix="1 0 0 1 192 0" stroke="black" dash="dashed" pen="heavier">
 160 704 m
 160 320 l
 160 320 l
@@ -314,15 +294,7 @@ h
 160 320 l
 160 320 l
 </path>
-<path stroke="black" dash="dashed" pen="heavier">
-96 384 m
-416 384 l
-</path>
 <path matrix="1 0 0 1 0 32" stroke="black" dash="dashed" pen="heavier">
-96 384 m
-416 384 l
-</path>
-<path matrix="1 0 0 1 0 64" stroke="black" dash="dashed" pen="heavier">
 96 384 m
 416 384 l
 </path>
@@ -330,23 +302,11 @@ h
 96 384 m
 416 384 l
 </path>
-<path matrix="1 0 0 1 0 128" stroke="black" dash="dashed" pen="heavier">
-96 384 m
-416 384 l
-</path>
 <path matrix="1 0 0 1 0 160" stroke="black" dash="dashed" pen="heavier">
 96 384 m
 416 384 l
 </path>
-<path matrix="1 0 0 1 0 192" stroke="black" dash="dashed" pen="heavier">
-96 384 m
-416 384 l
-</path>
 <path matrix="1 0 0 1 0 224" stroke="black" dash="dashed" pen="heavier">
-96 384 m
-416 384 l
-</path>
-<path matrix="1 0 0 1 0 256" stroke="black" dash="dashed" pen="heavier">
 96 384 m
 416 384 l
 </path>

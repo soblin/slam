@@ -1,6 +1,7 @@
 #ifndef SLAM_LAUNCHER_H
 #define SLAM_LAUNCHER_H
 
+#include <slam/geometry/PointCloudMap.h>
 #include <slam/io/MapDrawer.h>
 #include <slam/io/SensorDataReader.h>
 
@@ -13,6 +14,7 @@ private:
   Pose2D m_initial_pose;
   SensorDataReader m_sensor_reader;
   MapDrawer m_map_drawer;
+  PointCloudMap m_map;
 
 public:
   SlamLauncher();

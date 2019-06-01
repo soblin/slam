@@ -7,6 +7,7 @@ ScanPoint2D::ScanPoint2D() : m_id(-1), m_x(0), m_y(0) { init(); }
 ScanPoint2D::ScanPoint2D(int id, double x, double y)
     : m_id(id), m_x(x), m_y(y) {
   init();
+  m_id = id;
 }
 
 void ScanPoint2D::init() {

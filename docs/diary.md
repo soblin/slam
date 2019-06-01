@@ -14,3 +14,6 @@ Pose2Dの設計はデータの一貫性が問われるケーススタディで�
 
 `lib/geometry/Pose2D.cpp` の `normalize` で定義しているように, 角度は (-M\_PI, M_PI] に収めるようにしている.
 
+SlamLauncherがSetFilenameでテストファイルをオープンする時, その動作はSensorDataReaderのOpenScanFileが行う. そしてLoadScan(size_t cnt_id, Scan2D &output)よりoutputへとその行の姿勢とスキャンデータを保持していく.
+
+SlamLauncherのm_mapが保持されるデータの全て. 基本的に(1)ファイルを1行読んで (2)Scan2D型としてSensorDataReader内部で一旦バッファリングされたあと (3)MapByOdometry()によりPointCloudMapへと観測された点は保存されていく.
