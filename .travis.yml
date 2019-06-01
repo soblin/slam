@@ -10,7 +10,8 @@ env:
 
 branches:
   only:
-    master
+    - chapter06
+    - master
 
 notifications:
   email:
