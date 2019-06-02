@@ -73,5 +73,16 @@ add_test(
   COMMAND $<TARGET_FILE:costfunction_ed_test>
   )
 
+add_executable(poseoptimizer_test poseoptimizer.cpp)
+target_link_libraries(poseoptimizer_test
+  slam
+  gtest
+  gtest_main
+  pthread)
+add_test(
+  NAME poseoptimizer
+  COMMAND $<TARGET_FILE:poseoptimizer_test>
+  )
+
 set(EXECUTABLE_OUTPUT_PATH ${CMAKE_CURRENT_SOURCE_DIR}/bin)
 

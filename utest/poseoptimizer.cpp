@@ -1,5 +1,6 @@
 #include <slam/icp/CostFunctionED.h>
 #include <slam/icp/DataAssociatorLS.h>
+#include <slam/icp/PoseOptimizerSD.h>
 
 #include <gtest/gtest.h>
 
@@ -54,11 +55,15 @@ TEST_F(DataAssociatorLSTestFriend, testFindCorrespondence) {
   GetRefPoints(dass, refPointResult);
 
   CostFunctionED cfunc;
-  cfunc.SetPoints(curPointResult, refPointResult);
-  cfunc.SetValThresh(2.0);
-  double ratio = cfunc.CalcValue(0, 0, 0);
+  PoseOptimizerSD optimizer;
+  optimizer.SetCostFunction(&cfunc);
+  optimizer.SetPoints(curPointResult, refPointResult);
+  optimizer.SetValThresh(2.0);
+  optimizer.SetValDiffThresh(0.1);
+  Pose2D initPose(0, 0, 0);
+  Pose2D estimatePose(0, 0, 0);
 
-  ASSERT_EQ(ratio >= 0, true);
+  double result = optimizer.OptimizePose(initPose, estimatePose);
 }
 
 int main(int argc, char **argv) {

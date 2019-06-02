@@ -4,14 +4,20 @@
 
 - PointCloudMap:
     - MAX_POINT_NUM: 100000
-    - AddPoints_skip: 5
+    - m_cell_thresh: 1
+
+- PointCloudMapBS:
+    - AddPoints:
+        - skip:5
 
 - SensorDataReader:
     - angle_offset: 180
 
 - MapDrawer:
-    - DrawGp_skip_point: 1
-    - DrawGp_skip_pose: 10
+    - DrawGp:
+        - step_point: 1
+        - step_pose: 10
+        - dd: 0.4
 
 - SlamLauncher:
     - usleep_time: 100000
@@ -23,3 +29,9 @@
 - CostFunction:
     - m_val_thresh: 0.2
 
+- PoseOptimizer:
+    - m_val_diff_thresh: 0.000001
+    - m_dd: 0.00001
+    - m_dth: 0.00001
+    - OptimizePose:
+        - kk:0.00001
