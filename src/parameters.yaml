@@ -19,3 +19,7 @@
 - DataAssociatorLS:
     - FindCorrespondence:
         - dist_thresh:0.2
+
+- CostFunction:
+    - m_val_thresh: 0.2
+
