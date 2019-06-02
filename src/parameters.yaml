@@ -35,3 +35,8 @@
     - m_dth: 0.00001
     - OptimizePose:
         - kk:0.00001
+
+- PoseEstimatorICP:
+    - EstimatePose:
+        - eval_diff_thresh: 0.000001
+        - evlimit: 0.2

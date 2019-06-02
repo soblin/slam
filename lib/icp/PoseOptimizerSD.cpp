@@ -14,7 +14,7 @@ double PoseOptimizerSD::OptimizePose(Pose2D &initPose, Pose2D &estimatePose) {
   double eval_min = HUGE_VAL; // the minimum value of cost function
   double eval_old = eval_min; // previous value of cost function
 
-  double eval = m_cost_func->CalcValue(tx, ty, th);
+  double eval = m_cost_func_ptr->CalcValue(tx, ty, th);
   int number_of_iteration = 0;
   double kk = 0.00001;
 
@@ -23,9 +23,12 @@ double PoseOptimizerSD::OptimizePose(Pose2D &initPose, Pose2D &estimatePose) {
     eval_old = eval;
 
     // partial differentiatin
-    double dE1dtx = (m_cost_func->CalcValue(tx + m_dd, ty, th) - eval) / m_dd;
-    double dE1dty = (m_cost_func->CalcValue(tx, ty + m_dd, ty) - eval) / m_dd;
-    double dE1dth = (m_cost_func->CalcValue(tx, ty, th + m_dth) - eval) / m_dth;
+    double dE1dtx =
+        (m_cost_func_ptr->CalcValue(tx + m_dd, ty, th) - eval) / m_dd;
+    double dE1dty =
+        (m_cost_func_ptr->CalcValue(tx, ty + m_dd, ty) - eval) / m_dd;
+    double dE1dth =
+        (m_cost_func_ptr->CalcValue(tx, ty, th + m_dth) - eval) / m_dth;
 
     // steepest descent
     double dx = -kk * dE1dtx;
@@ -37,7 +40,7 @@ double PoseOptimizerSD::OptimizePose(Pose2D &initPose, Pose2D &estimatePose) {
     th += dth;
 
     // check the updated cost
-    eval = m_cost_func->CalcValue(tx, ty, th);
+    eval = m_cost_func_ptr->CalcValue(tx, ty, th);
 
     if (eval < eval_min) {
       eval_min = eval;
