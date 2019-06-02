@@ -51,5 +51,16 @@ add_test(
   COMMAND $<TARGET_FILE:scanpoint2d_test>
   )
 
+add_executable(data_associatorls_test data_associatorls.cpp)
+target_link_libraries(data_associatorls_test
+  slam
+  gtest
+  gtest_main
+  pthread)
+add_test(
+  NAME data_associatorls
+  COMMAND $<TARGET_FILE:data_associatorls_test>
+  )
+
 set(EXECUTABLE_OUTPUT_PATH ${CMAKE_CURRENT_SOURCE_DIR}/bin)
 

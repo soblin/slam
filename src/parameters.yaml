@@ -15,3 +15,7 @@
 
 - SlamLauncher:
     - usleep_time: 100000
+
+- DataAssociatorLS:
+    - FindCorrespondence:
+        - dist_thresh:0.2

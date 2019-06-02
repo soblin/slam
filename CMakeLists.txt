@@ -15,8 +15,8 @@ include_directories(
 #  ${Boost_INCLUDE_DIR}
   )
 
-file(GLOB lib_sources "lib/geometry/*.cpp" "lib/io/*.cpp")
-file(GLOB lib_headers "include/slam/geoemetry/*.h" "include/slam/io/*.h")
+file(GLOB lib_sources "lib/geometry/*.cpp" "lib/io/*.cpp" "lib/icp/*.cpp")
+file(GLOB lib_headers "include/slam/geoemetry/*.h" "include/slam/io/*.h" "include/slam/icp/*.h")
 file(GLOB test_sources "utest/*.cpp")
 file(GLOB sources "src/*.cpp")
 

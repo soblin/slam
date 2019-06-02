@@ -29,3 +29,7 @@ SlamLauncherのm_mapが保持されるデータの全て. 基本的に(1)ファ�
 - io/SlamLauncher Run()におけるsleep時間, usleep
 
 面倒だしやっぱりいいや.
+
+## 6/2
+
+DataAssociatorLSをテストしようとしているが, テストデータを作るのが面倒くさい. あと, privateメンバにアクセスするために`friend class DataAssociatorLSTestFriend`を外部から利用できるようにした. これはプライベートをテストする際よくあることなのかもしれない. GoogleのProtobufにもそんな記述があった.

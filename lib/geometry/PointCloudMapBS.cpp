@@ -22,4 +22,8 @@ void PointCloudMapBS::AddPoints(const std::vector<ScanPoint2D> &scans) {
   }
 }
 
+void PointCloudMapBS::MakeGlobalMap() {}
+void PointCloudMapBS::MakeLocalMap() {}
+void PointCloudMapBS::RemakeMaps(const std::vector<Pose2D> &newposes) {}
+
 } /* namespace slam */
