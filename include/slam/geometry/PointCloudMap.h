@@ -26,12 +26,13 @@ class PointCloudMap{
   inline const std::vector<Pose2D>& poses() const { return m_poses; }
   inline const std::vector<ScanPoint2D>& global_map() const { return m_global_map; }
 
-  inline void GetLastPose(Pose2D& pose) { pose = m_last_pose; }
-  inline void GetLastScan(Scan2D& scan) { scan = m_last_scan; }
+  inline void GetLastPose(Pose2D& pose) const { pose = m_last_pose; }
+  inline void GetLastScan(Scan2D& scan) const { scan = m_last_scan; }
+  inline const Scan2D& GetLastScan() const { return m_last_scan; }
   inline void SetLastPose(const Pose2D& pose) { m_last_pose = pose; }
   inline void SetLastScan(const Scan2D& scan) { m_last_scan = scan; }
   inline void SetCellThresh(int n) { m_cell_thresh = n; }
-  inline void GetCellThresh(int& n) { m_cell_thresh = n; }
+  inline void GetCellThresh(int& n) const { n = m_cell_thresh; }
   
  public:
   static const int MAX_POINT_NUM = 1000000;

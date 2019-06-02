@@ -22,6 +22,8 @@ public:
   inline double &y() { return m_y; }
   inline double nx() const { return m_nx; }
   inline double ny() const { return m_ny; }
+  inline double &nx() { return m_nx; }
+  inline double &ny() { return m_ny; }
   inline double travel() const { return m_travel; }
   inline PointType type() const { return m_type; }
 
