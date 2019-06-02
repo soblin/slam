@@ -31,7 +31,7 @@ public:
   void DrawTrajectoryGp(const std::vector<Pose2D> &poses);
   void DrawGp(const std::vector<ScanPoint2D> &scaned_points,
               const std::vector<Pose2D> &poses, bool flush = true);
-  void DrawGp(const PointCloudMap &pcmap);
+  void DrawGp(const PointCloudMap *pcmap);
 };
 
 } // namespace slam

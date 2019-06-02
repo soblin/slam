@@ -11,7 +11,7 @@
 namespace slam{
 
 class PointCloudMap{
- private:
+ protected:
   // accumulated poses and scaned points(global frame)
   std::vector<Pose2D> m_poses;
   std::vector<ScanPoint2D> m_global_map;
@@ -25,9 +25,9 @@ class PointCloudMap{
 
   PointCloudMap();
   ~PointCloudMap();
-  void AddPose(const Pose2D& pose);
-  void AddPoint(const ScanPoint2D& scan);
-  void AddPoints(const std::vector<ScanPoint2D>& scans);
+  virtual void AddPose(const Pose2D& pose) = 0;
+  virtual void AddPoint(const ScanPoint2D& scan) = 0;
+  virtual void AddPoints(const std::vector<ScanPoint2D>& scans) = 0;
 };
 
 using PointCloudMapPtr = std::shared_ptr<PointCloudMap>;

@@ -84,7 +84,7 @@ void SlamLauncher::Run() {
       exit(1);
     }
     if (cnt % m_draw_skip == 0) {
-      m_map_drawer.DrawGp(m_map);
+      m_map_drawer.DrawGp(&m_map);
     }
     ++cnt;
     eof = m_sensor_reader.LoadScan(cnt, scan_buf);

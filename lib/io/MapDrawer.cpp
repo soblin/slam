@@ -117,7 +117,7 @@ void MapDrawer::DrawGp(const std::vector<ScanPoint2D> &scaned_points,
     fflush(m_gp);
 }
 
-void MapDrawer::DrawGp(const PointCloudMap &map) {
-  DrawGp(map.global_map(), map.poses());
+void MapDrawer::DrawGp(const PointCloudMap *map) {
+  DrawGp(map->global_map(), map->poses());
 }
 } // namespace slam
