@@ -33,3 +33,12 @@ SlamLauncherのm_mapが保持されるデータの全て. 基本的に(1)ファ�
 ## 6/2
 
 DataAssociatorLSをテストしようとしているが, テストデータを作るのが面倒くさい. あと, privateメンバにアクセスするために`friend class DataAssociatorLSTestFriend`を外部から利用できるようにした. これはプライベートをテストする際よくあることなのかもしれない. GoogleのProtobufにもそんな記述があった.
+
+## 6/4
+
+PoseEstimatorICP::EstimatePoseは
+
+1. initPoseとして(おそらく)直前の位置を与えられる. そしてそれをpredictedPoseの初期値として. predictedPoseを更新していく. メンバ変数のm\_cur\_scanをDatAssociatorのFindCorrespondence()において利用する. そしてそのマッチング結果をm\_optmizerにセットして最適化された新しい姿勢newPoseを得る. この繰り返し.
+
+
+

@@ -29,6 +29,7 @@ class PointCloudMap{
   inline void GetLastPose(Pose2D& pose) const { pose = m_last_pose; }
   inline void GetLastScan(Scan2D& scan) const { scan = m_last_scan; }
   inline const Scan2D& GetLastScan() const { return m_last_scan; }
+  inline const Pose2D& GetLastPose() const { return m_last_pose; }
   inline void SetLastPose(const Pose2D& pose) { m_last_pose = pose; }
   inline void SetLastScan(const Scan2D& scan) { m_last_scan = scan; }
   inline void SetCellThresh(int n) { m_cell_thresh = n; }

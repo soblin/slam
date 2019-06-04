@@ -19,7 +19,7 @@ private:
 public:
   inline void SetPoseOptimizer(PoseOptimizer *p) { m_optimizer_ptr = p; }
   inline void SetDataAssociator(DataAssociator *p) { m_associator_ptr = p; }
-  inline void GetUsedNum(int &num) { num = m_used_points_num; }
+  inline int GetUsedNum() const { return m_used_points_num; }
   inline void SetScanPair(const Scan2D *cur, const Scan2D *ref) {
     m_cur_scan = cur;
     m_associator_ptr->SetRefBase(ref->scaned_points());
@@ -34,7 +34,7 @@ public:
   PoseEstimatorICP() : m_used_points_num(0), m_matched_rate(0) {}
   ~PoseEstimatorICP() {}
 
-  double EstimatePose(Pose2D &initPose, Pose2D &estimatePose);
+  double EstimatePose(const Pose2D &initPose, Pose2D &estimatePose);
 };
 
 } /* namespace slam */

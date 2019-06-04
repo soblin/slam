@@ -26,7 +26,7 @@ double PoseOptimizerSD::OptimizePose(Pose2D &initPose, Pose2D &estimatePose) {
     double dE1dtx =
         (m_cost_func_ptr->CalcValue(tx + m_dd, ty, th) - eval) / m_dd;
     double dE1dty =
-        (m_cost_func_ptr->CalcValue(tx, ty + m_dd, ty) - eval) / m_dd;
+        (m_cost_func_ptr->CalcValue(tx, ty + m_dd, th) - eval) / m_dd;
     double dE1dth =
         (m_cost_func_ptr->CalcValue(tx, ty, th + m_dth) - eval) / m_dth;
 

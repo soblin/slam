@@ -3,7 +3,8 @@
 
 namespace slam {
 
-double PoseEstimatorICP::EstimatePose(Pose2D &initPose, Pose2D &estimatePose) {
+double PoseEstimatorICP::EstimatePose(const Pose2D &initPose,
+                                      Pose2D &estimatePose) {
   double eval_min = HUGE_VAL;
   double eval_diff_thresh = 0.000001;
 
