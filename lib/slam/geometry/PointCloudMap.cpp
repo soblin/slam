@@ -2,9 +2,7 @@
 
 namespace slam {
 
-PointCloudMap::PointCloudMap() : m_cell_thresh(1) {
-  m_global_map.reserve(MAX_POINT_NUM);
-}
+PointCloudMap::PointCloudMap() { m_global_map.reserve(MAX_POINT_NUM); }
 
 PointCloudMap::~PointCloudMap() {
   m_poses.reserve(0);

@@ -56,10 +56,11 @@ int main(int argc, char **argv) {
   std::string filepath = curr_dir + '/' + filename;
 
   slam::SlamLauncher sl;
-  sl.SetOdometryOnly(true);
+  sl.SetOdometryOnly(false);
   if (!sl.SetFilename(filepath)) {
     std::cout << "failed to open " << filepath << std::endl;
   }
-  //  sl.Run();
+  sl.CustomizeFrameWork();
+  sl.Run();
   std::cout << "finished completely" << std::endl;
 }

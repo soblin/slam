@@ -10,7 +10,7 @@ namespace slam {
 class PoseEstimatorICP {
 private:
   const Scan2D *m_cur_scan;
-  std::size_t m_used_points_num; // the number if points used for ICP
+  std::size_t m_used_points_num; // the number of points used for ICP
   double m_matched_rate;
 
   PoseOptimizer *m_optimizer_ptr;

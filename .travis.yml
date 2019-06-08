@@ -27,6 +27,7 @@ compiler:
 #  - sudo apt-get install libboost-all-dev
   
 before_script:
+  - git submodule init
   - git submodule update
   - cd $CI_ROOT_PATH/lib/googletest/googletest
   - mkdir build && cd build

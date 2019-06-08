@@ -10,8 +10,8 @@ namespace slam {
 
 class DataAssociator {
 protected:
-  std::vector<const ScanPoint2D *> m_cur_points;
-  std::vector<const ScanPoint2D *> m_ref_points;
+  std::vector<const ScanPoint2D *> m_cur_points; // current scan, local-frame
+  std::vector<const ScanPoint2D *> m_ref_points; // global-frame
 
 public:
   inline std::vector<const ScanPoint2D *> &cur_points() { return m_cur_points; }

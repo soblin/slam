@@ -2,8 +2,10 @@
 #define SLAM_LAUNCHER_H
 
 #include <slam/geometry/PointCloudMapBS.h>
+#include <slam/io/FrameWorkCustomizer.h>
 #include <slam/io/MapDrawer.h>
 #include <slam/io/SensorDataReader.h>
+#include <slam/io/SlamFrontEnd.h>
 
 namespace slam {
 
@@ -14,7 +16,9 @@ private:
   Pose2D m_initial_pose;
   SensorDataReader m_sensor_reader;
   MapDrawer m_map_drawer;
-  PointCloudMapBS m_map;
+  PointCloudMap *m_point_cloud_map_ptr;
+  SlamFrontEnd m_slam_frontend;
+  FrameWorkCustomizer m_customizer;
 
 public:
   SlamLauncher();
@@ -24,6 +28,7 @@ public:
   void MapByOdometry(const Scan2D &scan);
   bool SetFilename(const std::string filename);
   void Run();
+  void CustomizeFrameWork();
 };
 
 } // namespace slam

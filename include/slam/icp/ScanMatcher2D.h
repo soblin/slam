@@ -27,8 +27,19 @@ private:
 
 public:
   inline void SetEstimatorICP(PoseEstimatorICP *p) { m_estimator_ptr = p; }
-  inline void SetRefScanMaker(RefScanMaker *p) { m_ref_scan_maker_ptr = p; }
-  inline void SetPointCloudMap(PointCloudMap *p) { m_point_cloud_ptr = p; }
+  inline void SetRefScanMaker(RefScanMaker *p) {
+    m_ref_scan_maker_ptr = p;
+    if (m_point_cloud_ptr != nullptr) {
+      m_ref_scan_maker_ptr->SetPointCloudMap(m_point_cloud_ptr);
+    }
+  }
+
+  inline void SetPointCloudMap(PointCloudMap *p) {
+    m_point_cloud_ptr = p;
+    if (m_ref_scan_maker_ptr != nullptr) {
+      m_ref_scan_maker_ptr->SetPointCloudMap(m_point_cloud_ptr);
+    }
+  }
   inline void Reset() { m_cnt = -1; }
   inline void SetDegenerateCheck(bool b) { m_degenerate_check = b; }
   inline void SetInitPose(const Pose2D &p) { m_init_pose = p; }

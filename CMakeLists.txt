@@ -4,7 +4,7 @@ cmake_minimum_required(VERSION 2.8.3)
 
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
-add_compile_options(-std=c++11 -Wall -DDEBUG)
+add_compile_options(-std=c++11 -Wall -g -DDEBUG)
 
 #find_package(Boost REQUIRED)
 #find_package(Eigen3)
@@ -31,10 +31,8 @@ add_library(
 # main programs
 set(EXECUTABLE_OUTPUT_PATH "${CMAKE_CURRENT_SOURCE_DIR}/bin")
 
-add_executable(showScans src/showScans.cpp)
-target_link_libraries(showScans ${PROJECT_NAME})
-add_executable(mapByOdometry src/mapByOdometry.cpp)
-target_link_libraries(mapByOdometry ${PROJECT_NAME})
+add_executable(mapByPureICP src/mapByPureICP.cpp)
+target_link_libraries(mapByPureICP ${PROJECT_NAME})
 
 # unit tests
 if(NOT without-test)

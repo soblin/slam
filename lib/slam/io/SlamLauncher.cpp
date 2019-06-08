@@ -11,7 +11,8 @@ static constexpr bool logger = false;
 
 namespace slam {
 
-SlamLauncher::SlamLauncher() : m_draw_skip(10), m_odometry_only(false) {}
+SlamLauncher::SlamLauncher()
+    : m_draw_skip(10), m_odometry_only(false), m_point_cloud_map_ptr(nullptr) {}
 
 SlamLauncher::~SlamLauncher() {}
 
@@ -57,8 +58,8 @@ void SlamLauncher::MapByOdometry(const Scan2D &scan) {
   }
 
   // register the pose and (converted) points to the map(for visualization)
-  m_map.AddPose(pose);
-  m_map.AddPoints(global_points);
+  m_point_cloud_map_ptr->AddPose(pose);
+  m_point_cloud_map_ptr->AddPoints(global_points);
 }
 
 bool SlamLauncher::SetFilename(const std::string filename) {
@@ -80,15 +81,22 @@ void SlamLauncher::Run() {
       }
       MapByOdometry(scan_buf);
     } else {
-      std::cout << "Pleases set odometryOnly = true" << std::endl;
-      exit(1);
+      m_slam_frontend.Process(scan_buf);
     }
     if (cnt % m_draw_skip == 0) {
-      m_map_drawer.DrawGp(&m_map);
+      m_map_drawer.DrawGp(m_point_cloud_map_ptr);
     }
     ++cnt;
     eof = m_sensor_reader.LoadScan(cnt, scan_buf);
     usleep(100000);
   }
+}
+
+void SlamLauncher::CustomizeFrameWork() {
+  m_customizer.SetSlamFrontEnd(&m_slam_frontend);
+
+  m_customizer.CustomizeA();
+
+  m_point_cloud_map_ptr = m_customizer.GetPointCloudMap();
 }
 } // namespace slam
