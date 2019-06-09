@@ -13,8 +13,7 @@ static constexpr bool logger = false;
 namespace slam {
 
 SlamLauncher::SlamLauncher()
-    : m_draw_skip(param::SlamLauncher_PLOT_SKIP), m_odometry_only(false),
-      m_point_cloud_map_ptr(nullptr) {}
+    : m_odometry_only(false), m_point_cloud_map_ptr(nullptr) {}
 
 SlamLauncher::~SlamLauncher() {}
 
@@ -85,7 +84,7 @@ void SlamLauncher::Run() {
     } else {
       m_slam_frontend.Process(scan_buf);
     }
-    if (cnt % m_draw_skip == 0) {
+    if (cnt % param::SlamLauncher_PLOT_SKIP == 0) {
       m_map_drawer.DrawGp(m_point_cloud_map_ptr);
     }
     ++cnt;

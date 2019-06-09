@@ -23,6 +23,8 @@ static constexpr double PoseOptimizer_ERROR_THRESH = 100;
 static constexpr double PoseOptimizer_DescentCoeff = 0.00001;
 static constexpr double PoseEstimatorICP_VAL_DIFF_THRESH = 0.000001;
 static constexpr double PoseEstimatorICP_VAL_THRESH = 0.2;
+static constexpr double ScanMatcher2D_SCORE_THRESH = 1.0;
+static constexpr double ScanMatche2D_USE_DNUM_THRESH = 50;
 
 } /* namespace param */
 } /* namespace slam */

@@ -1,5 +1,6 @@
 #include <cmath>
 #include <slam/icp/ScanMatcher2D.h>
+#include <slam/parameters.h>
 
 namespace slam {
 
@@ -36,20 +37,16 @@ bool ScanMatcher2D::MatchScan(Scan2D &curScan) {
 
   std::size_t usedNum = m_estimator_ptr->GetUsedNum();
 
-  bool successful =
-      (score <= m_score_thresh && usedNum >= m_used_num_thresh) ? true : false;
+  bool successful = (score <= param::ScanMatcher2D_SCORE_THRESH &&
+                     usedNum >= param::ScanMatcher2D_SCORE_THRESH)
+                        ? true
+                        : false;
 
-  if (m_degenerate_check) {
-    if (successful) {
-      // todo
-      // do sensor fusion
-    }
-  } else {
-    estimatedPose = predictedPose; // use raw odometry
-  }
+  // use raw odometry
+  estimatedPose = predictedPose;
 
-  GrowMap(curScan,
-          estimatedPose); // add the current scan with the estimated Pose
+  // add the current scan with the estimated Pose
+  GrowMap(curScan, estimatedPose);
 
   m_prev_scan = curScan;
 

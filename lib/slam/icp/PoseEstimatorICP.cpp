@@ -30,8 +30,10 @@ double PoseEstimatorICP::EstimatePose(const Pose2D &initPose,
 
     eval = m_optimizer_ptr->OptimizePose(pose, newPose);
 
+    // update
     pose = newPose;
 
+    // update minimal
     if (eval < eval_min) {
       pose_min = newPose;
       eval_min = eval;

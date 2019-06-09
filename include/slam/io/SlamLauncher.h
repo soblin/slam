@@ -11,7 +11,6 @@ namespace slam {
 
 class SlamLauncher {
 private:
-  int m_draw_skip;
   bool m_odometry_only;
   Pose2D m_initial_pose;
   SensorDataReader m_sensor_reader;
