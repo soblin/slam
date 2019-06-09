@@ -1,10 +1,12 @@
 #include <iostream>
 #include <math.h>
 #include <slam/io/SensorDataReader.h>
+#include <slam/parameters.h>
 
 namespace slam {
 
-SensorDataReader::SensorDataReader() : m_angle_offset(180) {}
+SensorDataReader::SensorDataReader()
+    : m_angle_offset(param::SensorDataReader_ANGLE_OFFSET) {}
 
 SensorDataReader::~SensorDataReader() {}
 
@@ -56,7 +58,8 @@ bool SensorDataReader::LoadScanImpl(size_t cnt_id, Scan2D &output) {
     for (int i = 0; i < scan_num; ++i) {
       m_in_file >> deg >> dist;
       deg += m_angle_offset;
-      if (dist >= Scan2D::MAX_SCAN_RANGE || dist <= Scan2D::MIN_SCAN_RANGE)
+      if (dist >= param::Scan2D_MAX_SCAN_RANGE ||
+          dist <= param::Scan2D_MIN_SCAN_RANGE)
         continue;
       scan_point.SetId(cnt_id);
       scan_point.CalcXY(dist, M_PI * deg / 180);

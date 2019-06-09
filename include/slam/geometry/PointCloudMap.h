@@ -34,9 +34,6 @@ class PointCloudMap{
   //  inline void SetCellThresh(int n) { m_cell_thresh = n; }
   //  inline void GetCellThresh(int& n) const { n = m_cell_thresh; }
   
- public:
-  static const int MAX_POINT_NUM = 1000000;
-
   PointCloudMap();
   ~PointCloudMap();
   virtual void AddPose(const Pose2D& pose) = 0;

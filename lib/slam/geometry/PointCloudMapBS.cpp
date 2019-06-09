@@ -1,4 +1,5 @@
 #include <slam/geometry/PointCloudMapBS.h>
+#include <slam/parameters.h>
 
 namespace slam {
 
@@ -16,8 +17,7 @@ void PointCloudMapBS::AddPoint(const ScanPoint2D &scan) {
 }
 
 void PointCloudMapBS::AddPoints(const std::vector<ScanPoint2D> &scans) {
-  int skip = 5;
-  for (unsigned i = 0; i < scans.size(); i += skip) {
+  for (unsigned i = 0; i < scans.size(); i += param::PointCloudMapBS_SKIP) {
     m_global_map.push_back(scans[i]);
   }
 }

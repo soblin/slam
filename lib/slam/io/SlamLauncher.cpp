@@ -2,6 +2,7 @@
 #include <unistd.h>
 
 #include <slam/io/SlamLauncher.h>
+#include <slam/parameters.h>
 
 #ifdef DEBUG
 static constexpr bool logger = true;
@@ -12,7 +13,8 @@ static constexpr bool logger = false;
 namespace slam {
 
 SlamLauncher::SlamLauncher()
-    : m_draw_skip(10), m_odometry_only(false), m_point_cloud_map_ptr(nullptr) {}
+    : m_draw_skip(param::SlamLauncher_PLOT_SKIP), m_odometry_only(false),
+      m_point_cloud_map_ptr(nullptr) {}
 
 SlamLauncher::~SlamLauncher() {}
 
@@ -30,7 +32,7 @@ void SlamLauncher::ShowScans() {
   Scan2D scan_buf;
   bool eof = m_sensor_reader.LoadScan(cnt, scan_buf);
   while (!eof) {
-    usleep(100000);
+    usleep(param::SlamLauncher_SLEEP_TIME);
     m_map_drawer.DrawScanGp(scan_buf);
 
     if (logger)
@@ -88,7 +90,7 @@ void SlamLauncher::Run() {
     }
     ++cnt;
     eof = m_sensor_reader.LoadScan(cnt, scan_buf);
-    usleep(100000);
+    usleep(param::SlamLauncher_SLEEP_TIME);
   }
 }
 

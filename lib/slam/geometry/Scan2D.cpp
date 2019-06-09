@@ -16,7 +16,4 @@ void Scan2D::SetPose(const slam::Pose2D &pose) { m_pose = pose; }
 
 void Scan2D::SetAngle(double rad) { m_pose.SetAngle(rad); }
 
-double Scan2D::MAX_SCAN_RANGE = 6;
-double Scan2D::MIN_SCAN_RANGE = 0.1;
-
 } // namespace
