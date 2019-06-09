@@ -1,6 +1,7 @@
 #include <iostream>
 #include <slam/geometry/PointCloudMap.h>
 #include <slam/io/MapDrawer.h>
+#include <slam/parameters.h>
 
 #ifdef DEBUG
 static constexpr bool logger = true;
@@ -87,8 +88,8 @@ void MapDrawer::DrawGp(const std::vector<ScanPoint2D> &scaned_points,
   fprintf(m_gp, "plot '-' w p pt 7 ps 0.1 lc rgb 0x0, '-' with vector\n");
 
   // plot the point cloud
-  int step1 = 1;
-  for (size_t i = 0, size = scaned_points.size(); i < size; i += step1) {
+  for (size_t i = 0, size = scaned_points.size(); i < size;
+       i += param::MapDrawer_STEP_POINT) {
     double tx = scaned_points[i].x();
     double ty = scaned_points[i].y();
     fprintf(m_gp, "%lf %lf\n", tx, ty);
@@ -96,18 +97,17 @@ void MapDrawer::DrawGp(const std::vector<ScanPoint2D> &scaned_points,
   fprintf(m_gp, "e\n");
 
   // plot the robot pose
-  int step2 = 10;
-  for (size_t i = 0, size = poses.size(); i < size; i += step2) {
+  for (size_t i = 0, size = poses.size(); i < size;
+       i += param::MapDrawer_STEP_POSE) {
     double cx = poses[i].tx();
     double cy = poses[i].ty();
     double Cos = poses[i].R00();
     double Sin = poses[i].R10();
 
-    double dd = 0.4;
-    double x1 = Cos * dd;
-    double y1 = Sin * dd;
-    double x2 = -Sin * dd;
-    double y2 = Cos * dd;
+    double x1 = Cos * param::MapDrawer_DD;
+    double y1 = Sin * param::MapDrawer_DD;
+    double x2 = -Sin * param::MapDrawer_DD;
+    double y2 = Cos * param::MapDrawer_DD;
     fprintf(m_gp, "%lf %lf %lf %lf\n", cx, cy, x1, y1);
     fprintf(m_gp, "%lf %lf %lf %lf\n", cx, cy, x2, y2);
   }

@@ -1,6 +1,6 @@
-#include <slam/icp/PoseOptimizerSD.h>
-
 #include <cmath>
+#include <slam/icp/PoseOptimizerSD.h>
+#include <slam/parameters.h>
 
 namespace slam {
 
@@ -16,24 +16,23 @@ double PoseOptimizerSD::OptimizePose(Pose2D &initPose, Pose2D &estimatePose) {
 
   double eval = m_cost_func_ptr->CalcValue(tx, ty, th);
   int number_of_iteration = 0;
-  double kk = 0.00001;
 
-  while (std::abs(eval_old - eval) > m_val_diff_thresh) {
+  constexpr double dd = param::PoseOptimizer_TickDist;
+  constexpr double dth = param::PoseOptimizer_TickTheta;
+
+  while (std::abs(eval_old - eval) > param::PoseOptimizer_VAL_DIFF_THRESH) {
     number_of_iteration++;
     eval_old = eval;
 
     // partial differentiatin
-    double dE1dtx =
-        (m_cost_func_ptr->CalcValue(tx + m_dd, ty, th) - eval) / m_dd;
-    double dE1dty =
-        (m_cost_func_ptr->CalcValue(tx, ty + m_dd, th) - eval) / m_dd;
-    double dE1dth =
-        (m_cost_func_ptr->CalcValue(tx, ty, th + m_dth) - eval) / m_dth;
+    double dE1dtx = (m_cost_func_ptr->CalcValue(tx + dd, ty, th) - eval) / dd;
+    double dE1dty = (m_cost_func_ptr->CalcValue(tx, ty + dd, th) - eval) / dd;
+    double dE1dth = (m_cost_func_ptr->CalcValue(tx, ty, th + dth) - eval) / dth;
 
     // steepest descent
-    double dx = -kk * dE1dtx;
-    double dy = -kk * dE1dty;
-    double dth = -kk * dE1dth;
+    double dx = -param::PoseOptimizer_DescentCoeff * dE1dtx;
+    double dy = -param::PoseOptimizer_DescentCoeff * dE1dty;
+    double dth = -param::PoseOptimizer_DescentCoeff * dE1dth;
 
     tx += dx;
     ty += dy;
@@ -51,7 +50,7 @@ double PoseOptimizerSD::OptimizePose(Pose2D &initPose, Pose2D &estimatePose) {
   }
 
   m_repeat_num++;
-  if (m_repeat_num > 0 && eval_min < 100)
+  if (m_repeat_num > 0 && eval_min < param::PoseOptimizer_ERROR_THRESH)
     m_error_sum += eval_min;
 
   estimatePose.SetVal(tx_min, ty_min, th_min);

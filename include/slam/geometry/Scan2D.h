@@ -7,10 +7,6 @@
 namespace slam {
 
 class Scan2D {
-public:
-  static double MAX_SCAN_RANGE;
-  static double MIN_SCAN_RANGE;
-
 private:
   int m_id;
   Pose2D m_pose;
