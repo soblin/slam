@@ -19,6 +19,7 @@ static constexpr double CostFunction_VAL_THRESH = 0.2;
 static constexpr double PoseOptimizer_VAL_DIFF_THRESH = 0.000001;
 static constexpr double PoseOptimizer_TickDist = 0.00001;
 static constexpr double PoseOptimizer_TickTheta = 0.0001;
+static constexpr double PoseOptimizer_ERROR_THRESH = 100;
 static constexpr double PoseOptimizer_DescentCoeff = 0.00001;
 static constexpr double PoseEstimatorICP_VAL_DIFF_THRESH = 0.000001;
 static constexpr double PoseEstimatorICP_VAL_THRESH = 0.2;

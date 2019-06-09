@@ -1,22 +1,21 @@
 #include <cmath>
 #include <slam/icp/PoseEstimatorICP.h>
+#include <slam/parameters.h>
 
 namespace slam {
 
 double PoseEstimatorICP::EstimatePose(const Pose2D &initPose,
                                       Pose2D &estimatePose) {
   double eval_min = HUGE_VAL;
-  double eval_diff_thresh = 0.000001;
-
-  m_optimizer_ptr->SetValDiffThresh(eval_diff_thresh);
-  m_optimizer_ptr->SetValThresh(0.2);
 
   double eval = 0;
   double eval_old = eval_min;
   Pose2D pose = initPose;
   Pose2D pose_min = initPose;
 
-  for (int i = 0; std::abs(eval_old - eval) > eval_diff_thresh && i < 100;
+  for (int i = 0;
+       std::abs(eval_old - eval) > param::PoseEstimatorICP_VAL_DIFF_THRESH &&
+       i < 100;
        ++i) {
     if (i > 0)
       eval_old = eval;
