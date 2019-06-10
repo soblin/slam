@@ -25,9 +25,9 @@ TEST(ScanPoint2D, methods) {
   ptr->SetId(1111);
   ASSERT_EQ(ptr->id(), 1111);
 
-  ptr->SetNormal(10, 100);
-  ASSERT_EQ(ptr->nx(), 10);
-  ASSERT_EQ(ptr->ny(), 100);
+  //  ptr->SetNormal(10, 100);
+  //  ASSERT_EQ(ptr->nx(), 10);
+  //  ASSERT_EQ(ptr->ny(), 100);
 }
 
 int main(int argc, char **argv) {
