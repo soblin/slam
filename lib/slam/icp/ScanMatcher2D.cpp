@@ -43,7 +43,8 @@ bool ScanMatcher2D::MatchScan(Scan2D &curScan) {
                         : false;
 
   // use raw odometry
-  estimatedPose = predictedPose;
+  if (!successful)
+    estimatedPose = predictedPose;
 
   // add the current scan with the estimated Pose
   GrowMap(curScan, estimatedPose);
@@ -53,7 +54,6 @@ bool ScanMatcher2D::MatchScan(Scan2D &curScan) {
   // for validation
   Pose2D estimatedMotion;
   Pose2D::CalcRelativePose(estimatedPose, lastPose, estimatedMotion);
-  m_acc_dist = std::hypot(estimatedMotion.tx(), estimatedMotion.ty());
 
   return successful;
 }

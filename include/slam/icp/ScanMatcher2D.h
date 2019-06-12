@@ -15,8 +15,6 @@ private:
   Scan2D m_prev_scan;
   Pose2D m_init_pose; // the pose of the origin of the map. default(0, 0, 0)
 
-  double m_acc_dist; // accumulated distance
-
   PoseEstimatorICP *m_estimator_ptr;
   PointCloudMap *m_point_cloud_ptr;
   RefScanMaker *m_ref_scan_maker_ptr;
@@ -41,8 +39,8 @@ public:
 
 public:
   ScanMatcher2D()
-      : m_cnt(-1), m_acc_dist(0), m_estimator_ptr(nullptr),
-        m_point_cloud_ptr(nullptr), m_ref_scan_maker_ptr(nullptr) {}
+      : m_cnt(-1), m_estimator_ptr(nullptr), m_point_cloud_ptr(nullptr),
+        m_ref_scan_maker_ptr(nullptr) {}
 
   ~ScanMatcher2D() {}
 
