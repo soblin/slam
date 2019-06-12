@@ -12,9 +12,8 @@ void SlamFrontEnd::Process(Scan2D &scan) {
     Init();
 
   m_scan_matcher_ptr->MatchScan(scan);
-
-  Pose2D curPose = m_point_cloud_map_ptr->GetLastPose();
-
+  // get the estimated current pose with ICP
+  //  Pose2D curPose = m_point_cloud_map_ptr->GetLastPose();
   ++m_cnt;
 }
 

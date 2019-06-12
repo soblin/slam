@@ -80,8 +80,10 @@ void SlamLauncher::Run() {
         m_initial_pose = scan_buf.pose();
         m_initial_pose.CalcRmat();
       }
+      // use raw scan and add to PointCloudMap
       MapByOdometry(scan_buf);
     } else {
+      // use ICP and add to PointCloudMap
       m_slam_frontend.Process(scan_buf);
     }
     if (cnt % param::SlamLauncher_PLOT_SKIP == 0) {
