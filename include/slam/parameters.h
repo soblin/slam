@@ -25,6 +25,8 @@ static constexpr double PoseEstimatorICP_VAL_DIFF_THRESH = 0.000001;
 static constexpr double PoseEstimatorICP_VAL_THRESH = 0.2;
 static constexpr double ScanMatcher2D_SCORE_THRESH = 1.0;
 static constexpr double ScanMatche2D_USE_DNUM_THRESH = 50;
+static constexpr double ScanPointResampler_DIST_INTERVAL = 0.05;
+static constexpr double ScanPointResampler_DIST_INTERPOLATE_THRESH = 0.25;
 
 } /* namespace param */
 } /* namespace slam */
