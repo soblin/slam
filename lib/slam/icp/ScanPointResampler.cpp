@@ -22,14 +22,14 @@ bool ScanPointResampler::FindInterpolatePoint(const ScanPoint2D &curPoint,
   }
   // too far
   else if (acc_dist + L >= param::ScanPointResampler_DIST_INTERPOLATE_THRESH) {
-    nextPoint.SetData(curPoint.id(), curPoint.x(), curPoint.y());
+    nextPoint.SetData(curPoint.x(), curPoint.y());
   } else {
     // the distance is more than the interval and less than the threshold
     // so interpolate a new point
     double ratio = (param::ScanPointResampler_DIST_INTERVAL - acc_dist) / L;
     double x2 = dx * ratio + prevPoint.x();
     double y2 = dy * ratio + prevPoint.y();
-    nextPoint.SetData(curPoint.id(), x2, y2);
+    nextPoint.SetData(x2, y2);
     inserted = true;
   }
 
@@ -47,9 +47,9 @@ void ScanPointResampler::ResamplePoints(Scan2D *scan) {
 
   ScanPoint2D point = scaned_points[0];
   decltype(point) prevPoint = point;
-  decltype(point) nextPoint(point.id(), point.x(), point.y());
+  decltype(point) nextPoint(point.x(), point.y());
 
-  resampled_points.emplace_back(point.id(), point.x(), point.y());
+  resampled_points.emplace_back(point.x(), point.y());
 
   for (unsigned i = 1; i < scaned_points.size(); ++i) {
     point = scaned_points[i];

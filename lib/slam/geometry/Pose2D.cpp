@@ -65,13 +65,13 @@ ScanPoint2D Pose2D::ToRelativePoint(const ScanPoint2D &global) const {
   // multiply R(-\theta)
   double x = m_Rmat[0][0] * dx + m_Rmat[1][0] * dy;
   double y = m_Rmat[0][1] * dx + m_Rmat[1][1] * dy;
-  return ScanPoint2D(global.id(), x, y);
+  return ScanPoint2D(x, y);
 }
 
 ScanPoint2D Pose2D::ToGlobalPoint(const ScanPoint2D &local) const {
   double x = m_Rmat[0][0] * local.x() + m_Rmat[0][1] * local.y() + m_tx;
   double y = m_Rmat[1][0] * local.x() + m_Rmat[1][1] * local.y() + m_ty;
-  return ScanPoint2D(local.id(), x, y);
+  return ScanPoint2D(x, y);
 }
 
 void Pose2D::ToGlobalPoint(const ScanPoint2D &local,

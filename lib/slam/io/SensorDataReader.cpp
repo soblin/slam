@@ -42,8 +42,6 @@ bool SensorDataReader::LoadScanImpl(size_t cnt_id, Scan2D &output) {
   // odom_th[rad]
   m_in_file >> type;
   if (type == "LASERSCAN") {
-    output.SetId(cnt_id);
-
     // misc
     int id, t1, t2;
     m_in_file >> id >> t1 >> t2;
@@ -61,7 +59,6 @@ bool SensorDataReader::LoadScanImpl(size_t cnt_id, Scan2D &output) {
       if (dist >= param::Scan2D_MAX_SCAN_RANGE ||
           dist <= param::Scan2D_MIN_SCAN_RANGE)
         continue;
-      scan_point.SetId(cnt_id);
       scan_point.CalcXY(dist, M_PI * deg / 180);
       scan_points.emplace_back(scan_point);
     }
