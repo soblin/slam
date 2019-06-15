@@ -122,9 +122,9 @@ TEST(Pose2D, ToRelativeAndGlobalPoint) {
   const slam::Pose2D origin(0, 0, 0);
   const decltype(origin) pose0(3, 3, 60);
   const decltype(origin) pose1(4, 4, 120);
-  const slam::ScanPoint2D origin_pos(0, 0, 0); // id, x, y
-  const decltype(origin_pos) pos0(0, 3, 3);
-  const decltype(origin_pos) pos1(0, 4, 4);
+  const slam::ScanPoint2D origin_pos(0, 0); // id, x, y
+  const decltype(origin_pos) pos0(3, 3);
+  const decltype(origin_pos) pos1(4, 4);
 
   slam::ScanPoint2D rel, abso, abso1;
 

@@ -4,7 +4,10 @@
 
 namespace slam {
 
-double PoseOptimizerSD::OptimizePose(Pose2D &initPose, Pose2D &estimatePose) {
+double PoseOptimizerSD::OptimizePoseImpl(Pose2D &initPose, Pose2D &estimatePose,
+                                         double val_diff_thresh, double ds,
+                                         double dtheta, double err_thresh,
+                                         double descent) {
   double tx = initPose.tx();
   double ty = initPose.ty();
   double th = initPose.th();
@@ -17,10 +20,10 @@ double PoseOptimizerSD::OptimizePose(Pose2D &initPose, Pose2D &estimatePose) {
   double eval = m_cost_func_ptr->CalcValue(tx, ty, th);
   int number_of_iteration = 0;
 
-  constexpr double dd = param::PoseOptimizer_TickDist;
-  constexpr double dth = param::PoseOptimizer_TickTheta;
+  double dd = ds;
+  double dth = dtheta;
 
-  while (std::abs(eval_old - eval) > param::PoseOptimizer_VAL_DIFF_THRESH) {
+  while (std::abs(eval_old - eval) > val_diff_thresh) {
     number_of_iteration++;
     eval_old = eval;
 
@@ -30,9 +33,9 @@ double PoseOptimizerSD::OptimizePose(Pose2D &initPose, Pose2D &estimatePose) {
     double dE1dth = (m_cost_func_ptr->CalcValue(tx, ty, th + dth) - eval) / dth;
 
     // steepest descent
-    double dx = -param::PoseOptimizer_DescentCoeff * dE1dtx;
-    double dy = -param::PoseOptimizer_DescentCoeff * dE1dty;
-    double dth = -param::PoseOptimizer_DescentCoeff * dE1dth;
+    double dx = -descent * dE1dtx;
+    double dy = -descent * dE1dty;
+    double dth = -descent * dE1dth;
 
     tx += dx;
     ty += dy;
@@ -50,12 +53,19 @@ double PoseOptimizerSD::OptimizePose(Pose2D &initPose, Pose2D &estimatePose) {
   }
 
   m_repeat_num++;
-  if (m_repeat_num > 0 && eval_min < param::PoseOptimizer_ERROR_THRESH)
+  if (m_repeat_num > 0 && eval_min < err_thresh)
     m_error_sum += eval_min;
 
   estimatePose.SetVal(tx_min, ty_min, th_min);
 
   return eval_min;
+}
+
+double PoseOptimizerSD::OptimizePose(Pose2D &initPose, Pose2D &estimatePose) {
+  return OptimizePoseImpl(
+      initPose, estimatePose, param::PoseOptimizer_VAL_DIFF_THRESH,
+      param::PoseOptimizer_TickDist, param::PoseOptimizer_TickTheta,
+      param::PoseOptimizer_ERROR_THRESH, param::PoseOptimizer_DescentCoeff);
 }
 
 } /* namespace slam */

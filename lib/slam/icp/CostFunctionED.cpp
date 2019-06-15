@@ -1,10 +1,11 @@
 #include <cmath>
+
 #include <slam/icp/CostFunctionED.h>
 #include <slam/parameters.h>
-
 namespace slam {
 
-double CostFunctionED::CalcValue(double tx, double ty, double th /*rad*/) {
+double CostFunctionED::CalcValueImpl(double tx, double ty, double th /*rad*/,
+                                     double val_thresh) {
   double error = 0;
   int matched_num = 0;
   int total_num = 0;
@@ -22,8 +23,9 @@ double CostFunctionED::CalcValue(double tx, double ty, double th /*rad*/) {
     double dy = y - ref_point_iter->y();
     double dist = dx * dx + dy * dy;
 
-    if (dist <= param::CostFunction_VAL_THRESH * param::CostFunction_VAL_THRESH)
+    if (dist <= val_thresh * val_thresh) {
       matched_num++;
+    }
 
     error += dist;
 
@@ -37,6 +39,10 @@ double CostFunctionED::CalcValue(double tx, double ty, double th /*rad*/) {
   error *= 100;
 
   return error;
+}
+
+double CostFunctionED::CalcValue(double tx, double ty, double th /*rad*/) {
+  return CalcValueImpl(tx, ty, th, param::CostFunction_VAL_THRESH);
 }
 
 } /* namespace slam */

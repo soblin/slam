@@ -17,50 +17,61 @@ set_property(
 
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/../lib/googletest/googletest/include)
 
-# add_executable(sensor_data_reader_test sensor_data_reader.cpp)
-# target_link_libraries(sensor_data_reader_test
-#   slam
-#   gtest
-#   gtest_main
-#   pthread
-#   )
-# add_test(
-#   NAME sensor-data-reader
-#   COMMAND $<TARGET_FILE:sensor_data_reader_test>
-#   )
+add_executable(sensor_data_reader_test sensor_data_reader.cpp)
+target_link_libraries(sensor_data_reader_test
+  slam
+  gtest
+  gtest_main
+  pthread
+  )
+add_test(
+  NAME sensor-data-reader
+  COMMAND $<TARGET_FILE:sensor_data_reader_test>
+  )
 
-# add_executable(pose2d_test pose2d.cpp)
-# target_link_libraries(pose2d_test
-#   slam
-#   gtest
-#   gtest_main
-#   pthread)
-# add_test(
-#   NAME pose2d_test
-#   COMMAND $<TARGET_FILE:pose2d_test>
-#   )
+add_executable(pose2d_test pose2d.cpp)
+target_link_libraries(pose2d_test
+  slam
+  gtest
+  gtest_main
+  pthread)
+add_test(
+  NAME pose2d_test
+  COMMAND $<TARGET_FILE:pose2d_test>
+  )
 
-# add_executable(scanpoint2d_test scanpoint2d.cpp)
-# target_link_libraries(scanpoint2d_test
-#   slam
-#   gtest
-#   gtest_main
-#   pthread)
-# add_test(
-#   NAME scanpoint2d_test
-#   COMMAND $<TARGET_FILE:scanpoint2d_test>
-#   )
+add_executable(scanpoint2d_test scanpoint2d.cpp)
+target_link_libraries(scanpoint2d_test
+  slam
+  gtest
+  gtest_main
+  pthread)
+add_test(
+  NAME scanpoint2d_test
+  COMMAND $<TARGET_FILE:scanpoint2d_test>
+  )
 
-# add_executable(data_associatorls_test data_associatorls.cpp)
-# target_link_libraries(data_associatorls_test
-#   slam
-#   gtest
-#   gtest_main
-#   pthread)
-# add_test(
-#   NAME data_associatorls
-#   COMMAND $<TARGET_FILE:data_associatorls_test>
-#   )
+add_executable(data_associatorls_test data_associatorls.cpp)
+target_link_libraries(data_associatorls_test
+  slam
+  gtest
+  gtest_main
+  pthread)
+add_test(
+  NAME data_associatorls
+  COMMAND $<TARGET_FILE:data_associatorls_test>
+  )
+
+add_executable(costfunction_ed_test costfunction_ed.cpp)
+target_link_libraries(costfunction_ed_test
+  slam
+  gtest
+  gtest_main
+  pthread)
+add_test(
+  NAME costfunction_ed_test
+  COMMAND $<TARGET_FILE:costfunction_ed_test>
+  )
 
 set(EXECUTABLE_OUTPUT_PATH ${CMAKE_CURRENT_SOURCE_DIR}/bin)
 

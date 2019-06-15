@@ -32,10 +32,10 @@ TEST_F(DataAssociatorLSTestFriend, testFindCorrespondence) {
   std::vector<double> Ys = {10, 10, 10, 10, 10, 10, 10, 10,
                             9,  8,  7,  6,  5,  4,  3,  2};
   for (unsigned i = 0; i < Xs.size(); ++i) {
-    ref_points.emplace_back(i, Xs[i], Ys[i]);
+    ref_points.emplace_back(Xs[i], Ys[i]);
   }
   for (unsigned i = 0; i < Xs.size(); ++i) {
-    cur_points.emplace_back(i, Xs[i] - 0.8, Ys[i] - 1.0);
+    cur_points.emplace_back(Xs[i] - 0.8, Ys[i] - 1.0);
   }
   Scan2D curScan;
   curScan.SetPose(predPose);
@@ -51,53 +51,92 @@ TEST_F(DataAssociatorLSTestFriend, testFindCorrespondence) {
   GetCurPoints(dass, curPointResult);
   GetRefPoints(dass, refPointResult);
 
-  ASSERT_EQ(curPointResult[0]->id(), 0);
-  ASSERT_EQ(refPointResult[0]->id(), 0);
+  // 0
+  ASSERT_NEAR(curPointResult[0]->x(), Xs[0] - 0.8, 0.1);
+  ASSERT_NEAR(curPointResult[0]->y(), Ys[0] - 1.0, 0.1);
+  ASSERT_NEAR(refPointResult[0]->x(), Xs[0], 0.1);
+  ASSERT_NEAR(refPointResult[0]->y(), Ys[0], 0.1);
 
-  ASSERT_EQ(curPointResult[1]->id(), 1);
-  ASSERT_EQ(refPointResult[1]->id(), 0);
+  // 1
+  ASSERT_NEAR(curPointResult[1]->x(), Xs[1] - 0.8, 0.1);
+  ASSERT_NEAR(curPointResult[1]->y(), Ys[1] - 1.0, 0.1);
+  ASSERT_NEAR(refPointResult[1]->x(), Xs[0], 0.1);
+  ASSERT_NEAR(refPointResult[1]->y(), Ys[0], 0.1);
 
-  ASSERT_EQ(curPointResult[2]->id(), 2);
-  ASSERT_EQ(refPointResult[2]->id(), 1);
+  // 2
+  ASSERT_NEAR(curPointResult[2]->x(), Xs[2] - 0.8, 0.1);
+  ASSERT_NEAR(curPointResult[2]->y(), Ys[2] - 1.0, 0.1);
+  ASSERT_NEAR(refPointResult[2]->x(), Xs[1], 0.1);
+  ASSERT_NEAR(refPointResult[2]->y(), Ys[1], 0.1);
 
-  ASSERT_EQ(curPointResult[3]->id(), 3);
-  ASSERT_EQ(refPointResult[3]->id(), 2);
+  // 3
+  ASSERT_NEAR(curPointResult[3]->x(), Xs[3] - 0.8, 0.1);
+  ASSERT_NEAR(curPointResult[3]->y(), Ys[3] - 1.0, 0.1);
+  ASSERT_NEAR(refPointResult[3]->x(), Xs[2], 0.1);
+  ASSERT_NEAR(refPointResult[3]->y(), Ys[2], 0.1);
 
-  ASSERT_EQ(curPointResult[4]->id(), 4);
-  ASSERT_EQ(refPointResult[4]->id(), 3);
+  // 4
+  ASSERT_NEAR(curPointResult[4]->x(), Xs[4] - 0.8, 0.1);
+  ASSERT_NEAR(curPointResult[4]->y(), Ys[4] - 1.0, 0.1);
+  ASSERT_NEAR(refPointResult[4]->x(), Xs[3], 0.1);
+  ASSERT_NEAR(refPointResult[4]->y(), Ys[3], 0.1);
 
-  ASSERT_EQ(curPointResult[5]->id(), 5);
-  ASSERT_EQ(refPointResult[5]->id(), 4);
+  // 5
+  ASSERT_NEAR(curPointResult[5]->x(), Xs[5] - 0.8, 0.1);
+  ASSERT_NEAR(curPointResult[5]->y(), Ys[5] - 1.0, 0.1);
+  ASSERT_NEAR(refPointResult[5]->x(), Xs[4], 0.1);
+  ASSERT_NEAR(refPointResult[5]->y(), Ys[4], 0.1);
 
-  ASSERT_EQ(curPointResult[6]->id(), 6);
-  ASSERT_EQ(refPointResult[6]->id(), 5);
+  // 6
+  ASSERT_NEAR(curPointResult[6]->x(), Xs[6] - 0.8, 0.1);
+  ASSERT_NEAR(curPointResult[6]->y(), Ys[6] - 1.0, 0.1);
+  ASSERT_NEAR(refPointResult[6]->x(), Xs[5], 0.1);
+  ASSERT_NEAR(refPointResult[6]->y(), Ys[5], 0.1);
 
-  ASSERT_EQ(curPointResult[7]->id(), 7);
-  ASSERT_EQ(refPointResult[7]->id(), 8);
+  ASSERT_NEAR(curPointResult[7]->x(), Xs[8] - 0.8, 0.1);
+  ASSERT_NEAR(curPointResult[7]->y(), Ys[8], 0.1);
+  ASSERT_NEAR(refPointResult[7]->x(), Xs[8], 0.1);
+  ASSERT_NEAR(refPointResult[7]->y(), Ys[8], 0.1);
 
-  ASSERT_EQ(curPointResult[8]->id(), 8);
-  ASSERT_EQ(refPointResult[8]->id(), 9);
+  ASSERT_NEAR(curPointResult[8]->x(), Xs[9] - 0.8, 0.1);
+  ASSERT_NEAR(curPointResult[8]->y(), Ys[9], 0.1);
+  ASSERT_NEAR(refPointResult[8]->x(), Xs[9], 0.1);
+  ASSERT_NEAR(refPointResult[8]->y(), Ys[9], 0.1);
 
-  ASSERT_EQ(curPointResult[9]->id(), 9);
-  ASSERT_EQ(refPointResult[9]->id(), 10);
+  ASSERT_NEAR(curPointResult[9]->x(), Xs[10] - 0.8, 0.1);
+  ASSERT_NEAR(curPointResult[9]->y(), Ys[10], 0.1);
+  ASSERT_NEAR(refPointResult[9]->x(), Xs[10], 0.1);
+  ASSERT_NEAR(refPointResult[9]->y(), Ys[10], 0.1);
 
-  ASSERT_EQ(curPointResult[10]->id(), 10);
-  ASSERT_EQ(refPointResult[10]->id(), 11);
+  ASSERT_NEAR(curPointResult[10]->x(), Xs[11] - 0.8, 0.1);
+  ASSERT_NEAR(curPointResult[10]->y(), Ys[11], 0.1);
+  ASSERT_NEAR(refPointResult[10]->x(), Xs[11], 0.1);
+  ASSERT_NEAR(refPointResult[10]->y(), Ys[11], 0.1);
 
-  ASSERT_EQ(curPointResult[11]->id(), 11);
-  ASSERT_EQ(refPointResult[11]->id(), 12);
+  ASSERT_NEAR(curPointResult[11]->x(), Xs[12] - 0.8, 0.1);
+  ASSERT_NEAR(curPointResult[11]->y(), Ys[12], 0.1);
+  ASSERT_NEAR(refPointResult[11]->x(), Xs[12], 0.1);
+  ASSERT_NEAR(refPointResult[11]->y(), Ys[12], 0.1);
 
-  ASSERT_EQ(curPointResult[12]->id(), 12);
-  ASSERT_EQ(refPointResult[12]->id(), 13);
+  ASSERT_NEAR(curPointResult[12]->x(), Xs[13] - 0.8, 0.1);
+  ASSERT_NEAR(curPointResult[12]->y(), Ys[13], 0.1);
+  ASSERT_NEAR(refPointResult[12]->x(), Xs[13], 0.1);
+  ASSERT_NEAR(refPointResult[12]->y(), Ys[13], 0.1);
 
-  ASSERT_EQ(curPointResult[13]->id(), 13);
-  ASSERT_EQ(refPointResult[13]->id(), 14);
+  ASSERT_NEAR(curPointResult[13]->x(), Xs[14] - 0.8, 0.1);
+  ASSERT_NEAR(curPointResult[13]->y(), Ys[14], 0.1);
+  ASSERT_NEAR(refPointResult[13]->x(), Xs[14], 0.1);
+  ASSERT_NEAR(refPointResult[13]->y(), Ys[14], 0.1);
 
-  ASSERT_EQ(curPointResult[14]->id(), 14);
-  ASSERT_EQ(refPointResult[14]->id(), 15);
+  ASSERT_NEAR(curPointResult[14]->x(), Xs[15] - 0.8, 0.1);
+  ASSERT_NEAR(curPointResult[14]->y(), Ys[15], 0.1);
+  ASSERT_NEAR(refPointResult[14]->x(), Xs[15], 0.1);
+  ASSERT_NEAR(refPointResult[14]->y(), Ys[15], 0.1);
 
-  ASSERT_EQ(curPointResult[15]->id(), 15);
-  ASSERT_EQ(refPointResult[15]->id(), 15);
+  ASSERT_NEAR(curPointResult[15]->x(), Xs[15] - 0.8, 0.1);
+  ASSERT_NEAR(curPointResult[15]->y(), Ys[15] - 1.0, 0.1);
+  ASSERT_NEAR(refPointResult[15]->x(), Xs[15], 0.1);
+  ASSERT_NEAR(refPointResult[15]->y(), Ys[15], 0.1);
 }
 
 int main(int argc, char **argv) {
