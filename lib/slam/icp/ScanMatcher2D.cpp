@@ -70,7 +70,7 @@ void ScanMatcher2D::GrowMap(const Scan2D &scan, const Pose2D &pose) {
     double x = pose.R00() * scan_point.x() + pose.R01() * scan_point.y() + tx;
     double y = pose.R10() * scan_point.x() + pose.R11() * scan_point.y() + ty;
 
-    scaned_points_global.emplace_back(m_cnt, x, y);
+    scaned_points_global.emplace_back(x, y);
   }
 
   // register the new global points

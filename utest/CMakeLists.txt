@@ -62,5 +62,16 @@ add_test(
   COMMAND $<TARGET_FILE:data_associatorls_test>
   )
 
+add_executable(costfunction_ed_test costfunction_ed.cpp)
+target_link_libraries(costfunction_ed_test
+  slam
+  gtest
+  gtest_main
+  pthread)
+add_test(
+  NAME costfunction_ed_test
+  COMMAND $<TARGET_FILE:costfunction_ed_test>
+  )
+
 set(EXECUTABLE_OUTPUT_PATH ${CMAKE_CURRENT_SOURCE_DIR}/bin)
 

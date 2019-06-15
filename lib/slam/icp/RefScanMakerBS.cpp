@@ -20,7 +20,7 @@ const Scan2D *RefScanMakerBS::MakeRefScan() {
         lastPose.R00() * scan_point.x() + lastPose.R01() * scan_point.y() + tx;
     point.y() =
         lastPose.R10() * scan_point.x() + lastPose.R11() * scan_point.y() + ty;
-    // point = lastPose.ToGlobalPoint(scan_point);
+
     newScan.emplace_back(point);
   }
 

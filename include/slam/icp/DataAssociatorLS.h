@@ -21,6 +21,7 @@ public:
   virtual void SetRefBase(const std::vector<ScanPoint2D> &points) override;
   virtual double FindCorrespondence(const Scan2D *curScanPtr,
                                     const Pose2D &predictedPose) override;
+
   friend class DataAssociatorLSTestFriend;
 };
 

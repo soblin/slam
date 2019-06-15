@@ -8,7 +8,6 @@ namespace slam {
 
 class Scan2D {
 private:
-  int m_id;
   Pose2D m_pose;
   std::vector<ScanPoint2D> m_scaned_points;
 
@@ -23,7 +22,6 @@ public:
 public:
   Scan2D();
   ~Scan2D();
-  void SetId(int id);
   void SetScanedPoints(const std::vector<ScanPoint2D> &scaned_points);
   void SetPose(const Pose2D &pose);
   void SetAngle(double rad);

@@ -18,7 +18,7 @@ public:
   inline double GetMatchRate() const { return m_match_rate; }
 
 public:
-  CostFunction() {}
+  CostFunction() : m_match_rate(-1) {}
   ~CostFunction() {}
 
   virtual double CalcValue(double tx, double ty, double th) = 0;
