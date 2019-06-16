@@ -2,10 +2,10 @@
 #define SLAM_LAUNCHER_H
 
 #include <slam/geometry/PointCloudMapBS.h>
-#include <slam/io/FrameWorkCustomizer.h>
 #include <slam/io/MapDrawer.h>
 #include <slam/io/SensorDataReader.h>
-#include <slam/io/SlamFrontEnd.h>
+#include <slam/manager/FrameWorkCustomizer.h>
+#include <slam/manager/SlamFrontEnd.h>
 
 namespace slam {
 

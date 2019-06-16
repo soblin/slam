@@ -2,7 +2,7 @@
 #include <unistd.h>
 
 #include <slam/geometry/PointCloudMap.h>
-#include <slam/io/SlamLauncher.h>
+#include <slam/manager/SlamLauncher.h>
 #include <slam/parameters.h>
 
 #ifdef DEBUG

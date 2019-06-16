@@ -4,7 +4,7 @@
 
 #include <slam/geometry/Scan2D.h>
 #include <slam/io/SensorDataReader.h>
-#include <slam/io/SlamLauncher.h>
+#include <slam/manager/SlamLauncher.h>
 
 int main(int argc, char **argv) {
   bool scanCheck = false;    // only display the scan if true

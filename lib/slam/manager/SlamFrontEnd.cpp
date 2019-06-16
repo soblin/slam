@@ -1,4 +1,4 @@
-#include <slam/io/SlamFrontEnd.h>
+#include <slam/manager/SlamFrontEnd.h>
 
 namespace slam {
 

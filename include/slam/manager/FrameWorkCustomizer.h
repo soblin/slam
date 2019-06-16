@@ -8,7 +8,7 @@
 #include <slam/icp/PoseOptimizerSD.h>
 #include <slam/icp/RefScanMakerBS.h>
 #include <slam/icp/ScanMatcher2D.h>
-#include <slam/io/SlamFrontEnd.h>
+#include <slam/manager/SlamFrontEnd.h>
 
 namespace slam {
 

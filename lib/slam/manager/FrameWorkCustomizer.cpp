@@ -1,5 +1,5 @@
 #include <slam/geometry/PointCloudMap.h>
-#include <slam/io/FrameWorkCustomizer.h>
+#include <slam/manager/FrameWorkCustomizer.h>
 
 namespace slam {
 
