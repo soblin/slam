@@ -5,12 +5,14 @@
 
 namespace slam {
 
+static bool is_first = true;
+
 bool ScanMatcher2D::MatchScan(Scan2D &curScan) {
-  m_cnt++;
   PointCloudMap *cloud_map_ptr = PointCloudMapSingleton::GetCloudMap();
 
-  if (m_cnt == 0) {
+  if (is_first) {
     GrowMap(curScan, m_init_pose);
+    is_first = false;
     return true;
   }
 
