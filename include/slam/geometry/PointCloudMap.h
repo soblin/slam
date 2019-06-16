@@ -44,7 +44,23 @@ class PointCloudMap{
   virtual void RemakeMaps(const std::vector<Pose2D>& newposes) = 0;
 };
 
-using PointCloudMapPtr = std::shared_ptr<PointCloudMap>;
+class PointCloudMapSingleton{
+ public:
+  static PointCloudMap *GetCloudMap(){
+    return m_point_cloud_map_ptr;
+  }
+  static void Create(PointCloudMap *ptr){
+    if(m_instance_ptr == nullptr){
+      m_instance_ptr = new PointCloudMapSingleton;
+    }
+    m_point_cloud_map_ptr = ptr;
+  }
+
+ private:
+  PointCloudMapSingleton();
+  static PointCloudMapSingleton *m_instance_ptr;
+  static PointCloudMap *m_point_cloud_map_ptr;
+};
 
 } /* namespace slam */
 #endif
