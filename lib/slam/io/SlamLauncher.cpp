@@ -1,6 +1,7 @@
 #include <iostream>
 #include <unistd.h>
 
+#include <slam/geometry/PointCloudMap.h>
 #include <slam/io/SlamLauncher.h>
 #include <slam/parameters.h>
 
@@ -10,10 +11,11 @@ static constexpr bool logger = true;
 static constexpr bool logger = false;
 #endif
 
+static slam::PointCloudMap *cloud_map_ptr = nullptr;
+
 namespace slam {
 
-SlamLauncher::SlamLauncher()
-    : m_odometry_only(false), m_point_cloud_map_ptr(nullptr) {}
+SlamLauncher::SlamLauncher() : m_odometry_only(false) {}
 
 SlamLauncher::~SlamLauncher() {}
 
@@ -46,6 +48,9 @@ void SlamLauncher::ShowScans() {
 }
 
 void SlamLauncher::MapByOdometry(const Scan2D &scan) {
+  if (cloud_map_ptr != nullptr)
+    cloud_map_ptr = PointCloudMapSingleton::GetCloudMap();
+
   Pose2D pose;
   Pose2D::CalcRelativePose(scan.pose(), m_initial_pose, pose);
   const auto scaned_points = scan.scaned_points();
@@ -58,9 +63,8 @@ void SlamLauncher::MapByOdometry(const Scan2D &scan) {
     global_points.emplace_back(global_point);
   }
 
-  // register the pose and (converted) points to the map(for visualization)
-  m_point_cloud_map_ptr->AddPose(pose);
-  m_point_cloud_map_ptr->AddPoints(global_points);
+  cloud_map_ptr->AddPose(pose);
+  cloud_map_ptr->AddPoints(global_points);
 }
 
 bool SlamLauncher::SetFilename(const std::string filename) {
@@ -68,6 +72,9 @@ bool SlamLauncher::SetFilename(const std::string filename) {
 }
 
 void SlamLauncher::Run() {
+  if (cloud_map_ptr == nullptr)
+    cloud_map_ptr = PointCloudMapSingleton::GetCloudMap();
+
   m_map_drawer.InitGnuplot();
   m_map_drawer.SetAspectRatio(-0.9);
 
@@ -87,7 +94,7 @@ void SlamLauncher::Run() {
       m_slam_frontend.Process(scan_buf);
     }
     if (cnt % param::SlamLauncher_PLOT_SKIP == 0) {
-      m_map_drawer.DrawGp(m_point_cloud_map_ptr);
+      m_map_drawer.DrawGp(cloud_map_ptr);
     }
     ++cnt;
     eof = m_sensor_reader.LoadScan(cnt, scan_buf);
@@ -99,7 +106,5 @@ void SlamLauncher::CustomizeFrameWork() {
   m_customizer.SetSlamFrontEnd(&m_slam_frontend);
 
   m_customizer.CustomizeA();
-
-  m_point_cloud_map_ptr = m_customizer.GetPointCloudMap();
 }
 } // namespace slam

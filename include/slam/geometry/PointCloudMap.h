@@ -57,7 +57,7 @@ class PointCloudMapSingleton{
   }
 
  private:
-  PointCloudMapSingleton();
+  PointCloudMapSingleton() {};
   static PointCloudMapSingleton *m_instance_ptr;
   static PointCloudMap *m_point_cloud_map_ptr;
 };

@@ -15,7 +15,6 @@ private:
   Pose2D m_initial_pose;
   SensorDataReader m_sensor_reader;
   MapDrawer m_map_drawer;
-  PointCloudMap *m_point_cloud_map_ptr;
   SlamFrontEnd m_slam_frontend;
   FrameWorkCustomizer m_customizer;
 

@@ -19,17 +19,12 @@ public:
     m_scan_matcher_ptr->SetRefScanMaker(p);
   }
   inline void SetPointCloudMap(PointCloudMap *p) { m_point_cloud_map_ptr = p; }
-  inline PointCloudMap *GetPointCloudMap() const {
-    return m_point_cloud_map_ptr;
-  }
-  inline int GetCnt() const { return m_cnt; }
 
 public:
   SlamFrontEnd()
       : m_cnt(0), m_point_cloud_map_ptr(nullptr), m_scan_matcher_ptr(nullptr) {}
   ~SlamFrontEnd() {}
 
-  void Init();
   void Process(Scan2D &scan);
 };
 

@@ -1,17 +1,23 @@
+#include <slam/geometry/PointCloudMap.h>
 #include <slam/icp/RefScanMakerBS.h>
+
+static slam::PointCloudMap *cloud_map_ptr = nullptr;
 
 namespace slam {
 
 const Scan2D *RefScanMakerBS::MakeRefScan() {
+  if (cloud_map_ptr == nullptr)
+    cloud_map_ptr = PointCloudMapSingleton::GetCloudMap();
+
   std::vector<ScanPoint2D> newScan;
 
   Pose2D lastPose;
-  m_point_cloud_map->GetLastPose(lastPose);
+  cloud_map_ptr->GetLastPose(lastPose);
   double tx = lastPose.tx();
   double ty = lastPose.ty();
 
   const std::vector<ScanPoint2D> &scaned_points =
-      m_point_cloud_map->GetLastScan().scaned_points();
+      cloud_map_ptr->GetLastScan().scaned_points();
   for (unsigned i = 0; i < scaned_points.size(); ++i) {
     const ScanPoint2D &scan_point = scaned_points[i];
 

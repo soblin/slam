@@ -2,24 +2,28 @@
 #include <slam/icp/ScanMatcher2D.h>
 #include <slam/parameters.h>
 
+static slam::PointCloudMap *cloud_map_ptr = nullptr;
+
 namespace slam {
 
 bool ScanMatcher2D::MatchScan(Scan2D &curScan) {
   m_cnt++;
+  if (cloud_map_ptr == nullptr)
+    cloud_map_ptr = PointCloudMapSingleton::GetCloudMap();
 
   if (m_cnt == 0) {
     GrowMap(curScan, m_init_pose);
     return true;
   }
 
-  const auto prev_scan = m_point_cloud_ptr->GetLastScan();
+  const auto prev_scan = cloud_map_ptr->GetLastScan();
   // compare the previous pose and curent pose by odometry
   // in the frame of previous pose
   Pose2D odoMotion;
   Pose2D::CalcRelativePose(curScan.pose(), prev_scan.pose(), odoMotion);
 
   // m_point_cloud_ptr stores the optimized (ICP-ed) poses
-  Pose2D lastPose = m_point_cloud_ptr->GetLastPose();
+  Pose2D lastPose = cloud_map_ptr->GetLastPose();
 
   // predictedPose is the predicted pose based on odoMotion from lastPose
   // used as the initial guess in ICP algorithm
@@ -57,6 +61,9 @@ bool ScanMatcher2D::MatchScan(Scan2D &curScan) {
 }
 
 void ScanMatcher2D::GrowMap(const Scan2D &scan, const Pose2D &pose) {
+  if (cloud_map_ptr == nullptr)
+    cloud_map_ptr = PointCloudMapSingleton::GetCloudMap();
+
   const auto &scaned_points = scan.scaned_points();
   double tx = pose.tx();
   double ty = pose.ty();
@@ -77,10 +84,10 @@ void ScanMatcher2D::GrowMap(const Scan2D &scan, const Pose2D &pose) {
   }
 
   // register the new global points
-  m_point_cloud_ptr->AddPose(pose);
-  m_point_cloud_ptr->AddPoints(scaned_points_global);
-  m_point_cloud_ptr->SetLastPose(pose);
-  m_point_cloud_ptr->SetLastScan(scan);
+  cloud_map_ptr->AddPose(pose);
+  cloud_map_ptr->AddPoints(scaned_points_global);
+  cloud_map_ptr->SetLastPose(pose);
+  cloud_map_ptr->SetLastScan(scan);
 }
 
 } /* namespace slam */
