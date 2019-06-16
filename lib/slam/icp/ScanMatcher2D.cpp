@@ -1,15 +1,13 @@
 #include <cmath>
+#include <iostream>
 #include <slam/icp/ScanMatcher2D.h>
 #include <slam/parameters.h>
-
-static slam::PointCloudMap *cloud_map_ptr = nullptr;
 
 namespace slam {
 
 bool ScanMatcher2D::MatchScan(Scan2D &curScan) {
   m_cnt++;
-  if (cloud_map_ptr == nullptr)
-    cloud_map_ptr = PointCloudMapSingleton::GetCloudMap();
+  PointCloudMap *cloud_map_ptr = PointCloudMapSingleton::GetCloudMap();
 
   if (m_cnt == 0) {
     GrowMap(curScan, m_init_pose);
@@ -61,8 +59,7 @@ bool ScanMatcher2D::MatchScan(Scan2D &curScan) {
 }
 
 void ScanMatcher2D::GrowMap(const Scan2D &scan, const Pose2D &pose) {
-  if (cloud_map_ptr == nullptr)
-    cloud_map_ptr = PointCloudMapSingleton::GetCloudMap();
+  PointCloudMap *cloud_map_ptr = PointCloudMapSingleton::GetCloudMap();
 
   const auto &scaned_points = scan.scaned_points();
   double tx = pose.tx();

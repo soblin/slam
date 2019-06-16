@@ -24,7 +24,7 @@ public:
 
 public:
   ScanMatcher2D()
-      : m_cnt(0), m_estimator_ptr(nullptr), m_ref_scan_maker_ptr(nullptr) {}
+      : m_cnt(-1), m_estimator_ptr(nullptr), m_ref_scan_maker_ptr(nullptr) {}
 
   ~ScanMatcher2D() {}
 

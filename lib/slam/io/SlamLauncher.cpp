@@ -11,8 +11,6 @@ static constexpr bool logger = true;
 static constexpr bool logger = false;
 #endif
 
-static slam::PointCloudMap *cloud_map_ptr = nullptr;
-
 namespace slam {
 
 SlamLauncher::SlamLauncher() : m_odometry_only(false) {}
@@ -48,8 +46,7 @@ void SlamLauncher::ShowScans() {
 }
 
 void SlamLauncher::MapByOdometry(const Scan2D &scan) {
-  if (cloud_map_ptr != nullptr)
-    cloud_map_ptr = PointCloudMapSingleton::GetCloudMap();
+  PointCloudMap *cloud_map_ptr = PointCloudMapSingleton::GetCloudMap();
 
   Pose2D pose;
   Pose2D::CalcRelativePose(scan.pose(), m_initial_pose, pose);
@@ -72,8 +69,7 @@ bool SlamLauncher::SetFilename(const std::string filename) {
 }
 
 void SlamLauncher::Run() {
-  if (cloud_map_ptr == nullptr)
-    cloud_map_ptr = PointCloudMapSingleton::GetCloudMap();
+  PointCloudMap *cloud_map_ptr = PointCloudMapSingleton::GetCloudMap();
 
   m_map_drawer.InitGnuplot();
   m_map_drawer.SetAspectRatio(-0.9);
