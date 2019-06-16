@@ -12,7 +12,6 @@ namespace slam {
 class ScanMatcher2D {
 private:
   int m_cnt;
-  Scan2D m_prev_scan;
   Pose2D m_init_pose; // the pose of the origin of the map. default(0, 0, 0)
 
   PoseEstimatorICP *m_estimator_ptr;

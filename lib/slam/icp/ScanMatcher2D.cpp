@@ -9,14 +9,14 @@ bool ScanMatcher2D::MatchScan(Scan2D &curScan) {
 
   if (m_cnt == 0) {
     GrowMap(curScan, m_init_pose);
-    m_prev_scan = curScan;
     return true;
   }
 
+  const auto prev_scan = m_point_cloud_ptr->GetLastScan();
   // compare the previous pose and curent pose by odometry
   // in the frame of previous pose
   Pose2D odoMotion;
-  Pose2D::CalcRelativePose(curScan.pose(), m_prev_scan.pose(), odoMotion);
+  Pose2D::CalcRelativePose(curScan.pose(), prev_scan.pose(), odoMotion);
 
   // m_point_cloud_ptr stores the optimized (ICP-ed) poses
   Pose2D lastPose = m_point_cloud_ptr->GetLastPose();
@@ -49,8 +49,6 @@ bool ScanMatcher2D::MatchScan(Scan2D &curScan) {
   // add the current scan with the estimated Pose
   GrowMap(curScan, estimatedPose);
 
-  m_prev_scan = curScan;
-
   // for validation
   Pose2D estimatedMotion;
   Pose2D::CalcRelativePose(estimatedPose, lastPose, estimatedMotion);
@@ -69,8 +67,13 @@ void ScanMatcher2D::GrowMap(const Scan2D &scan, const Pose2D &pose) {
 
     double x = pose.R00() * scan_point.x() + pose.R01() * scan_point.y() + tx;
     double y = pose.R10() * scan_point.x() + pose.R11() * scan_point.y() + ty;
+    double nx = pose.R00() * scan_point.nx() + pose.R01() * scan_point.ny();
+    double ny = pose.R10() * scan_point.nx() + pose.R11() * scan_point.ny();
 
-    scaned_points_global.emplace_back(x, y);
+    ScanPoint2D point(x, y);
+    point.SetNormal(nx, ny);
+    point.SetType(scan_point.type());
+    scaned_points_global.emplace_back(point);
   }
 
   // register the new global points

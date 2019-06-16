@@ -48,7 +48,10 @@ SlamFrontEnd::Process()が何をやっているのかまだきちんと理解し
 1. まず始めにScanMatcher2DのMatchScanを実行する. ScanMatcher2Dは直前のスキャン結果を保持している(m\_prev\_scan).それはodoMotinを求めるため.
 2. 一方PointCloudMapはICPによる推定位置を保持している. そこで, ICPによる推定位置の初期値を, 前回の推定位置からodoMotionだけ移動した点とする.
 3. 次にMakeRefScanする. 今はMakeRefScanMakerBS::MakeRefScanを呼んでいるので, 前回のスキャン(m\_prev\_scanあるいは今はPointCloudMapBS::last_scanと同じ)をグローバルフレームに変換している. 
-4. そのrefScan(グローバルフレーム)とcurScan(ローカルフレーム)をPoseEsitmatorICPにセットする. この2つが一致するようにcurScanの属する姿勢を最適化により求める. このときDataAssociatorLS::SetRefBaseを呼んでおり, 次にFindCorrespondenceすることでマッチング結果を得る.
+4. そのrefScan(グローバルフレーム)とcurScan(ローカルフレーム)をPoseEsitmatorICPにセットする. この2つが一致するようにcurScanの属する姿勢を最適化により求める. このときDataAssociatorLS::SetRefBaseを呼んでおり, 次にFindCorrespondenceすることでマッチング結果を得る. FindCorrespondence()は毎回呼ばれている.
 5. いよいよPoseEstimatorICPのEstimatePoseを呼ぶ. この中身を説明する. まず始めに現在の姿勢の推定値に基づいてFindCorrespondenceを呼ぶ. そこでcurScanを推定値に基づいたグローバル座標に写し, それと参照スキャンとのマッチングを行う. そしてOptimizer::SetPointsによりAssosiatorの対応が取れた点群のマッチング結果をOptimizerに渡す. そして一段階最適化した結果を得る.
 5. ScanMatcher2D::GrowMapにより現在スキャンcurScanを推定位置estimatedPoseに基づいてグローバル座標に変換し, PointCloudMapに登録する.
 
+## 6/18
+
+8章に入った. 7章はICPを行っていて少し複雑になってしまったが, 結局の所6章との違いは, curScanに含まれる姿勢の推定値である. 依然, スキャンで得られた点を全て用いている点は何も変わらない. 具体的には一つ前のスキャン結果(参照スキャン)と姿勢の推定値を保存しておき, 現在のスキャンとのICPを行うことで現在の姿勢の推定値を得る. その際, 現在の姿勢の推定値の初期として, 一つ前の姿勢の推定値からオドメトリに基づく移動を足した値を用いる. それを実現するために, 

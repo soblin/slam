@@ -5,23 +5,23 @@
 
 namespace slam {
 
-bool ScanPointResampler::FindInterpolatePoint(const ScanPoint2D &curPoint,
-                                              const ScanPoint2D &prevPoint,
-                                              ScanPoint2D &nextPoint,
-                                              bool &inserted,
-                                              double &acc_dist) {
+bool ScanPointResampler::FindInterpolatePointImpl(
+    const ScanPoint2D &curPoint, const ScanPoint2D &prevPoint,
+    ScanPoint2D &nextPoint, bool &inserted, double &acc_dist,
+    double interval_thresh, double interpolate_thresh) {
+
   double dx = curPoint.x() - prevPoint.x();
   double dy = curPoint.y() - prevPoint.y();
 
   double L = std::hypot(dx, dy);
 
   // too dense
-  if (acc_dist + L < param::ScanPointResampler_DIST_INTERVAL) {
+  if (acc_dist + L < interval_thresh) {
     acc_dist += L;
     return false;
   }
   // too far
-  else if (acc_dist + L >= param::ScanPointResampler_DIST_INTERPOLATE_THRESH) {
+  else if (acc_dist + L >= interpolate_thresh) {
     nextPoint.SetData(curPoint.x(), curPoint.y());
   } else {
     // the distance is more than the interval and less than the threshold
@@ -34,6 +34,17 @@ bool ScanPointResampler::FindInterpolatePoint(const ScanPoint2D &curPoint,
   }
 
   return true;
+}
+
+bool ScanPointResampler::FindInterpolatePoint(const ScanPoint2D &curPoint,
+                                              const ScanPoint2D &prevPoint,
+                                              ScanPoint2D &nextPoint,
+                                              bool &inserted,
+                                              double &acc_dist) {
+  return FindInterpolatePointImpl(
+      curPoint, prevPoint, nextPoint, inserted, acc_dist,
+      param::ScanPointResampler_DIST_INTERVAL,
+      param::ScanPointResampler_DIST_INTERPOLATE_THRESH);
 }
 
 void ScanPointResampler::ResamplePoints(Scan2D *scan) {

@@ -8,22 +8,20 @@ public:
   enum PointType { UNKNOWN, LINE, CORNER, ISOLATE };
 
 private:
-  //  int m_id;
   double m_x, m_y;
-  //  double m_nx, m_ny;
+  double m_nx, m_ny;
   double m_travel;
   PointType m_type;
 
 public:
-  //  inline int id() const { return m_id; }
   inline double x() const { return m_x; }
   inline double y() const { return m_y; }
   inline double &x() { return m_x; }
   inline double &y() { return m_y; }
-  // inline double nx() const { return m_nx; }
-  // inline double ny() const { return m_ny; }
-  // inline double &nx() { return m_nx; }
-  // inline double &ny() { return m_ny; }
+  inline double nx() const { return m_nx; }
+  inline double ny() const { return m_ny; }
+  inline double &nx() { return m_nx; }
+  inline double &ny() { return m_ny; }
   inline double travel() const { return m_travel; }
   inline PointType type() const { return m_type; }
 
@@ -36,7 +34,7 @@ public:
   void CalcXY(double range, double rad);
   void SetTravel(double travel);
   void SetType(PointType type);
-  //  void SetNormal(double nx, double ny);
+  void SetNormal(double nx, double ny);
 };
 
 } // namespace slam
