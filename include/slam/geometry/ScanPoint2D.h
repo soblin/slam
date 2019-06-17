@@ -28,6 +28,7 @@ public:
 public:
   ScanPoint2D();
   ScanPoint2D(double x, double y);
+  ScanPoint2D(double x, double y, double nx, double ny, PointType type);
   void init();
   void SetData(double x, double y);
   void SetXY(double x, double y);

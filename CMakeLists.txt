@@ -6,17 +6,28 @@ set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
 add_compile_options(-std=c++11 -Wall -g -DDEBUG)
 
-#find_package(Boost REQUIRED)
+find_package(Boost REQUIRED)
 #find_package(Eigen3)
 
 include_directories(
   include/
+  ${Boost_INCLUDE_DIR}
 #  ${EIGEN3_INCLUDE_DIR}
-#  ${Boost_INCLUDE_DIR}
   )
 
-file(GLOB lib_sources "lib/slam/geometry/*.cpp" "lib/slam/io/*.cpp" "lib/slam/icp/*.cpp" "lib/slam/manager/*.cpp")
-file(GLOB lib_headers "include/slam/geoemetry/*.h" "include/slam/io/*.h" "include/slam/icp/*.h" "lib/slam/manager/*.h" "include/slam/parameters.h")
+file(GLOB lib_sources
+  "lib/slam/geometry/*.cpp"
+  "lib/slam/io/*.cpp"
+  "lib/slam/icp/*.cpp"
+  "lib/slam/manager/*.cpp")
+
+file(GLOB lib_headers
+  "include/slam/geoemetry/*.h"
+  "include/slam/io/*.h"
+  "include/slam/icp/*.h"
+  "include/slam/manager/*.h"
+  "include/slam/parameters.h")
+
 file(GLOB test_sources "utest/*.cpp")
 file(GLOB sources "src/*.cpp")
 
@@ -27,6 +38,7 @@ add_library(
   ${lib_sources}
   )
 
+target_link_libraries(${PROJECT_NAME} ${Boost_LIBRARIES})
 
 # main programs
 set(EXECUTABLE_OUTPUT_PATH "${CMAKE_CURRENT_SOURCE_DIR}/bin")
@@ -75,7 +87,7 @@ get_property(all_sources GLOBAL PROPERTY SRCS_LIST)
 # Run clang-format
 find_program(CLANG_FORMAT_EXE clang-format)
 if(CLANG_FORMAT_EXE)
-  add_custom_target(format ALL
+  add_custom_target(${PROJECT_NAME}-format ALL
     COMMAND clang-format --style=file -i ${all_sources}
     COMMENT "Running clang-format"
     VERBATIM)

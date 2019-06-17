@@ -1,7 +1,8 @@
 #ifndef POINT_CLOUD_MAP_GT_H
 #define POINT_CLOUD_MAP_GT_H
 
-#include <PointCloudMap.h>
+#include <slam/geometry/PointCloudMap.h>
+#include <slam/geometry/NNGridTable.h>
 
 namespace slam{
 
@@ -12,13 +13,19 @@ class PointCloudMapGT : public PointCloudMap {
 
  public:
   PointCloudMapGT() : PointCloudMap() {
-    m_all_points.reserve(param::PointCloudMap_MAX_POINT_NUM)
+    m_all_points.reserve(param::PointCloudMap_MAX_POINT_NUM);
   }
-  virtual ~PointCloudMappGT() {
+  virtual ~PointCloudMapGT() {
     m_all_points.clear();
   }
-  
-}
+
+  virtual void AddPose(const Pose2D &p) override;
+  virtual void AddPoints(const std::vector<ScanPoint2D> &points) override;
+  virtual void MakeGlobalMap() override;
+  virtual void MakeLocalMap() override;
+  virtual void RemakeMaps(const std::vector<Pose2D> &newPoses) override;
+  void SubsamplePoints(std::vector<ScanPoint2D> &subs);
+};
 
 } // namespace slam
 #endif /* POINT_CLOUD_MAP_GT_H */

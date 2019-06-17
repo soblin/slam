@@ -4,7 +4,8 @@
 
 namespace slam {
 
-double PoseOptimizerSD::OptimizePoseImpl(Pose2D &initPose, Pose2D &estimatePose,
+double PoseOptimizerSD::OptimizePoseImpl(const Pose2D &initPose,
+                                         Pose2D &estimatePose,
                                          double val_diff_thresh, double ds,
                                          double dtheta, double err_thresh,
                                          double descent) {
@@ -61,7 +62,8 @@ double PoseOptimizerSD::OptimizePoseImpl(Pose2D &initPose, Pose2D &estimatePose,
   return eval_min;
 }
 
-double PoseOptimizerSD::OptimizePose(Pose2D &initPose, Pose2D &estimatePose) {
+double PoseOptimizerSD::OptimizePose(const Pose2D &initPose,
+                                     Pose2D &estimatePose) {
   return OptimizePoseImpl(
       initPose, estimatePose, param::PoseOptimizer_VAL_DIFF_THRESH,
       param::PoseOptimizer_TickDist, param::PoseOptimizer_TickTheta,

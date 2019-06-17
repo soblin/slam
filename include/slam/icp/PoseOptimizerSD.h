@@ -7,7 +7,7 @@ namespace slam {
 
 class PoseOptimizerSD : public PoseOptimizer {
 private:
-  double OptimizePoseImpl(Pose2D &initPose, Pose2D &estimatePose,
+  double OptimizePoseImpl(const Pose2D &initPose, Pose2D &estimatePose,
                           double val_diff_thresh, double ds, double dth,
                           double err_thresh, double descent);
 
@@ -15,7 +15,8 @@ public:
   PoseOptimizerSD() : PoseOptimizer() {}
   virtual ~PoseOptimizerSD() {}
 
-  virtual double OptimizePose(Pose2D &initPose, Pose2D &estimatePose) override;
+  virtual double OptimizePose(const Pose2D &initPose,
+                              Pose2D &estimatePose) override;
 
   friend class PoseOptimizerSDTestFriend;
 };

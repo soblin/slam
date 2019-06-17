@@ -10,6 +10,7 @@ static constexpr double Scan2D_MAX_SCAN_RANGE = 6.0;
 static constexpr double Scan2D_MIN_SCAN_RANGE = 0.1;
 static constexpr double PointCloudMapBS_SKIP = 5.0;
 static constexpr double PointCloudMap_MAX_POINT_NUM = 1000000;
+static constexpr int PointCloudMap_CELL_POINT_NUM_THRESH = 1;
 static constexpr double SensorDataReader_ANGLE_OFFSET = 180;
 static constexpr double MapDrawer_STEP_POINT = 1.0;
 static constexpr double MapDrawer_STEP_POSE = 10;
@@ -34,6 +35,10 @@ static constexpr double ScanPointAnalyser_FPDMAX = 1.0;
 static constexpr int ScanPointAnalyser_CORNER_DEG_THRESH = 45;
 static constexpr int ScanPointAnalyser_INVALID_DEG = -1;
 static constexpr double ScanPointAnalyer_CORNER_COS_THRESH = std::cos(M_PI / 4);
+static constexpr double NNGridTable_CELL_SIZE = 0.05;
+static constexpr double NNGridTable_DOMAIN_SIZE = 40;
+static constexpr double NNGridTable_MIN_DIST_THRESH = 0.2;
+static constexpr double PoseOptimizer_SEARCH_RANGE = 2.0;
 
 } /* namespace param */
 } /* namespace slam */

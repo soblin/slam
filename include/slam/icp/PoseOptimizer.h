@@ -30,7 +30,7 @@ public:
   }
   ~PoseOptimizer() {}
 
-  virtual double OptimizePose(Pose2D &initPose, Pose2D &estimatePose) = 0;
+  virtual double OptimizePose(const Pose2D &initPose, Pose2D &estimatePose) = 0;
 
   friend class PoseOptimizerTestFriend;
 };
