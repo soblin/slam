@@ -7,7 +7,7 @@ namespace slam {
 
 bool ScanPointResampler::FindInterpolatePointImpl(
     const ScanPoint2D &curPoint, const ScanPoint2D &prevPoint,
-    ScanPoint2D &nextPoint, bool &inserted, double &acc_dist,
+    ScanPoint2D &insertPoint, bool &inserted, double &acc_dist,
     double interval_thresh, double interpolate_thresh) {
 
   double dx = curPoint.x() - prevPoint.x();
@@ -16,20 +16,21 @@ bool ScanPointResampler::FindInterpolatePointImpl(
   double L = std::hypot(dx, dy);
 
   // too dense
+  // so still there's no need to interpolate
   if (acc_dist + L < interval_thresh) {
     acc_dist += L;
     return false;
   }
   // too far
   else if (acc_dist + L >= interpolate_thresh) {
-    nextPoint.SetData(curPoint.x(), curPoint.y());
+    insertPoint.SetData(curPoint.x(), curPoint.y());
   } else {
     // the distance is more than the interval and less than the threshold
     // so interpolate a new point
     double ratio = (param::ScanPointResampler_DIST_INTERVAL - acc_dist) / L;
     double x2 = dx * ratio + prevPoint.x();
     double y2 = dy * ratio + prevPoint.y();
-    nextPoint.SetData(x2, y2);
+    insertPoint.SetData(x2, y2);
     inserted = true;
   }
 
@@ -38,11 +39,11 @@ bool ScanPointResampler::FindInterpolatePointImpl(
 
 bool ScanPointResampler::FindInterpolatePoint(const ScanPoint2D &curPoint,
                                               const ScanPoint2D &prevPoint,
-                                              ScanPoint2D &nextPoint,
+                                              ScanPoint2D &insertPoint,
                                               bool &inserted,
                                               double &acc_dist) {
   return FindInterpolatePointImpl(
-      curPoint, prevPoint, nextPoint, inserted, acc_dist,
+      curPoint, prevPoint, insertPoint, inserted, acc_dist,
       param::ScanPointResampler_DIST_INTERVAL,
       param::ScanPointResampler_DIST_INTERPOLATE_THRESH);
 }
@@ -58,7 +59,7 @@ void ScanPointResampler::ResamplePoints(Scan2D *scan) {
 
   ScanPoint2D point = scaned_points[0];
   decltype(point) prevPoint = point;
-  decltype(point) nextPoint(point.x(), point.y());
+  decltype(point) insertPoint(point.x(), point.y());
 
   resampled_points.emplace_back(point.x(), point.y());
 
@@ -67,11 +68,11 @@ void ScanPointResampler::ResamplePoints(Scan2D *scan) {
     bool inserted = false;
 
     bool exist =
-        FindInterpolatePoint(point, prevPoint, nextPoint, inserted, acc_dist);
+        FindInterpolatePoint(point, prevPoint, insertPoint, inserted, acc_dist);
 
     if (exist) {
-      resampled_points.emplace_back(nextPoint);
-      prevPoint = nextPoint;
+      resampled_points.emplace_back(insertPoint);
+      prevPoint = insertPoint;
       acc_dist = 0;
       if (inserted)
         i--;

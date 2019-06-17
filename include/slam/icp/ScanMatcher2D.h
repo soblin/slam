@@ -26,7 +26,7 @@ public:
 
   ~ScanMatcher2D() {}
 
-  bool MatchScan(Scan2D &scan);
+  bool MatchScan(const Scan2D &scan);
   void GrowMap(const Scan2D &scan, const Pose2D &pose);
 };
 

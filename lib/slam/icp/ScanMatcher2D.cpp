@@ -7,7 +7,7 @@ namespace slam {
 
 static bool is_first = true;
 
-bool ScanMatcher2D::MatchScan(Scan2D &curScan) {
+bool ScanMatcher2D::MatchScan(const Scan2D &curScan) {
   PointCloudMap *cloud_map_ptr = PointCloudMapSingleton::GetCloudMap();
 
   if (is_first) {

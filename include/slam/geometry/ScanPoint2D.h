@@ -37,6 +37,11 @@ public:
   void SetNormal(double nx, double ny);
 };
 
+struct Vector2D{
+  double x;
+  double y;
+};
+
 } // namespace slam
 
 #endif

@@ -12,7 +12,7 @@ protected:
 
 public:
   RefScanMaker() {}
-  ~RefScanMaker() {}
+  virtual ~RefScanMaker() {}
 
   virtual const Scan2D *MakeRefScan() = 0;
 };

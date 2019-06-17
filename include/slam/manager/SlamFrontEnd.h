@@ -22,7 +22,7 @@ public:
       : m_point_cloud_map_ptr(nullptr), m_scan_matcher_ptr(nullptr) {}
   ~SlamFrontEnd() {}
 
-  void Process(Scan2D &scan);
+  void Process(const Scan2D &scan);
 };
 
 } /* namespace slam */

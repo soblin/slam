@@ -24,7 +24,8 @@ class PointCloudMap{
  public:
   inline const std::vector<Pose2D>& poses() const { return m_poses; }
   inline const std::vector<ScanPoint2D>& global_map() const { return m_global_map; }
-
+  inline const std::vector<ScanPoint2D>& local_map() const { return m_local_map; }
+  
   inline void GetLastPose(Pose2D& pose) const { pose = m_last_pose; }
   inline void GetLastScan(Scan2D& scan) const { scan = m_last_scan; }
   inline const Scan2D& GetLastScan() const { return m_last_scan; }
