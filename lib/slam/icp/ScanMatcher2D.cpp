@@ -7,8 +7,16 @@ namespace slam {
 
 static bool is_first = true;
 
-bool ScanMatcher2D::MatchScan(const Scan2D &curScan) {
+bool ScanMatcher2D::MatchScan(Scan2D &curScan) {
   PointCloudMap *cloud_map_ptr = PointCloudMapSingleton::GetCloudMap();
+
+  // uniformalize the scaned points
+  if (m_scan_point_resampler_ptr != nullptr)
+    m_scan_point_resampler_ptr->ResamplePoints(&curScan);
+
+  // calculate the normal vectors
+  if (m_scan_point_analyser_ptr != nullptr)
+    m_scan_point_analyser_ptr->AnalysePoints(curScan.scaned_points_ref());
 
   if (is_first) {
     GrowMap(curScan, m_init_pose);

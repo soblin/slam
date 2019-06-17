@@ -6,18 +6,18 @@
 
 #include <slam/geometry/PointCloudMap.h>
 
-namespace slam{
+namespace slam {
 
 class PointCloudMapBS : public PointCloudMap {
- public:
+public:
   PointCloudMapBS();
   ~PointCloudMapBS();
-  virtual void AddPose(const Pose2D& pose) override;
-  virtual void AddPoint(const ScanPoint2D& scan) override;
-  virtual void AddPoints(const std::vector<ScanPoint2D>& scans) override;
+  virtual void AddPose(const Pose2D &pose) override;
+  virtual void AddPoint(const ScanPoint2D &scan) override;
+  virtual void AddPoints(const std::vector<ScanPoint2D> &scans) override;
   virtual void MakeGlobalMap() override;
   virtual void MakeLocalMap() override;
-  virtual void RemakeMaps(const std::vector<Pose2D>& newposes) override;
+  virtual void RemakeMaps(const std::vector<Pose2D> &newposes) override;
 };
 
 } /* namespace slam */

@@ -15,10 +15,13 @@ public:
   inline const std::vector<ScanPoint2D> &scaned_points() const {
     return m_scaned_points;
   }
+  inline std::vector<ScanPoint2D> &scaned_points_ref() {
+    return m_scaned_points;
+  }
   inline double &tx() { return m_pose.tx(); }
   inline double &ty() { return m_pose.ty(); }
   inline const Pose2D &pose() const { return m_pose; }
-  
+
 public:
   Scan2D();
   ~Scan2D();

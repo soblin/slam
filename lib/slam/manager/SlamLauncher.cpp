@@ -101,6 +101,6 @@ void SlamLauncher::Run() {
 void SlamLauncher::CustomizeFrameWork() {
   m_customizer.SetSlamFrontEnd(&m_slam_frontend);
 
-  m_customizer.CustomizeA();
+  m_customizer.CustomizeG();
 }
 } // namespace slam

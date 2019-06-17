@@ -22,7 +22,7 @@ file(GLOB lib_sources
   "lib/slam/manager/*.cpp")
 
 file(GLOB lib_headers
-  "include/slam/geoemetry/*.h"
+  "include/slam/geometry/*.h"
   "include/slam/io/*.h"
   "include/slam/icp/*.h"
   "include/slam/manager/*.h"

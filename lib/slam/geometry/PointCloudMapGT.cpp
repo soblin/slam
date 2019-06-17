@@ -4,6 +4,10 @@ namespace slam {
 
 void PointCloudMapGT::AddPose(const Pose2D &p) { m_poses.emplace_back(p); }
 
+void PointCloudMapGT::AddPoint(const ScanPoint2D &p) {
+  m_all_points.emplace_back(p);
+}
+
 void PointCloudMapGT::SubsamplePoints(std::vector<ScanPoint2D> &subs) {
   m_grid_table.Clear();
   for (unsigned i = 0; i < m_all_points.size(); ++i)
