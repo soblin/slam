@@ -62,6 +62,7 @@ void SlamLauncher::MapByOdometry(const Scan2D &scan) {
 
   cloud_map_ptr->AddPose(pose);
   cloud_map_ptr->AddPoints(global_points);
+  cloud_map_ptr->MakeGlobalMap();
 }
 
 bool SlamLauncher::SetFilename(const std::string filename) {
