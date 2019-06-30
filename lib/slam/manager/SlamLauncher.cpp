@@ -13,10 +13,6 @@ static constexpr bool logger = false;
 
 namespace slam {
 
-SlamLauncher::SlamLauncher() : m_odometry_only(false) {}
-
-SlamLauncher::~SlamLauncher() {}
-
 void SlamLauncher::SetOdometryOnly(bool only) { m_odometry_only = only; }
 
 void SlamLauncher::ShowScans() {

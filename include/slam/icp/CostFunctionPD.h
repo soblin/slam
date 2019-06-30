@@ -7,7 +7,7 @@ namespace slam {
 
 class CostFunctionPD : public CostFunction {
 public:
-  CostFunctionPD() {}
+  CostFunctionPD() : CostFunction() {}
   virtual ~CostFunctionPD() {}
 
   virtual double CalcValue(double tx, double ty, double th) override;

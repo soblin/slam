@@ -11,12 +11,6 @@ static constexpr bool logger = false;
 
 namespace slam {
 
-MapDrawer::MapDrawer()
-    : m_gp(nullptr), m_xmin(-10), m_xmax(10), m_ymin(-10), m_ymax(10),
-      m_ratio(-1.0) {}
-
-MapDrawer::~MapDrawer() { FinishGnuplot(); }
-
 void MapDrawer::InitGnuplot() {
 #ifdef __linux__
   m_gp = popen("gnuplot", "w");

@@ -1,14 +1,8 @@
 #include <iostream>
 #include <math.h>
 #include <slam/io/SensorDataReader.h>
-#include <slam/parameters.h>
 
 namespace slam {
-
-SensorDataReader::SensorDataReader()
-    : m_angle_offset(param::SensorDataReader_ANGLE_OFFSET) {}
-
-SensorDataReader::~SensorDataReader() {}
 
 bool SensorDataReader::OpenScanFile(const std::string &filepath) {
   m_in_file.open(filepath.c_str());

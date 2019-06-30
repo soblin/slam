@@ -12,7 +12,7 @@ private:
 
 public:
   DataAssociatorGT() {}
-  virtual ~DataAssociatorGT() {}
+  virtual ~DataAssociatorGT() { m_grid_table.Clear(); }
 
   // store the points of RefScanMaker::m_cur_scan to GridTable.
   virtual void SetRefBase(const std::vector<ScanPoint2D> &refPoints) override;

@@ -19,8 +19,9 @@ private:
   FrameWorkCustomizer m_customizer;
 
 public:
-  SlamLauncher();
-  ~SlamLauncher();
+  SlamLauncher() : m_odometry_only(false) {}
+  ~SlamLauncher() {}
+
   void SetOdometryOnly(bool only);
   void ShowScans();
   void MapByOdometry(const Scan2D &scan);
