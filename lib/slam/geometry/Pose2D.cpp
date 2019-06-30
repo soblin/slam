@@ -76,8 +76,10 @@ ScanPoint2D Pose2D::ToGlobalPoint(const ScanPoint2D &local) const {
 
 void Pose2D::ToGlobalPoint(const ScanPoint2D &local,
                            ScanPoint2D &global) const {
-  global.x() = m_Rmat[0][0] * local.x() + m_Rmat[0][1] * local.y() + m_tx;
-  global.y() = m_Rmat[1][0] * local.x() + m_Rmat[1][1] * local.y() + m_ty;
+  double gx = m_Rmat[0][0] * local.x() + m_Rmat[0][1] * local.y() + m_tx;
+  double gy = m_Rmat[1][0] * local.x() + m_Rmat[1][1] * local.y() + m_ty;
+
+  global.SetXY(gx, gy);
 }
 
 void Pose2D::CalcRelativePose(const Pose2D &global, const Pose2D &base,
@@ -85,8 +87,10 @@ void Pose2D::CalcRelativePose(const Pose2D &global, const Pose2D &base,
   double dx = global.tx() - base.tx();
   double dy = global.ty() - base.ty();
 
-  relative.tx() = dx * base.R00() + dy * base.R10();
-  relative.ty() = dx * base.R01() + dy * base.R11();
+  double tx = dx * base.R00() + dy * base.R10();
+  double ty = dx * base.R01() + dy * base.R11();
+  relative.SetTranslation(tx, ty);
+
   double th = normalize(global.th() - base.th());
   relative.SetAngle(th);
 }
@@ -95,8 +99,11 @@ void Pose2D::CalcGlobalPose(const Pose2D &relative, const Pose2D &base,
                             Pose2D &global) {
   double tx = relative.tx();
   double ty = relative.ty();
-  global.tx() = tx * base.R00() + ty * base.R01() + base.tx();
-  global.ty() = tx * base.R10() + ty * base.R11() + base.ty();
+
+  double gtx = tx * base.R00() + ty * base.R01() + base.tx();
+  double gty = tx * base.R10() + ty * base.R11() + base.ty();
+  global.SetTranslation(gtx, gty);
+
   double th = normalize(base.th() + relative.th());
   global.SetAngle(th);
 }

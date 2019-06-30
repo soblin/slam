@@ -18,17 +18,16 @@ const Scan2D *RefScanMakerBS::MakeRefScan() {
   for (unsigned i = 0; i < scaned_points.size(); ++i) {
     const ScanPoint2D &scan_point = scaned_points[i];
 
-    ScanPoint2D point;
-    point.x() =
+    double x =
         lastPose.R00() * scan_point.x() + lastPose.R01() * scan_point.y() + tx;
-    point.y() =
+    double y =
         lastPose.R10() * scan_point.x() + lastPose.R11() * scan_point.y() + ty;
-    point.nx() =
+    double nx =
         lastPose.R00() * scan_point.nx() + lastPose.R01() * scan_point.ny();
-    point.ny() =
+    double ny =
         lastPose.R10() * scan_point.nx() + lastPose.R11() * scan_point.ny();
 
-    newScan.emplace_back(point);
+    newScan.emplace_back(x, y, nx, ny, ScanPoint2D::PointType::UNKNOWN);
   }
 
   m_ref_scan.SetScanedPoints(newScan);
