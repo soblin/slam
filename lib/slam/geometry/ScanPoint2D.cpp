@@ -2,13 +2,6 @@
 #include <slam/geometry/ScanPoint2D.h>
 
 namespace slam {
-ScanPoint2D::ScanPoint2D() : m_x(0), m_y(0) { init(); }
-
-ScanPoint2D::ScanPoint2D(double x, double y) : m_x(x), m_y(y) { init(); }
-
-ScanPoint2D::ScanPoint2D(double x, double y, double nx, double ny,
-                         PointType type)
-    : m_x(x), m_y(y), m_nx(nx), m_ny(ny), m_travel(0), m_type(type) {}
 
 void ScanPoint2D::init() {
   m_travel = 0;

@@ -3,13 +3,6 @@
 
 namespace slam {
 
-PointCloudMapBS::PointCloudMapBS() : PointCloudMap() {}
-
-PointCloudMapBS::~PointCloudMapBS() {
-  m_poses.reserve(0);
-  m_global_map.reserve(0);
-}
-
 void PointCloudMapBS::AddPose(const Pose2D &pose) { m_poses.push_back(pose); }
 
 void PointCloudMapBS::AddPoint(const ScanPoint2D &scan) {

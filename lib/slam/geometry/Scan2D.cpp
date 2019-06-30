@@ -1,11 +1,6 @@
 #include <slam/geometry/Scan2D.h>
 
 namespace slam {
-Scan2D::Scan2D() {}
-
-Scan2D::~Scan2D() { m_scaned_points.reserve(0); }
-
-// void Scan2D::SetId(int id) { m_id = id; }
 
 void Scan2D::SetScanedPoints(const std::vector<ScanPoint2D> &scaned_points) {
   // copy ctor

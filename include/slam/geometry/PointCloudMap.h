@@ -7,6 +7,7 @@
 #include <slam/geometry/Pose2D.h>
 #include <slam/geometry/Scan2D.h>
 #include <slam/geometry/ScanPoint2D.h>
+#include <slam/parameters.h>
 
 namespace slam {
 
@@ -42,8 +43,13 @@ public:
   //  inline void SetCellThresh(int n) { m_cell_thresh = n; }
   //  inline void GetCellThresh(int& n) const { n = m_cell_thresh; }
 
-  PointCloudMap();
-  ~PointCloudMap();
+  PointCloudMap() { m_global_map.reserve(param::PointCloudMap_MAX_POINT_NUM); }
+
+  virtual ~PointCloudMap() {
+    m_poses.reserve(0);
+    m_global_map.reserve(0);
+  }
+
   virtual void AddPose(const Pose2D &pose) = 0;
   virtual void AddPoint(const ScanPoint2D &scan) = 0;
   virtual void AddPoints(const std::vector<ScanPoint2D> &scans) = 0;

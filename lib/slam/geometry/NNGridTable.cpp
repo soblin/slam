@@ -3,17 +3,6 @@
 
 namespace slam {
 
-NNGridTable::NNGridTable()
-    : m_cell_size(param::NNGridTable_CELL_SIZE),
-      m_domain_size(param::NNGridTable_DOMAIN_SIZE),
-      m_table_size(static_cast<int>(m_domain_size / m_cell_size)) {
-  int width = 2 * m_table_size + 1;
-  m_table.resize(width * width);
-  Clear();
-}
-
-NNGridTable::~NNGridTable() { Clear(); }
-
 void NNGridTable::AddPoint(const ScanPoint2D *point) {
   int x_index = static_cast<int>(point->x() / m_cell_size) + m_table_size;
   if (x_index < 0 || x_index > 2 * m_table_size)

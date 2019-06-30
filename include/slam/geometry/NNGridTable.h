@@ -16,8 +16,12 @@ struct NNGridCell {
 
 class NNGridTable {
 public:
-  NNGridTable();
-  ~NNGridTable();
+  NNGridTable() {
+    int width = 2 * m_table_size + 1;
+    m_table.resize(width * width);
+    Clear();
+  }
+  ~NNGridTable() { Clear(); }
 
   inline void Clear() {
     for (auto &cell : m_table) {
@@ -31,9 +35,10 @@ public:
   void MakeCellPoints(std::vector<ScanPoint2D> &points);
 
 private:
-  const double m_cell_size;
-  const double m_domain_size;
-  const int m_table_size;
+  const double m_cell_size = param::NNGridTable_CELL_SIZE;
+  const double m_domain_size = param::NNGridTable_DOMAIN_SIZE;
+  const int m_table_size = static_cast<int>(param::NNGridTable_DOMAIN_SIZE /
+                                            param::NNGridTable_CELL_SIZE);
 
   std::vector<NNGridCell> m_table;
 

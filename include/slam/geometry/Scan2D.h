@@ -23,8 +23,9 @@ public:
   inline const Pose2D &pose() const { return m_pose; }
 
 public:
-  Scan2D();
-  ~Scan2D();
+  Scan2D() {}
+  ~Scan2D() { m_scaned_points.reserve(0); }
+
   void SetScanedPoints(const std::vector<ScanPoint2D> &scaned_points);
   void SetPose(const Pose2D &pose);
   void SetAngle(double rad);
