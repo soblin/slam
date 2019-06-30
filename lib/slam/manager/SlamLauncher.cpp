@@ -62,6 +62,7 @@ void SlamLauncher::MapByOdometry(const Scan2D &scan) {
 
   cloud_map_ptr->AddPose(pose);
   cloud_map_ptr->AddPoints(global_points);
+  cloud_map_ptr->MakeGlobalMap();
 }
 
 bool SlamLauncher::SetFilename(const std::string filename) {
@@ -98,9 +99,25 @@ void SlamLauncher::Run() {
   }
 }
 
-void SlamLauncher::CustomizeFrameWork() {
+void SlamLauncher::CustomizeFrameWork(const std::string &type) {
   m_customizer.SetSlamFrontEnd(&m_slam_frontend);
 
-  m_customizer.CustomizeG();
+  if (type == "customA")
+    m_customizer.CustomizeA();
+  else if (type == "customB")
+    m_customizer.CustomizeB();
+  else if (type == "customC")
+    m_customizer.CustomizeC();
+  else if (type == "customD")
+    m_customizer.CustomizeD();
+  else if (type == "customE")
+    m_customizer.CustomizeE();
+  else if (type == "customF")
+    m_customizer.CustomizeF();
+  else if (type == "customG")
+    m_customizer.CustomizeG();
+  else
+    m_customizer.CustomizeH();
 }
+
 } // namespace slam

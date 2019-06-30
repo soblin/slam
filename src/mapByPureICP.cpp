@@ -10,41 +10,25 @@ int main(int argc, char **argv) {
   bool scanCheck = false;    // only display the scan if true
   bool odometryOnly = false; // use raw odometry if true
   char *filename;
-  int startScanIndex = 0;
+  std::string customize;
 
   if (argc < 2) {
-    std::cerr << "Usage: ./SLAM (-{so}) <relative-path-to-filename> "
-                 "(<startScanIndex>)"
+    std::cerr << "Usage: ./SLAM <relative-path-to-filename>"
+                 "custom[A-G]"
               << std::endl;
     return 1;
   }
 
   // process the arguments
   int idx = 2;
-  if (argv[1][0] == '-') {
-    for (int i = 1;; ++i) {
-      char option = argv[1][i];
-      if (!option) {
-        break;
-      } else if (option == 's') {
-        scanCheck = true;
-      } else if (option == 'o') {
-        odometryOnly = true;
-      }
-    }
-    if (argc == 2) {
-      std::cerr << "No file specified" << std::endl;
-      return 1;
-    }
-    idx++;
-  }
   if (argc < idx) {
     std::cerr << "Too few arguments" << std::endl;
     return 1;
   }
   filename = argv[idx - 1];
+
   if (argc == idx + 1) {
-    startScanIndex = atoi(argv[idx]);
+    customize = std::string(argv[idx]);
   }
 
   char buf[256] = {};
@@ -60,7 +44,7 @@ int main(int argc, char **argv) {
   if (!sl.SetFilename(filepath)) {
     std::cout << "failed to open " << filepath << std::endl;
   }
-  sl.CustomizeFrameWork();
+  sl.CustomizeFrameWork(customize);
   sl.Run();
   std::cout << "finished completely" << std::endl;
 }

@@ -26,7 +26,7 @@ public:
   void MapByOdometry(const Scan2D &scan);
   bool SetFilename(const std::string filename);
   void Run();
-  void CustomizeFrameWork();
+  void CustomizeFrameWork(const std::string &type);
 };
 
 } // namespace slam

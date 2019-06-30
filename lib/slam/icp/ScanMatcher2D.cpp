@@ -78,6 +78,8 @@ void ScanMatcher2D::GrowMap(const Scan2D &scan, const Pose2D &pose) {
   std::vector<ScanPoint2D> scaned_points_global;
   for (unsigned i = 0; i < scaned_points.size(); ++i) {
     const ScanPoint2D &scan_point = scaned_points[i];
+    if (scan_point.type() == ScanPoint2D::PointType::ISOLATE)
+      continue;
 
     double x = pose.R00() * scan_point.x() + pose.R01() * scan_point.y() + tx;
     double y = pose.R10() * scan_point.x() + pose.R11() * scan_point.y() + ty;
@@ -89,12 +91,12 @@ void ScanMatcher2D::GrowMap(const Scan2D &scan, const Pose2D &pose) {
     point.SetType(scan_point.type());
     scaned_points_global.emplace_back(point);
   }
-
   // register the new global points
   cloud_map_ptr->AddPose(pose);
   cloud_map_ptr->AddPoints(scaned_points_global);
   cloud_map_ptr->SetLastPose(pose);
   cloud_map_ptr->SetLastScan(scan);
+  cloud_map_ptr->MakeLocalMap();
 }
 
 } /* namespace slam */

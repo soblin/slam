@@ -8,18 +8,13 @@ namespace slam {
 
 class SlamFrontEnd {
 private:
-  PointCloudMap *m_point_cloud_map_ptr;
   ScanMatcher2D *m_scan_matcher_ptr;
 
 public:
   inline void SetScanMatcher2D(ScanMatcher2D *p) { m_scan_matcher_ptr = p; }
-  inline void SetRefScanMaker(RefScanMaker *p) {
-    m_scan_matcher_ptr->SetRefScanMaker(p);
-  }
 
 public:
-  SlamFrontEnd()
-      : m_point_cloud_map_ptr(nullptr), m_scan_matcher_ptr(nullptr) {}
+  SlamFrontEnd() : m_scan_matcher_ptr(nullptr) {}
   ~SlamFrontEnd() {}
 
   void Process(Scan2D &scan);

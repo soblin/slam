@@ -58,6 +58,7 @@ public:
   void CustomizeE();
   void CustomizeF();
   void CustomizeG();
+  void CustomizeH();
 };
 
 } /* namespace slam */

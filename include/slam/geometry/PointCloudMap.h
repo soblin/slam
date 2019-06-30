@@ -21,6 +21,9 @@ protected:
   Pose2D m_last_pose;
   Scan2D m_last_scan;
 
+  // for Samping
+  //  int m_cell_thresh;
+
 public:
   inline const std::vector<Pose2D> &poses() const { return m_poses; }
   inline const std::vector<ScanPoint2D> &global_map() const {
