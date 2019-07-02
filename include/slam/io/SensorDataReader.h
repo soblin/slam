@@ -21,10 +21,10 @@ public:
   void CloseScanFile();
   void SetAngleOffset(int offset);
 
-  bool LoadScan(size_t cnt_id, Scan2D &output);
+  bool LoadScan(Scan2D &output);
 
 private:
-  bool LoadScanImpl(size_t cnt_id, Scan2D &output);
+  bool LoadScanImpl(Scan2D &output);
 };
 } // namespace
 

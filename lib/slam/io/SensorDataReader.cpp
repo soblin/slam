@@ -1,6 +1,7 @@
 #include <iostream>
 #include <math.h>
 #include <slam/io/SensorDataReader.h>
+#include <slam/manager/ParamServer.h>
 
 namespace slam {
 
@@ -17,10 +18,10 @@ void SensorDataReader::CloseScanFile() { m_in_file.close(); }
 
 void SensorDataReader::SetAngleOffset(int offset) { m_angle_offset = offset; }
 
-bool SensorDataReader::LoadScan(size_t cnt_id, Scan2D &output) {
+bool SensorDataReader::LoadScan(Scan2D &output) {
   bool is_scan = false;
   while (!m_in_file.eof() and !is_scan) {
-    is_scan = LoadScanImpl(cnt_id, output);
+    is_scan = LoadScanImpl(output);
   }
   if (is_scan)
     return false; // the file continues
@@ -28,7 +29,10 @@ bool SensorDataReader::LoadScan(size_t cnt_id, Scan2D &output) {
     return true; // EOF of scan file
 }
 
-bool SensorDataReader::LoadScanImpl(size_t cnt_id, Scan2D &output) {
+bool SensorDataReader::LoadScanImpl(Scan2D &output) {
+  double max_scan_range = ParamServer::Get("Scan2D_MAX_SCAN_RANGE");
+  double min_scan_range = ParamServer::Get("Scan2D_MIN_SCAN_RANGE");
+
   std::string type;
   // data format
   // Attention! the angle is [deg]
@@ -50,8 +54,7 @@ bool SensorDataReader::LoadScanImpl(size_t cnt_id, Scan2D &output) {
     for (int i = 0; i < scan_num; ++i) {
       m_in_file >> deg >> dist;
       deg += m_angle_offset;
-      if (dist >= param::Scan2D_MAX_SCAN_RANGE ||
-          dist <= param::Scan2D_MIN_SCAN_RANGE)
+      if (dist >= max_scan_range || dist <= min_scan_range)
         continue;
       scan_point.CalcXY(dist, M_PI * deg / 180);
       scan_points.emplace_back(scan_point);

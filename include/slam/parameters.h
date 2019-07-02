@@ -6,8 +6,10 @@
 namespace slam {
 namespace param {
 
+// SensorDataReader.cpp, line33
 static constexpr double Scan2D_MAX_SCAN_RANGE = 6.0;
 static constexpr double Scan2D_MIN_SCAN_RANGE = 0.1;
+//
 static constexpr double PointCloudMapBS_SKIP = 5.0;
 static constexpr double PointCloudMap_MAX_POINT_NUM = 1000000;
 static constexpr int PointCloudMap_CELL_POINT_NUM_THRESH = 1;

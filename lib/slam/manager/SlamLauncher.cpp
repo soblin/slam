@@ -25,7 +25,7 @@ void SlamLauncher::ShowScans() {
   // store the read data to scan
   // but this does not accumulate the scans
   Scan2D scan_buf;
-  bool eof = m_sensor_reader.LoadScan(cnt, scan_buf);
+  bool eof = m_sensor_reader.LoadScan(scan_buf);
   while (!eof) {
     usleep(param::SlamLauncher_SLEEP_TIME);
     m_map_drawer.DrawScanGp(scan_buf);
@@ -33,7 +33,7 @@ void SlamLauncher::ShowScans() {
     if (logger)
       std::cout << "--- scan num=" << cnt << " ---" << '\n';
 
-    eof = m_sensor_reader.LoadScan(cnt, scan_buf);
+    eof = m_sensor_reader.LoadScan(scan_buf);
     ++cnt;
   }
   this->m_sensor_reader.CloseScanFile();
@@ -73,7 +73,7 @@ void SlamLauncher::Run() {
 
   size_t cnt = 0;
   Scan2D scan_buf;
-  bool eof = m_sensor_reader.LoadScan(cnt, scan_buf);
+  bool eof = m_sensor_reader.LoadScan(scan_buf);
   while (!eof) {
     if (m_odometry_only) {
       if (cnt == 0) {
@@ -90,7 +90,7 @@ void SlamLauncher::Run() {
       m_map_drawer.DrawGp(cloud_map_ptr);
     }
     ++cnt;
-    eof = m_sensor_reader.LoadScan(cnt, scan_buf);
+    eof = m_sensor_reader.LoadScan(scan_buf);
     usleep(param::SlamLauncher_SLEEP_TIME);
   }
 }
@@ -108,6 +108,7 @@ void SlamLauncher::CustomizeFrameWork(const std::string &type) {
     m_customizer.CustomizeD();
   else if (type == "customE")
     m_customizer.CustomizeE();
+
   else if (type == "customF")
     m_customizer.CustomizeF();
   else if (type == "customG")

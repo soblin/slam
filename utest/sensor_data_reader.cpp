@@ -3,8 +3,13 @@
 #include <gtest/gtest.h>
 
 #include "slam/io/SensorDataReader.h"
+#include "slam/manager/ParamServer.h"
 
 TEST(SensorDataReader, read_test) {
+  slam::ParamServer::Create();
+  slam::ParamServer::Set("Scan2D_MAX_SCAN_RANGE", 6.0);
+  slam::ParamServer::Set("Scan2D_MIN_SCAN_RANGE", 0.1);
+
   std::ofstream ofs("test.lsc");
   // (x, y, theta) = (10, 10, π/3)
   /*
@@ -26,9 +31,9 @@ TEST(SensorDataReader, read_test) {
   slam::SensorDataReader reader;
   reader.OpenScanFile("test.lsc");
   slam::Scan2D scan1;
-  reader.LoadScan(0, scan1);
+  reader.LoadScan(scan1);
   slam::Scan2D scan2;
-  reader.LoadScan(1, scan2);
+  reader.LoadScan(scan2);
   scan1.scaned_points()[0];
   ASSERT_EQ(5, scan1.scaned_points().size());
   ASSERT_EQ(3, scan2.scaned_points().size());
@@ -41,7 +46,7 @@ TEST(SensorDataReader, scaned_local_position_test) {
 
   // read the first line
 
-  reader.LoadScan(0, scan);
+  reader.LoadScan(scan);
   // attention!! angle_offset = 180[deg]
 
   // for (-180, 1) -> (0[deg], 1[m]), x == 1, y == 0
@@ -58,7 +63,7 @@ TEST(SensorDataReader, scaned_local_position_test) {
 
   // read the second line
   decltype(scan) scan2;
-  reader.LoadScan(1, scan2);
+  reader.LoadScan(scan2);
   // for (-120, 3) -> (60[deg], 3[m])
   ASSERT_FLOAT_EQ(1.5, scan2.scaned_points()[1].x());
   ASSERT_FLOAT_EQ(std::sqrt(3.) * 1.5, scan2.scaned_points()[1].y());

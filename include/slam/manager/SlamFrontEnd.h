@@ -17,6 +17,7 @@ public:
   SlamFrontEnd() : m_scan_matcher_ptr(nullptr) {}
   ~SlamFrontEnd() {}
 
+  void Init();
   void Process(Scan2D &scan);
 };
 
