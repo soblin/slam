@@ -1,7 +1,7 @@
 #include <iostream>
 #include <slam/geometry/PointCloudMap.h>
 #include <slam/io/MapDrawer.h>
-#include <slam/parameters.h>
+#include <slam/manager/ParamServer.h>
 
 #ifdef DEBUG
 static constexpr bool logger = true;
@@ -73,38 +73,41 @@ void MapDrawer::DrawTrajectoryGp(const std::vector<Pose2D> &poses) {
 
 void MapDrawer::DrawGp(const std::vector<ScanPoint2D> &scaned_points,
                        const std::vector<Pose2D> &poses, bool flush) {
-  if (logger) {
-    std::cout << "DrawGp: scan points are " << scaned_points.size()
-              << std::endl;
-  }
+  std::cout << "DrawGp: scan points are " << scaned_points.size() << std::endl;
 
   fprintf(m_gp, "set multiplot\n");
   fprintf(m_gp, "plot '-' w p pt 7 ps 0.1 lc rgb 0x0, '-' with vector\n");
 
   // plot the point cloud
-  for (size_t i = 0, size = scaned_points.size(); i < size;
-       i += param::MapDrawer_STEP_POINT) {
+  int step = static_cast<int>(ParamServer::Get("MapDrawer_STEP_POINT"));
+
+  for (size_t i = 0, size = scaned_points.size(); i < size; i += step) {
     double tx = scaned_points[i].x();
     double ty = scaned_points[i].y();
     fprintf(m_gp, "%lf %lf\n", tx, ty);
   }
+
   fprintf(m_gp, "e\n");
 
   // plot the robot pose
-  for (size_t i = 0, size = poses.size(); i < size;
-       i += param::MapDrawer_STEP_POSE) {
+  step = static_cast<int>(ParamServer::Get("MapDrawer_STEP_POSE"));
+  double d = ParamServer::Get("MapDrawer_DD");
+
+  for (size_t i = 0, size = poses.size(); i < size; i += step) {
     double cx = poses[i].tx();
     double cy = poses[i].ty();
     double Cos = poses[i].R00();
     double Sin = poses[i].R10();
 
-    double x1 = Cos * param::MapDrawer_DD;
-    double y1 = Sin * param::MapDrawer_DD;
-    double x2 = -Sin * param::MapDrawer_DD;
-    double y2 = Cos * param::MapDrawer_DD;
+    double x1 = Cos * d;
+    double y1 = Sin * d;
+    double x2 = -Sin * d;
+    double y2 = Cos * d;
+
     fprintf(m_gp, "%lf %lf %lf %lf\n", cx, cy, x1, y1);
     fprintf(m_gp, "%lf %lf %lf %lf\n", cx, cy, x2, y2);
   }
+
   fprintf(m_gp, "e\n");
 
   if (flush)
