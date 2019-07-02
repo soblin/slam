@@ -1,5 +1,6 @@
 #include <cmath>
 #include <slam/geometry/NNGridTable.h>
+#include <slam/manager/ParamServer.h>
 
 namespace slam {
 
@@ -65,12 +66,16 @@ const ScanPoint2D *NNGridTable::FindClosestPointImpl(const ScanPoint2D *query,
 
 const ScanPoint2D *NNGridTable::FindClosestPoint(const ScanPoint2D *query,
                                                  const Pose2D &basePose) {
-  return FindClosestPointImpl(query, basePose,
-                              param::NNGridTable_MIN_DIST_THRESH);
+  double min_dist_thresh = ParamServer::Get("NNGridTable_MIN_DIST_THRESH");
+
+  return FindClosestPointImpl(query, basePose, min_dist_thresh);
 }
 
 void NNGridTable::MakeCellPoints(std::vector<ScanPoint2D> &points) {
-  MakeCellPointsImpl(param::PointCloudMap_CELL_POINT_NUM_THRESH, points);
+  double cell_thresh =
+      ParamServer::Get("PointCloudMapGT_CELL_POINT_NUM_THRESH");
+
+  MakeCellPointsImpl(cell_thresh, points);
 }
 
 void NNGridTable::MakeCellPointsImpl(int cell_point_num_thresh,

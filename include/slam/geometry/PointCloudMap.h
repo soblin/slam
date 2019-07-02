@@ -22,9 +22,6 @@ protected:
   Pose2D m_last_pose;
   Scan2D m_last_scan;
 
-  // for Samping
-  //  int m_cell_thresh;
-
 public:
   inline const std::vector<Pose2D> &poses() const { return m_poses; }
   inline const std::vector<ScanPoint2D> &global_map() const {
@@ -40,8 +37,6 @@ public:
   inline const Pose2D &GetLastPose() const { return m_last_pose; }
   inline void SetLastPose(const Pose2D &pose) { m_last_pose = pose; }
   inline void SetLastScan(const Scan2D &scan) { m_last_scan = scan; }
-  //  inline void SetCellThresh(int n) { m_cell_thresh = n; }
-  //  inline void GetCellThresh(int& n) const { n = m_cell_thresh; }
 
   PointCloudMap() { m_global_map.reserve(param::PointCloudMap_MAX_POINT_NUM); }
 
