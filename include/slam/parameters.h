@@ -23,15 +23,15 @@ static constexpr double PointCloudMap_MAX_POINT_NUM = 1000000;
 static constexpr double SensorDataReader_ANGLE_OFFSET = 180;
 
 // MapDrawer.cpp, line85, 94
-static constexpr double MapDrawer_STEP_POINT = 1.0;
-static constexpr double MapDrawer_STEP_POSE = 10;
+// static constexpr double MapDrawer_STEP_POINT = 1.0;
+// static constexpr double MapDrawer_STEP_POSE = 10;
 
 // MapDrawer.cpp, line101
-static constexpr double MapDrawer_DD = 0.4;
+// static constexpr double MapDrawer_DD = 0.4;
 
 // SlamLauncher.cpp, 26
-static constexpr int SlamLauncher_SLEEP_TIME = 100000;
-static constexpr int SlamLauncher_PLOT_SKIP = 10;
+//static constexpr int SlamLauncher_SLEEP_TIME = 100000;
+//static constexpr int SlamLauncher_PLOT_SKIP = 10;
 
 static constexpr double DataAssociatorLS_DIST_THRESH = 0.2;
 static constexpr double CostFunction_VAL_THRESH = 0.2;

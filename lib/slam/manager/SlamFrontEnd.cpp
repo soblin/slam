@@ -6,6 +6,7 @@ namespace slam {
 
 void SlamFrontEnd::Init() {
   CounterServer::Create();
+
   ParamServer::Create();
   ParamServer::Set("Scan2D_MAX_SCAN_RANGE", 6.0);
   ParamServer::Set("Scan2D_MIN_SCAN_RANGE", 0.1);

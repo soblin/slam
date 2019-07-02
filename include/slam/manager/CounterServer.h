@@ -6,8 +6,10 @@ namespace slam {
 class CounterServer {
 public:
   static void Create() {
-    if (m_instance_ptr == nullptr)
+    if (m_instance_ptr == nullptr) {
       m_instance_ptr = new CounterServer;
+      m_cnt = 0;
+    }
   }
 
   static int Get() { return m_cnt; }

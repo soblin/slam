@@ -2,8 +2,9 @@
 #include <unistd.h>
 
 #include <slam/geometry/PointCloudMap.h>
+#include <slam/manager/CounterServer.h>
+#include <slam/manager/ParamServer.h>
 #include <slam/manager/SlamLauncher.h>
-#include <slam/parameters.h>
 
 #ifdef DEBUG
 static constexpr bool logger = true;
@@ -14,32 +15,6 @@ static constexpr bool logger = false;
 namespace slam {
 
 void SlamLauncher::SetOdometryOnly(bool only) { m_odometry_only = only; }
-
-void SlamLauncher::ShowScans() {
-  m_map_drawer.InitGnuplot();
-  m_map_drawer.SetRange(-6, 6, -6, 6);
-  m_map_drawer.SetAspectRatio(-0.9);
-
-  size_t cnt = 0;
-
-  // store the read data to scan
-  // but this does not accumulate the scans
-  Scan2D scan_buf;
-  bool eof = m_sensor_reader.LoadScan(scan_buf);
-  while (!eof) {
-    usleep(param::SlamLauncher_SLEEP_TIME);
-    m_map_drawer.DrawScanGp(scan_buf);
-
-    if (logger)
-      std::cout << "--- scan num=" << cnt << " ---" << '\n';
-
-    eof = m_sensor_reader.LoadScan(scan_buf);
-    ++cnt;
-  }
-  this->m_sensor_reader.CloseScanFile();
-  if (logger)
-    std::cout << "SlamLauncher finished" << std::endl;
-}
 
 void SlamLauncher::MapByOdometry(const Scan2D &scan) {
   PointCloudMap *cloud_map_ptr = PointCloudMapSingleton::GetCloudMap();
@@ -66,15 +41,22 @@ bool SlamLauncher::SetFilename(const std::string filename) {
 }
 
 void SlamLauncher::Run() {
-  PointCloudMap *cloud_map_ptr = PointCloudMapSingleton::GetCloudMap();
-
   m_map_drawer.InitGnuplot();
   m_map_drawer.SetAspectRatio(-0.9);
 
-  size_t cnt = 0;
+  m_slam_frontend.Init();
+
+  int skip = static_cast<int>(ParamServer::Get("SlamLauncher_PLOT_SKIP"));
+  int usleep_time =
+      static_cast<int>(ParamServer::Get("SlamLauncher_SLEEP_TIME"));
+
   Scan2D scan_buf;
   bool eof = m_sensor_reader.LoadScan(scan_buf);
+  PointCloudMap *cloud_map_ptr = PointCloudMapSingleton::GetCloudMap();
+
   while (!eof) {
+    int cnt = CounterServer::Get();
+
     if (m_odometry_only) {
       if (cnt == 0) {
         m_initial_pose = scan_buf.pose();
@@ -82,16 +64,18 @@ void SlamLauncher::Run() {
       }
       // use raw scan and add to PointCloudMap
       MapByOdometry(scan_buf);
-    } else {
+    }
+
+    else {
       // use ICP and add to PointCloudMap
       m_slam_frontend.Process(scan_buf);
     }
-    if (cnt % param::SlamLauncher_PLOT_SKIP == 0) {
+    if (cnt % skip == 0) {
       m_map_drawer.DrawGp(cloud_map_ptr);
     }
-    ++cnt;
+
     eof = m_sensor_reader.LoadScan(scan_buf);
-    usleep(param::SlamLauncher_SLEEP_TIME);
+    usleep(usleep_time);
   }
 }
 
