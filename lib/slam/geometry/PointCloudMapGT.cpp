@@ -1,4 +1,5 @@
 #include <slam/geometry/PointCloudMapGT.h>
+#include <utility>
 
 namespace slam {
 
@@ -6,6 +7,10 @@ void PointCloudMapGT::AddPose(const Pose2D &p) { m_poses.emplace_back(p); }
 
 void PointCloudMapGT::AddPoint(const ScanPoint2D &p) {
   m_all_points.emplace_back(p);
+}
+
+void PointCloudMapGT::AddPoint(ScanPoint2D &&p) {
+  m_all_points.emplace_back(std::forward<ScanPoint2D>(p));
 }
 
 void PointCloudMapGT::SubsamplePoints(std::vector<ScanPoint2D> &subs) {

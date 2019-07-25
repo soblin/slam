@@ -36,7 +36,7 @@ void FrameWorkCustomizer::CustomizeB() {
   m_scan_matcher.SetEstimatorICP(&m_pose_estimator);
 
   // customize
-  // use PointCloudMapBS
+  // use PointCloudMapGT
   PointCloudMapSingleton::Create(&m_point_cloud_map_gt);
 
   popt->SetCostFunction(cfunc);
@@ -57,7 +57,7 @@ void FrameWorkCustomizer::CustomizeC() {
   m_scan_matcher.SetEstimatorICP(&m_pose_estimator);
 
   // customize
-  // use PointCloudMapBS
+  // use PointCloudMapGT
   PointCloudMapSingleton::Create(&m_point_cloud_map_gt);
 
   popt->SetCostFunction(cfunc);
@@ -78,7 +78,7 @@ void FrameWorkCustomizer::CustomizeD() {
   m_scan_matcher.SetEstimatorICP(&m_pose_estimator);
 
   // customize
-  // use PointCloudMapBS
+  // use PointCloudMapGT
   PointCloudMapSingleton::Create(&m_point_cloud_map_gt);
 
   popt->SetCostFunction(cfunc);
@@ -99,7 +99,7 @@ void FrameWorkCustomizer::CustomizeE() {
   m_scan_matcher.SetEstimatorICP(&m_pose_estimator);
 
   // customize
-  // use PointCloudMapBS
+  // use PointCloudMapGT
   PointCloudMapSingleton::Create(&m_point_cloud_map_gt);
 
   popt->SetCostFunction(cfunc);
@@ -122,7 +122,7 @@ void FrameWorkCustomizer::CustomizeF() {
   m_scan_matcher.SetEstimatorICP(&m_pose_estimator);
 
   // customize
-  // use PointCloudMapBS
+  // use PointCloudMapGT
   PointCloudMapSingleton::Create(&m_point_cloud_map_gt);
 
   popt->SetCostFunction(cfunc);
@@ -146,7 +146,7 @@ void FrameWorkCustomizer::CustomizeG() {
   m_scan_matcher.SetEstimatorICP(&m_pose_estimator);
 
   // customize
-  // use PointCloudMapBS
+  // use PointCloudMapGT
   PointCloudMapSingleton::Create(&m_point_cloud_map_gt);
 
   popt->SetCostFunction(cfunc);
@@ -170,7 +170,7 @@ void FrameWorkCustomizer::CustomizeH() {
   m_scan_matcher.SetEstimatorICP(&m_pose_estimator);
 
   // customize
-  // use PointCloudMapBS
+  // use PointCloudMapGT
   PointCloudMapSingleton::Create(&m_point_cloud_map_gt);
 
   popt->SetCostFunction(cfunc);

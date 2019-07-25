@@ -30,8 +30,8 @@ static constexpr double SensorDataReader_ANGLE_OFFSET = 180;
 // static constexpr double MapDrawer_DD = 0.4;
 
 // SlamLauncher.cpp, 26
-//static constexpr int SlamLauncher_SLEEP_TIME = 100000;
-//static constexpr int SlamLauncher_PLOT_SKIP = 10;
+// static constexpr int SlamLauncher_SLEEP_TIME = 100000;
+// static constexpr int SlamLauncher_PLOT_SKIP = 10;
 
 static constexpr double DataAssociatorLS_DIST_THRESH = 0.2;
 static constexpr double CostFunction_VAL_THRESH = 0.2;

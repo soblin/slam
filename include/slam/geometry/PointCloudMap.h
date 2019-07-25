@@ -47,6 +47,7 @@ public:
 
   virtual void AddPose(const Pose2D &pose) = 0;
   virtual void AddPoint(const ScanPoint2D &scan) = 0;
+  virtual void AddPoint(ScanPoint2D &&scan) = 0;
   virtual void AddPoints(const std::vector<ScanPoint2D> &scans) = 0;
   virtual void MakeGlobalMap() = 0;
   virtual void MakeLocalMap() = 0;

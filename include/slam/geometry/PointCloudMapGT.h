@@ -19,6 +19,7 @@ public:
 
   virtual void AddPose(const Pose2D &p) override;
   virtual void AddPoint(const ScanPoint2D &scan) override;
+  virtual void AddPoint(ScanPoint2D &&scan) override;
   virtual void AddPoints(const std::vector<ScanPoint2D> &points) override;
   virtual void MakeGlobalMap() override;
   virtual void MakeLocalMap() override;

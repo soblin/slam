@@ -45,6 +45,7 @@ bool ScanMatcher2D::MatchScan(Scan2D &curScan) {
 
   Pose2D estimatedPose;
 
+  // predictedPose is the initial guess of estimatedPose!!
   double score = m_estimator_ptr->EstimatePose(predictedPose, estimatedPose);
 
   std::size_t usedNum = m_estimator_ptr->GetUsedNum();
@@ -75,7 +76,7 @@ void ScanMatcher2D::GrowMap(const Scan2D &scan, const Pose2D &pose) {
   double tx = pose.tx();
   double ty = pose.ty();
 
-  std::vector<ScanPoint2D> scaned_points_global;
+  // std::vector<ScanPoint2D> scaned_points_global;
   for (unsigned i = 0; i < scaned_points.size(); ++i) {
     const ScanPoint2D &scan_point = scaned_points[i];
     if (scan_point.type() == ScanPoint2D::PointType::ISOLATE)
@@ -86,14 +87,15 @@ void ScanMatcher2D::GrowMap(const Scan2D &scan, const Pose2D &pose) {
     double nx = pose.R00() * scan_point.nx() + pose.R01() * scan_point.ny();
     double ny = pose.R10() * scan_point.nx() + pose.R11() * scan_point.ny();
 
-    ScanPoint2D point(x, y);
-    point.SetNormal(nx, ny);
-    point.SetType(scan_point.type());
-    scaned_points_global.emplace_back(point);
+    // ScanPoint2D point(x, y);
+    // point.SetNormal(nx, ny);
+    // point.SetType(scan_point.type());
+    // scaned_points_global.emplace_back(point);
+    cloud_map_ptr->AddPoint(ScanPoint2D(x, y, nx, ny, scan_point.type()));
   }
   // register the new global points
   cloud_map_ptr->AddPose(pose);
-  cloud_map_ptr->AddPoints(scaned_points_global);
+  // cloud_map_ptr->AddPoints(scaned_points_global);
   cloud_map_ptr->SetLastPose(pose);
   cloud_map_ptr->SetLastScan(scan);
   cloud_map_ptr->MakeLocalMap();
