@@ -24,7 +24,8 @@ double PoseOptimizerSD::OptimizePoseImpl(const Pose2D &initPose,
   double dd = ds;
   double dth = dtheta;
 
-  while (std::abs(eval_old - eval) > val_diff_thresh) {
+  while (std::fabs(eval_old - eval) > param::PoseOptimizer_VAL_DIFF_THRESH &&
+         number_of_iteration < 100) {
     number_of_iteration++;
     eval_old = eval;
 

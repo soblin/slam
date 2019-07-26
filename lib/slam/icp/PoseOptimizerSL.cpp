@@ -18,10 +18,11 @@ double PoseOptimizerSL::OptimizePose(const Pose2D &initPose,
   Pose2D pose, direction;
 
   double cost = m_cost_func_ptr->CalcValue(tx, ty, th);
-  int cnt = 0;
+  int number_of_iteration = 0;
 
-  while (std::fabs(prev_cost - cost) > param::PoseOptimizer_VAL_DIFF_THRESH) {
-    cnt++;
+  while (std::fabs(prev_cost - cost) > param::PoseOptimizer_VAL_DIFF_THRESH &&
+         number_of_iteration < 200) {
+    number_of_iteration++;
     prev_cost = cost;
 
     static constexpr double dd = param::PoseOptimizer_TickDist;

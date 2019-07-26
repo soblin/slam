@@ -30,6 +30,11 @@ void SlamFrontEnd::Process(Scan2D &scan) {
   m_scan_matcher_ptr->MatchScan(scan);
   // get the estimated current pose with ICP
   //  Pose2D curPose = m_point_cloud_map_ptr->GetLastPose();
+  if (cnt == 0)
+    ParamServer::Set("PointCloudMapGT_CELL_POINT_NUM_THRESH", 1.0);
+  else
+    ParamServer::Set("PointCloudMapGT_CELL_POINT_NUM_THRESH", 5.0);
+
   cloud_map_ptr->MakeGlobalMap();
 
   CounterServer::Increment();
