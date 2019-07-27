@@ -1,5 +1,6 @@
 #include <gtest/gtest.h>
 #include <slam/icp/DataAssociatorGT.h>
+#include <slam/manager/SlamFrontEnd.h>
 
 namespace slam {
 
@@ -23,6 +24,9 @@ public:
 using namespace slam;
 
 TEST_F(DataAssociatorGTTestFriend, testFindCorrespondence) {
+  SlamFrontEnd frontend;
+  frontend.Init();
+
   std::vector<ScanPoint2D> ref_points;
   std::vector<ScanPoint2D> cur_points;
   Pose2D predPose(0, 0, 0);
