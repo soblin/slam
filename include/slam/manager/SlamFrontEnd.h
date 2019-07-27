@@ -7,9 +7,6 @@
 namespace slam {
 
 class SlamFrontEnd {
-private:
-  ScanMatcher2D *m_scan_matcher_ptr;
-
 public:
   inline void SetScanMatcher2D(ScanMatcher2D *p) { m_scan_matcher_ptr = p; }
 
@@ -19,6 +16,10 @@ public:
 
   void Init();
   void Process(Scan2D &scan);
+
+private:
+  ScanMatcher2D *m_scan_matcher_ptr;
+  void RegisterParams();
 };
 
 } /* namespace slam */

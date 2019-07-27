@@ -19,6 +19,8 @@ public:
 
   virtual double FindCorrespondence(const Scan2D *curScan,
                                     const Pose2D &predictedPose) override;
+
+  friend class DataAssociatorGTTestFriend;
 };
 
 } // namespace slam

@@ -84,5 +84,16 @@ add_test(
   COMMAND $<TARGET_FILE:scanpointresampler_test>
   )
 
+add_executable(data_associatorgt_test data_associatorls.cpp)
+target_link_libraries(data_associatorgt_test
+  slam
+  gtest
+  gtest_main
+  pthread)
+add_test(
+  NAME data_associatorgt
+  COMMAND $<TARGET_FILE:data_associatorgt_test>
+  )
+
 set(EXECUTABLE_OUTPUT_PATH ${CMAKE_CURRENT_SOURCE_DIR}/bin)
 
