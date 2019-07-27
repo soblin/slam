@@ -102,4 +102,12 @@ void NNGridTable::MakeCellPointsImpl(int cell_point_num_thresh,
     }
   }
 }
+
+void NNGridTable::Initialize() {
+  m_cell_size = ParamServer::Get("NNGridTable_CELL_SIZE");
+  m_domain_size = ParamServer::Get("NNGridTable_DOMAIN_SIZE");
+  m_table_size = static_cast<int>(m_domain_size / m_cell_size);
+  int width = 2 * m_table_size + 1;
+  m_table.resize(width * width);
+}
 } // namespace slam

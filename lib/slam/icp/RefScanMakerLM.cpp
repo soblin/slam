@@ -6,7 +6,7 @@ namespace slam {
 const Scan2D *RefScanMakerLM::MakeRefScan() {
   std::vector<ScanPoint2D> refPoints;
 
-  const auto cloud_map_ptr = PointCloudMapSingleton::GetCloudMap();
+  static const auto cloud_map_ptr = PointCloudMapSingleton::GetCloudMap();
   const auto &localMap = cloud_map_ptr->local_map();
 
   for (unsigned i = 0; i < localMap.size(); ++i) {

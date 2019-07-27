@@ -17,11 +17,14 @@ void SlamFrontEnd::Initialize() {
   assert(!m_scan_matcher_ptr);
   if (!m_scan_matcher_ptr)
     m_scan_matcher_ptr->Initialize();
+
+  PointCloudMap *cloud_map_ptr = PointCloudMapSingleton::GetCloudMap();
+  cloud_map_ptr->Initialize();
 }
 
 // process the scan data, which was generated at SensorDataReader
 void SlamFrontEnd::Process(Scan2D &scan) {
-  PointCloudMap *cloud_map_ptr = PointCloudMapSingleton::GetCloudMap();
+  static PointCloudMap *cloud_map_ptr = PointCloudMapSingleton::GetCloudMap();
 
   int cnt = CounterServer::Get();
 

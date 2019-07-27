@@ -7,7 +7,7 @@
 #include <slam/geometry/Pose2D.h>
 #include <slam/geometry/Scan2D.h>
 #include <slam/geometry/ScanPoint2D.h>
-#include <slam/parameters.h>
+#include <slam/manager/ParamServer.h>
 
 namespace slam {
 
@@ -38,7 +38,7 @@ public:
   inline void SetLastPose(const Pose2D &pose) { m_last_pose = pose; }
   inline void SetLastScan(const Scan2D &scan) { m_last_scan = scan; }
 
-  PointCloudMap() { m_global_map.reserve(param::PointCloudMap_MAX_POINT_NUM); }
+  PointCloudMap() {}
 
   virtual ~PointCloudMap() {
     m_poses.reserve(0);
@@ -52,6 +52,7 @@ public:
   virtual void MakeGlobalMap() = 0;
   virtual void MakeLocalMap() = 0;
   virtual void RemakeMaps(const std::vector<Pose2D> &newposes) = 0;
+  virtual void Initialize() = 0;
 };
 
 class PointCloudMapSingleton {

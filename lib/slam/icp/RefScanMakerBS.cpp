@@ -4,7 +4,7 @@
 namespace slam {
 
 const Scan2D *RefScanMakerBS::MakeRefScan() {
-  PointCloudMap *cloud_map_ptr = PointCloudMapSingleton::GetCloudMap();
+  static PointCloudMap *cloud_map_ptr = PointCloudMapSingleton::GetCloudMap();
 
   std::vector<ScanPoint2D> newScan;
 

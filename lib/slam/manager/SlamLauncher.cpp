@@ -17,7 +17,7 @@ namespace slam {
 void SlamLauncher::SetOdometryOnly(bool only) { m_odometry_only = only; }
 
 void SlamLauncher::MapByOdometry(const Scan2D &scan) {
-  PointCloudMap *cloud_map_ptr = PointCloudMapSingleton::GetCloudMap();
+  static PointCloudMap *cloud_map_ptr = PointCloudMapSingleton::GetCloudMap();
 
   Pose2D pose;
   Pose2D::CalcRelativePose(scan.pose(), m_initial_pose, pose);
@@ -53,7 +53,7 @@ void SlamLauncher::Run() {
 
   Scan2D scan_buf;
   bool eof = m_sensor_reader.LoadScan(scan_buf);
-  PointCloudMap *cloud_map_ptr = PointCloudMapSingleton::GetCloudMap();
+  static PointCloudMap *cloud_map_ptr = PointCloudMapSingleton::GetCloudMap();
 
   while (!eof) {
     int cnt = CounterServer::Get();

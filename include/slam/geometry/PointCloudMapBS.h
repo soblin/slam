@@ -20,6 +20,7 @@ public:
   virtual void MakeGlobalMap() override;
   virtual void MakeLocalMap() override;
   virtual void RemakeMaps(const std::vector<Pose2D> &newposes) override;
+  virtual void Initialize() override;
 };
 
 } /* namespace slam */
