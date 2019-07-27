@@ -62,6 +62,7 @@ static constexpr double NNGridTable_MIN_DIST_THRESH = 0.2;
 
 static constexpr double PoseOptimizer_SEARCH_RANGE = 2.0;
 static constexpr double PoseOptimizerSL_ITERATION = 200;
+static constexpr double PoseOptimizerSD_ITERATION = 100;
 static constexpr int PoseEstimatorICP_ITERATION = 100;
 
 } /* namespace param */

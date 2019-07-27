@@ -88,6 +88,8 @@ void SlamFrontEnd::RegisterParams() {
                    param::PoseOptimizer_SEARCH_RANGE);
   ParamServer::Set("PoseOptimizerSL_ITERATION",
                    param::PoseOptimizerSL_ITERATION);
+  ParamServer::Set("PoseOptimizerSD_ITERATION",
+                   param::PoseOptimizerSD_ITERATION);
   ParamServer::Set("PoseEstimatorICP_ITERATION",
                    param::PoseEstimatorICP_ITERATION);
 }
