@@ -1,6 +1,6 @@
 #include <cmath>
 #include <slam/icp/PoseOptimizerSD.h>
-#include <slam/parameters.h>
+#include <slam/manager/ParamServer.h>
 
 namespace slam {
 
@@ -24,8 +24,12 @@ double PoseOptimizerSD::OptimizePoseImpl(const Pose2D &initPose,
   double dd = ds;
   double dth = dtheta;
 
-  while (std::fabs(eval_old - eval) > param::PoseOptimizer_VAL_DIFF_THRESH &&
-         number_of_iteration < 100) {
+  static const double diff_thresh =
+      ParamServer::Get("PoseOptimizer_VAL_DIFF_THRESH");
+  static const int max_iteration =
+      ParamServer::Get("PoseOptimizerSD_ITERATION");
+  while (std::fabs(eval_old - eval) > diff_thresh &&
+         number_of_iteration < max_iteration) {
     number_of_iteration++;
     eval_old = eval;
 
@@ -65,10 +69,17 @@ double PoseOptimizerSD::OptimizePoseImpl(const Pose2D &initPose,
 
 double PoseOptimizerSD::OptimizePose(const Pose2D &initPose,
                                      Pose2D &estimatePose) {
-  return OptimizePoseImpl(
-      initPose, estimatePose, param::PoseOptimizer_VAL_DIFF_THRESH,
-      param::PoseOptimizer_TickDist, param::PoseOptimizer_TickTheta,
-      param::PoseOptimizer_ERROR_THRESH, param::PoseOptimizer_DescentCoeff);
+  static const double val_diff_thresh =
+      ParamServer::Get("PoseOptimizer_VAL_DIFF_THRESH");
+  static const double tick_dist = ParamServer::Get("PoseOptimizer_TickDist");
+  static const double tick_theta = ParamServer::Get("PoseOptimizer_TickTheta");
+  static const double error_thresh =
+      ParamServer::Get("PoseOptimizer_ERROR_THRESH");
+  static const double descent_coeff =
+      ParamServer::Get("PoseOptimizer_DescentCoeff");
+
+  return OptimizePoseImpl(initPose, estimatePose, val_diff_thresh, tick_dist,
+                          tick_theta, error_thresh, descent_coeff);
 }
 
 } /* namespace slam */

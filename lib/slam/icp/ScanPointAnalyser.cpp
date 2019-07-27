@@ -1,5 +1,6 @@
+#include <cmath>
 #include <slam/icp/ScanPointAnalyser.h>
-#include <slam/parameters.h>
+#include <slam/manager/ParamServer.h>
 
 namespace slam {
 
@@ -30,9 +31,10 @@ bool ScanPointAnalyser::CalcNormalImpl(int index,
 bool ScanPointAnalyser::CalcNormal(int index,
                                    const std::vector<ScanPoint2D> &points,
                                    int dir, Vector2D &ret) {
-  return CalcNormalImpl(index, points, dir, ret,
-                        param::ScanPointAnalyser_FPDMIN,
-                        param::ScanPointAnalyser_FPDMAX);
+  static const double fpdmin = ParamServer::Get("ScanPointAnalyser_FPDMIN");
+  static const double fpdmax = ParamServer::Get("ScanPointAnalyser_FPDMAX");
+
+  return CalcNormalImpl(index, points, dir, ret, fpdmin, fpdmax);
 }
 
 void ScanPointAnalyser::AnalysePointsImpl(std::vector<ScanPoint2D> &points,
@@ -82,9 +84,14 @@ void ScanPointAnalyser::AnalysePointsImpl(std::vector<ScanPoint2D> &points,
 }
 
 void ScanPointAnalyser::AnalysePoints(std::vector<ScanPoint2D> &points) {
-  AnalysePointsImpl(points, param::ScanPointAnalyser_INVALID_DEG,
-                    param::ScanPointAnalyser_CORNER_DEG_THRESH,
-                    param::ScanPointAnalyer_CORNER_COS_THRESH);
+  static const double invalid_deg =
+      ParamServer::Get("ScanPointAnalyser_INVALID_DEG");
+  static const double corner_deg_thresh =
+      ParamServer::Get("ScanPointAnalyser_CORNER_DEG_THRESH");
+  static const double corner_cos_thresh =
+      ParamServer::Get("ScanPointAnalyser_COS_THRESH");
+
+  AnalysePointsImpl(points, invalid_deg, corner_deg_thresh, corner_cos_thresh);
 }
 
 } // namespace slam

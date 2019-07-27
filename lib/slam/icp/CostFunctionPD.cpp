@@ -1,6 +1,7 @@
+#include <cmath>
 #include <slam/geometry/ScanPoint2D.h>
 #include <slam/icp/CostFunctionPD.h>
-#include <slam/parameters.h>
+#include <slam/manager/ParamServer.h>
 
 namespace slam {
 
@@ -30,7 +31,9 @@ double CostFunctionPD::CalcValue(double tx, double ty, double th /*rad*/) {
 
     double err = perpendic_dist * perpendic_dist;
 
-    if (std::sqrt(err) <= param::CostFunction_VAL_THRESH)
+    static const double val_thresh =
+        ParamServer::Get("CostFunction_VAL_THRESH");
+    if (std::sqrt(err) <= val_thresh)
       valid_num++;
 
     error += err;

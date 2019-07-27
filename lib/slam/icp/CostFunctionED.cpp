@@ -1,7 +1,7 @@
 #include <cmath>
-
 #include <slam/icp/CostFunctionED.h>
-#include <slam/parameters.h>
+#include <slam/manager/ParamServer.h>
+
 namespace slam {
 
 double CostFunctionED::CalcValueImpl(double tx, double ty, double th /*rad*/,
@@ -42,7 +42,8 @@ double CostFunctionED::CalcValueImpl(double tx, double ty, double th /*rad*/,
 }
 
 double CostFunctionED::CalcValue(double tx, double ty, double th /*rad*/) {
-  return CalcValueImpl(tx, ty, th, param::CostFunction_VAL_THRESH);
+  static const double val_thresh = ParamServer::Get("CostFunction_VAL_THRESH");
+  return CalcValueImpl(tx, ty, th, val_thresh);
 }
 
 } /* namespace slam */

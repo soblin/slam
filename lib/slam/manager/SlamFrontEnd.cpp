@@ -40,8 +40,8 @@ void SlamFrontEnd::Init() {
                    param::PoseEstimatorICP_VAL_THRESH);
   ParamServer::Set("ScanMatcher2D_SCORE_THRESH",
                    param::ScanMatcher2D_SCORE_THRESH);
-  ParamServer::Set("ScanMatche2D_USE_DNUM_THRESH",
-                   param::ScanMatche2D_USE_DNUM_THRESH);
+  ParamServer::Set("ScanMatcher2D_USED_NUM_THRESH",
+                   param::ScanMatcher2D_USED_NUM_THRESH);
   ParamServer::Set("ScanPointResampler_DIST_INTERVAL",
                    param::ScanPointResampler_DIST_INTERVAL);
   ParamServer::Set("ScanPointResampler_DIST_INTERPOLATE_THRESH",
@@ -61,6 +61,10 @@ void SlamFrontEnd::Init() {
   ParamServer::Set("NNGridTable_DOMAIN_SIZE", param::NNGridTable_DOMAIN_SIZE);
   ParamServer::Set("PoseOptimizer_SEARCH_RANGE",
                    param::PoseOptimizer_SEARCH_RANGE);
+  ParamServer::Set("PoseOptimizerSL_ITERATION",
+                   param::PoseOptimizerSL_ITERATION);
+  ParamServer::Set("PoseEstimatorICP_ITERATION",
+                   param::PoseEstimatorICP_ITERATION);
 }
 
 // process the scan data, which was generated at SensorDataReader

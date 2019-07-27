@@ -1,8 +1,7 @@
 #include <cmath>
-
 #include <slam/geometry/ScanPoint2D.h>
 #include <slam/icp/DataAssociatorLS.h>
-#include <slam/parameters.h>
+#include <slam/manager/ParamServer.h>
 
 namespace slam {
 
@@ -19,8 +18,9 @@ double DataAssociatorLS::FindCorrespondence(const slam::Scan2D *curScanPtr,
   // m_base_points
   // note: scaned point in curScanPtr is in local frame (of predictedPose)
   // while each point in m_base_points is in global frame
-  return FindCorrespondence(curScanPtr, predictedPose,
-                            param::DataAssociatorLS_DIST_THRESH);
+  static const double dist_thresh =
+      ParamServer::Get("DataAssociatorLS_DIST_THRESH");
+  return FindCorrespondence(curScanPtr, predictedPose, dist_thresh);
 }
 
 double DataAssociatorLS::FindCorrespondence(const Scan2D *curScanPtr,

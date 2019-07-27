@@ -1,7 +1,7 @@
 #include <cmath>
 #include <iostream>
 #include <slam/icp/ScanMatcher2D.h>
-#include <slam/parameters.h>
+#include <slam/manager/ParamServer.h>
 
 namespace slam {
 
@@ -50,10 +50,12 @@ bool ScanMatcher2D::MatchScan(Scan2D &curScan) {
 
   std::size_t usedNum = m_estimator_ptr->GetUsedNum();
 
-  bool successful = (score <= param::ScanMatcher2D_SCORE_THRESH &&
-                     usedNum >= param::ScanMatcher2D_SCORE_THRESH)
-                        ? true
-                        : false;
+  static const double score_thresh =
+      ParamServer::Get("ScanMatcher2D_SCORE_THRESH");
+  static const int num_thresh =
+      ParamServer::Get("ScanMatcher2D_USED_NUM_THRESH");
+  bool successful =
+      (score <= score_thresh && usedNum >= num_thresh) ? true : false;
 
   // use raw odometry
   if (!successful)

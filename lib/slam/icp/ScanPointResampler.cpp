@@ -1,7 +1,7 @@
 #include <cmath>
 #include <slam/geometry/Scan2D.h>
 #include <slam/icp/ScanPointResampler.h>
-#include <slam/parameters.h>
+#include <slam/manager/ParamServer.h>
 
 namespace slam {
 
@@ -27,7 +27,9 @@ bool ScanPointResampler::FindInterpolatePointImpl(
   } else {
     // the distance is more than the interval and less than the threshold
     // so interpolate a new point
-    double ratio = (param::ScanPointResampler_DIST_INTERVAL - acc_dist) / L;
+    static const double dist_interval =
+        ParamServer::Get("ScanPointResampler_DIST_INTERVAL");
+    double ratio = (dist_interval - acc_dist) / L;
     double x2 = dx * ratio + prevPoint.x();
     double y2 = dy * ratio + prevPoint.y();
     insertPoint.SetData(x2, y2);
@@ -42,10 +44,13 @@ bool ScanPointResampler::FindInterpolatePoint(const ScanPoint2D &curPoint,
                                               ScanPoint2D &insertPoint,
                                               bool &inserted,
                                               double &acc_dist) {
-  return FindInterpolatePointImpl(
-      curPoint, prevPoint, insertPoint, inserted, acc_dist,
-      param::ScanPointResampler_DIST_INTERVAL,
-      param::ScanPointResampler_DIST_INTERPOLATE_THRESH);
+  static const double dist_interval =
+      ParamServer::Get("ScanPointResampler_DIST_INTERVAL");
+  static const double interpolate_thresh =
+      ParamServer::Get("ScanPointResampler_DIST_INTERPOLATE_THRESH");
+
+  return FindInterpolatePointImpl(curPoint, prevPoint, insertPoint, inserted,
+                                  acc_dist, dist_interval, interpolate_thresh);
 }
 
 void ScanPointResampler::ResamplePoints(Scan2D *scan) {

@@ -1,6 +1,6 @@
 #include <numeric>
 #include <slam/icp/PoseOptimizerSL.h>
-#include <slam/parameters.h>
+#include <slam/manager/ParamServer.h>
 
 #include <boost/math/tools/minima.hpp>
 
@@ -20,13 +20,17 @@ double PoseOptimizerSL::OptimizePose(const Pose2D &initPose,
   double cost = m_cost_func_ptr->CalcValue(tx, ty, th);
   int number_of_iteration = 0;
 
-  while (std::fabs(prev_cost - cost) > param::PoseOptimizer_VAL_DIFF_THRESH &&
-         number_of_iteration < 200) {
+  static const double val_diff_thresh =
+      ParamServer::Get("PoseOptimizer_VAL_DIFF_THRESH");
+  static const int max_iteration = ParamServer::Get("PoseOptimizerSL_ITERTION");
+
+  while (std::fabs(prev_cost - cost) > val_diff_thresh &&
+         number_of_iteration < max_iteration) {
     number_of_iteration++;
     prev_cost = cost;
 
-    static constexpr double dd = param::PoseOptimizer_TickDist;
-    static constexpr double da = param::PoseOptimizer_TickTheta;
+    static const double dd = ParamServer::Get("PoseOptimizer_TickDist");
+    static const double da = ParamServer::Get("PoseOptimizer_TickTheta");
     double dx = (m_cost_func_ptr->CalcValue(tx + dd, ty, th) - cost) / dd;
     double dy = (m_cost_func_ptr->CalcValue(tx, ty + dd, th) - cost) / dd;
     double dth = (m_cost_func_ptr->CalcValue(tx, ty, th + da) - cost) / da;
@@ -58,7 +62,8 @@ double PoseOptimizerSL::OptimizePose(const Pose2D &initPose,
 
   m_repeat_num++;
 
-  if (m_repeat_num > 0 && min_cost < param::PoseOptimizer_ERROR_THRESH)
+  static double error_thresh = ParamServer::Get("PoseOptimizer_ERROR_THRESH");
+  if (m_repeat_num > 0 && min_cost < error_thresh)
     m_error_sum += min_cost;
 
   estimatePose.SetVal(tx_min, ty_min, th_min);
@@ -68,14 +73,16 @@ double PoseOptimizerSL::OptimizePose(const Pose2D &initPose,
 
 double PoseOptimizerSL::LineSearch(double ev0, Pose2D &pose,
                                    const Pose2D &direction) {
+  static const double search_range =
+      ParamServer::Get("PoseOptimizer_SEARCH_RANGE");
+
   int bits = std::numeric_limits<double>::digits;
   boost::uintmax_t maxIter = 40;
   std::pair<double, double> result = boost::math::tools::brent_find_minima(
       [this, &pose, &direction](double step) {
         return ObjFunc(step, pose, direction);
       },
-      -param::PoseOptimizer_SEARCH_RANGE, param::PoseOptimizer_SEARCH_RANGE,
-      bits, maxIter);
+      -search_range, search_range, bits, maxIter);
 
   double step = result.first; // the step width
   double min_val = result.second;

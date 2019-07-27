@@ -44,7 +44,7 @@ static constexpr double PoseOptimizer_DescentCoeff = 0.00001;
 static constexpr double PoseEstimatorICP_VAL_DIFF_THRESH = 0.000001;
 static constexpr double PoseEstimatorICP_VAL_THRESH = 0.2;
 static constexpr double ScanMatcher2D_SCORE_THRESH = 1.0;
-static constexpr double ScanMatche2D_USE_DNUM_THRESH = 50;
+static constexpr double ScanMatcher2D_USED_NUM_THRESH = 50;
 static constexpr double ScanPointResampler_DIST_INTERVAL = 0.05;
 static constexpr double ScanPointResampler_DIST_INTERPOLATE_THRESH = 0.25;
 static constexpr double ScanPointAnalyser_FPDMIN = 0.06;
@@ -61,6 +61,8 @@ static constexpr double NNGridTable_DOMAIN_SIZE = 40;
 static constexpr double NNGridTable_MIN_DIST_THRESH = 0.2;
 
 static constexpr double PoseOptimizer_SEARCH_RANGE = 2.0;
+static constexpr double PoseOptimizerSL_ITERATION = 200;
+static constexpr int PoseEstimatorICP_ITERATION = 100;
 
 } /* namespace param */
 } /* namespace slam */
