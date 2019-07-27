@@ -22,7 +22,8 @@ double PoseOptimizerSL::OptimizePose(const Pose2D &initPose,
 
   static const double val_diff_thresh =
       ParamServer::Get("PoseOptimizer_VAL_DIFF_THRESH");
-  static const int max_iteration = ParamServer::Get("PoseOptimizerSL_ITERTION");
+  static const int max_iteration =
+      ParamServer::Get("PoseOptimizerSL_ITERATION");
 
   while (std::fabs(prev_cost - cost) > val_diff_thresh &&
          number_of_iteration < max_iteration) {
