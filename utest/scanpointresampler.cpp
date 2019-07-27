@@ -1,6 +1,7 @@
 #include <gtest/gtest.h>
 #include <slam/geometry/Scan2D.h>
 #include <slam/icp/ScanPointResampler.h>
+#include <slam/manager/SlamFrontEnd.h>
 
 namespace slam {
 
@@ -14,6 +15,10 @@ public:
 using namespace slam;
 
 TEST_F(ScanPointResamplerTestFriend, testResamplePoints) {
+  // initialize
+  SlamFrontEnd frontend;
+  frontend.Init();
+
   Scan2D scan;
 
   double y = 2.0;
