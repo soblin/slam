@@ -9,6 +9,31 @@ void SlamFrontEnd::Init() {
   CounterServer::Create();
 
   ParamServer::Create();
+  RegisterParams();
+}
+
+// process the scan data, which was generated at SensorDataReader
+void SlamFrontEnd::Process(Scan2D &scan) {
+  PointCloudMap *cloud_map_ptr = PointCloudMapSingleton::GetCloudMap();
+
+  int cnt = CounterServer::Get();
+  if (cnt == 0)
+    Init();
+
+  m_scan_matcher_ptr->MatchScan(scan);
+  // get the estimated current pose with ICP
+  //  Pose2D curPose = m_point_cloud_map_ptr->GetLastPose();
+  if (cnt == 0)
+    ParamServer::Set("PointCloudMapGT_CELL_POINT_NUM_THRESH", 1.0);
+  else
+    ParamServer::Set("PointCloudMapGT_CELL_POINT_NUM_THRESH", 5.0);
+
+  cloud_map_ptr->MakeGlobalMap();
+
+  CounterServer::Increment();
+}
+
+void SlamFrontEnd::RegisterParams() {
   ParamServer::Set("Scan2D_MAX_SCAN_RANGE", param::Scan2D_MAX_SCAN_RANGE);
   ParamServer::Set("Scan2D_MIN_SCAN_RANGE", param::Scan2D_MIN_SCAN_RANGE);
   ParamServer::Set("PointCloudMapBS_SKIP", param::PointCloudMapBS_SKIP);
@@ -63,29 +88,10 @@ void SlamFrontEnd::Init() {
                    param::PoseOptimizer_SEARCH_RANGE);
   ParamServer::Set("PoseOptimizerSL_ITERATION",
                    param::PoseOptimizerSL_ITERATION);
+  ParamServer::Set("PoseOptimizerSD_ITERATION",
+                   param::PoseOptimizerSD_ITERATION);
   ParamServer::Set("PoseEstimatorICP_ITERATION",
                    param::PoseEstimatorICP_ITERATION);
-}
-
-// process the scan data, which was generated at SensorDataReader
-void SlamFrontEnd::Process(Scan2D &scan) {
-  PointCloudMap *cloud_map_ptr = PointCloudMapSingleton::GetCloudMap();
-
-  int cnt = CounterServer::Get();
-  if (cnt == 0)
-    Init();
-
-  m_scan_matcher_ptr->MatchScan(scan);
-  // get the estimated current pose with ICP
-  //  Pose2D curPose = m_point_cloud_map_ptr->GetLastPose();
-  if (cnt == 0)
-    ParamServer::Set("PointCloudMapGT_CELL_POINT_NUM_THRESH", 1.0);
-  else
-    ParamServer::Set("PointCloudMapGT_CELL_POINT_NUM_THRESH", 5.0);
-
-  cloud_map_ptr->MakeGlobalMap();
-
-  CounterServer::Increment();
 }
 
 } /* namespace slam */
