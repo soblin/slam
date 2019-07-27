@@ -54,7 +54,7 @@ void SlamFrontEnd::RegisterParams() {
   ParamServer::Set("PoseOptimizer_VAL_DIFF_THRESH",
                    param::PoseOptimizer_VAL_DIFF_THRESH);
   ParamServer::Set("PoseOptimizer_TickDist", param::PoseOptimizer_TickDist);
-  ParamServer::Set("oseOptimizer_TickTheta", param::PoseOptimizer_TickTheta);
+  ParamServer::Set("PoseOptimizer_TickTheta", param::PoseOptimizer_TickTheta);
   ParamServer::Set("PoseOptimizer_ERROR_THRESH",
                    param::PoseOptimizer_ERROR_THRESH);
   ParamServer::Set("PoseOptimizer_DescentCoeff",
@@ -77,8 +77,8 @@ void SlamFrontEnd::RegisterParams() {
                    param::ScanPointAnalyser_CORNER_DEG_THRESH);
   ParamServer::Set("ScanPointAnalyser_INVALID_DEG",
                    param::ScanPointAnalyser_INVALID_DEG);
-  ParamServer::Set("ScanPointAnalyer_CORNER_COS_THRESH",
-                   param::ScanPointAnalyer_CORNER_COS_THRESH);
+  ParamServer::Set("ScanPointAnalyser_COS_THRESH",
+                   param::ScanPointAnalyser_COS_THRESH);
 
   ParamServer::Set("NNGridTable_MIN_DIST_THRESH",
                    param::NNGridTable_MIN_DIST_THRESH);

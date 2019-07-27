@@ -1,20 +1,16 @@
 #ifndef PARAM_SERVER_H
 #define PARAM_SERVER_H
 
+#include <iostream>
 #include <map>
 
 namespace slam {
 
 class ParamServer {
 public:
-  static void Create() {
-    if (m_instance_ptr == nullptr)
-      m_instance_ptr = new ParamServer;
-  }
-
-  static double Get(const std::string &key) { return m_params[key]; }
-
-  static void Set(const std::string &key, double val) { m_params[key] = val; }
+  static void Create();
+  static double Get(const std::string &key);
+  static void Set(const std::string &key, double val);
 
 private:
   ParamServer(){};

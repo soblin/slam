@@ -31,7 +31,7 @@ static constexpr double MapDrawer_STEP_POSE = 10;
 static constexpr double MapDrawer_DD = 0.4;
 
 // SlamLauncher.cpp, 26
-static constexpr int SlamLauncher_SLEEP_TIME = 100000;
+static constexpr int SlamLauncher_SLEEP_TIME = 10000;
 static constexpr int SlamLauncher_PLOT_SKIP = 10;
 
 static constexpr double DataAssociatorLS_DIST_THRESH = 0.2;
@@ -51,7 +51,7 @@ static constexpr double ScanPointAnalyser_FPDMIN = 0.06;
 static constexpr double ScanPointAnalyser_FPDMAX = 1.0;
 static constexpr int ScanPointAnalyser_CORNER_DEG_THRESH = 45;
 static constexpr int ScanPointAnalyser_INVALID_DEG = -1;
-static const double ScanPointAnalyer_CORNER_COS_THRESH = std::cos(M_PI / 4);
+static const double ScanPointAnalyser_COS_THRESH = std::cos(M_PI / 4);
 
 // NNGridTable.h, ctor
 static constexpr double NNGridTable_CELL_SIZE = 0.05;
@@ -61,7 +61,7 @@ static constexpr double NNGridTable_DOMAIN_SIZE = 40;
 static constexpr double NNGridTable_MIN_DIST_THRESH = 0.2;
 
 static constexpr double PoseOptimizer_SEARCH_RANGE = 2.0;
-static constexpr double PoseOptimizerSL_ITERATION = 200;
+static constexpr double PoseOptimizerSL_ITERATION = 100;
 static constexpr double PoseOptimizerSD_ITERATION = 100;
 static constexpr int PoseEstimatorICP_ITERATION = 100;
 
