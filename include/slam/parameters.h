@@ -7,31 +7,32 @@ namespace slam {
 namespace param {
 
 // SensorDataReader.cpp, line33
-// static constexpr double Scan2D_MAX_SCAN_RANGE = 6.0;
-// static constexpr double Scan2D_MIN_SCAN_RANGE = 0.1;
+static constexpr double Scan2D_MAX_SCAN_RANGE = 6.0;
+static constexpr double Scan2D_MIN_SCAN_RANGE = 0.1;
 
 // PointCloudMapBS.cpp line13
-// static constexpr double PointCloudMapBS_SKIP = 5.0;
+static constexpr double PointCloudMapBS_SKIP = 5.0;
 
 // PointCloudMap.h, ctor
 static constexpr double PointCloudMap_MAX_POINT_NUM = 1000000;
 
 // NNGridTable.cpp, line75
-// static constexpr int PointCloudMapGT_CELL_POINT_NUM_THRESH = 1;
+static constexpr int PointCloudMapGT_CELL_POINT_NUM_THRESH1 = 1;
+static constexpr int PointCloudMapGT_CELL_POINT_NUM_THRESH2 = 5;
 
 // SensorDataReader.h, ctor
 static constexpr double SensorDataReader_ANGLE_OFFSET = 180;
 
 // MapDrawer.cpp, line85, 94
-// static constexpr double MapDrawer_STEP_POINT = 1.0;
-// static constexpr double MapDrawer_STEP_POSE = 10;
+static constexpr double MapDrawer_STEP_POINT = 1.0;
+static constexpr double MapDrawer_STEP_POSE = 10;
 
 // MapDrawer.cpp, line101
-// static constexpr double MapDrawer_DD = 0.4;
+static constexpr double MapDrawer_DD = 0.4;
 
 // SlamLauncher.cpp, 26
-// static constexpr int SlamLauncher_SLEEP_TIME = 100000;
-// static constexpr int SlamLauncher_PLOT_SKIP = 10;
+static constexpr int SlamLauncher_SLEEP_TIME = 100000;
+static constexpr int SlamLauncher_PLOT_SKIP = 10;
 
 static constexpr double DataAssociatorLS_DIST_THRESH = 0.2;
 static constexpr double CostFunction_VAL_THRESH = 0.2;
@@ -57,7 +58,7 @@ static constexpr double NNGridTable_CELL_SIZE = 0.05;
 static constexpr double NNGridTable_DOMAIN_SIZE = 40;
 
 // NNGridTable.cpp, line69
-// static constexpr double NNGridTable_MIN_DIST_THRESH = 0.2;
+static constexpr double NNGridTable_MIN_DIST_THRESH = 0.2;
 
 static constexpr double PoseOptimizer_SEARCH_RANGE = 2.0;
 
