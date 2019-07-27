@@ -35,6 +35,7 @@ public:
   ~PoseEstimatorICP() {}
 
   double EstimatePose(const Pose2D &initPose, Pose2D &estimatePose);
+  void Initialize();
 };
 
 } /* namespace slam */

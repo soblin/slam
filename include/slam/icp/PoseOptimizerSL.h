@@ -13,6 +13,8 @@ public:
   virtual double OptimizePose(const Pose2D &initPose,
                               Pose2D &estimatedPose) override;
 
+  virtual void Initialize() override;
+
 private:
   double LineSearch(double ev0, Pose2D &pose, const Pose2D &direction);
   double ObjFunc(double tt, Pose2D &pose, const Pose2D &direction);

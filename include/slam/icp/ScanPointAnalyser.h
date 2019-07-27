@@ -20,6 +20,7 @@ public:
   void AnalysePoints(std::vector<ScanPoint2D> &points);
   bool CalcNormal(int index, const std::vector<ScanPoint2D> &points, int dir,
                   Vector2D &ret);
+  void Initialize(){};
 };
 
 } // namespace slam

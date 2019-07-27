@@ -49,4 +49,8 @@ double PoseEstimatorICP::EstimatePose(const Pose2D &initPose,
   return eval_min;
 }
 
+void PoseEstimatorICP::Initialize() {
+  m_optimizer_ptr->Initialize();
+  m_associator_ptr->Initialize();
+}
 } /* namespace slam */

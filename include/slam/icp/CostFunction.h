@@ -28,6 +28,7 @@ public:
     m_cur_points = cur;
     m_ref_points = ref;
   }
+  virtual void Initialize() = 0;
 };
 
 } /* namespace slam */

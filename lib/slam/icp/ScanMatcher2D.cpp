@@ -1,5 +1,5 @@
+#include <cassert>
 #include <cmath>
-#include <iostream>
 #include <slam/icp/ScanMatcher2D.h>
 #include <slam/manager/ParamServer.h>
 
@@ -103,4 +103,17 @@ void ScanMatcher2D::GrowMap(const Scan2D &scan, const Pose2D &pose) {
   cloud_map_ptr->MakeLocalMap();
 }
 
+void ScanMatcher2D::Initialize() {
+  assert(!m_estimator_ptr);
+  m_estimator_ptr->Initialize();
+
+  assert(!m_ref_scan_maker_ptr);
+  m_ref_scan_maker_ptr->Initialize();
+
+  if (!m_scan_point_resampler_ptr)
+    m_scan_point_resampler_ptr->Initialize();
+
+  if (!m_scan_point_analyser_ptr)
+    m_scan_point_analyser_ptr->Initialize();
+}
 } /* namespace slam */

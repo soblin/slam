@@ -11,6 +11,8 @@ public:
   virtual ~CostFunctionPD() {}
 
   virtual double CalcValue(double tx, double ty, double th) override;
+
+  virtual void Initialize() override;
 };
 
 } // namespace slam

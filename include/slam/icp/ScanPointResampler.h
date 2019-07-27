@@ -22,7 +22,7 @@ public:
                             const ScanPoint2D &prevPoint,
                             ScanPoint2D &nextPoint, bool &inserted,
                             double &acc_dist);
-
+  void Initialize() {}
   friend class ScanPointResamplerTestFriend;
 };
 

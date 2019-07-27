@@ -15,6 +15,7 @@ public:
   virtual ~RefScanMaker() {}
 
   virtual const Scan2D *MakeRefScan() = 0;
+  void Initialize(){};
 };
 
 } /* namespace slam */

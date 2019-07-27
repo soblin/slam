@@ -18,6 +18,8 @@ public:
   virtual double OptimizePose(const Pose2D &initPose,
                               Pose2D &estimatePose) override;
 
+  virtual void Initialize() override;
+
   friend class PoseOptimizerSDTestFriend;
 };
 

@@ -15,6 +15,8 @@ public:
 
   virtual double CalcValue(double tx, double ty, double th /*rad*/) override;
 
+  virtual void Initialize() override;
+
   friend class CostFunctionEDTestFriend;
 };
 

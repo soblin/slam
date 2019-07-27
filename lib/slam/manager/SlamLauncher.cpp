@@ -44,10 +44,11 @@ void SlamLauncher::Run() {
   m_map_drawer.InitGnuplot();
   m_map_drawer.SetAspectRatio(-0.9);
 
-  m_slam_frontend.Init();
+  m_slam_frontend.Initialize();
 
-  int skip = static_cast<int>(ParamServer::Get("SlamLauncher_PLOT_SKIP"));
-  int usleep_time =
+  static int skip =
+      static_cast<int>(ParamServer::Get("SlamLauncher_PLOT_SKIP"));
+  static int usleep_time =
       static_cast<int>(ParamServer::Get("SlamLauncher_SLEEP_TIME"));
 
   Scan2D scan_buf;

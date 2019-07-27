@@ -35,4 +35,7 @@ double DataAssociatorGT::FindCorrespondence(const Scan2D *curScan,
 
   return ratio;
 }
+
+void DataAssociatorGT::Initialize() {}
+
 } // namespace slam
