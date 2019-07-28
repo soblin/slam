@@ -12,8 +12,11 @@ branches:
   only:
     - chapter06
     - chapter07
-    - master
-
+    - chapter08
+    - chapter09
+    - chapter10
+    
+>>>>>>> b9fd54e... updated README and License
 notifications:
   email:
     on_success: never
@@ -23,9 +26,9 @@ compiler:
   - gcc
   - clang
 
-#install:
-#  - sudo apt-get install libeigen3-dev
-#  - sudo apt-get install libboost-all-dev
+install:
+  - sudo apt-get install libboost-math-dev
+  - sudo apt-get install libeigen3-dev
   
 before_script:
   - git submodule init
