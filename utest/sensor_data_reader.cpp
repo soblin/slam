@@ -9,6 +9,7 @@ TEST(SensorDataReader, read_test) {
   slam::ParamServer::Create();
   slam::ParamServer::Set("Scan2D_MAX_SCAN_RANGE", 6.0);
   slam::ParamServer::Set("Scan2D_MIN_SCAN_RANGE", 0.1);
+  slam::ParamServer::Set("SensorDataReader_ANGLE_OFFSET", 180);
 
   std::ofstream ofs("test.lsc");
   // (x, y, theta) = (10, 10, π/3)
@@ -29,6 +30,8 @@ TEST(SensorDataReader, read_test) {
   ofs.close();
 
   slam::SensorDataReader reader;
+  reader.SetAngleOffset(
+      slam::ParamServer::Get("SensorDataReader_ANGLE_OFFSET"));
   reader.OpenScanFile("test.lsc");
   slam::Scan2D scan1;
   reader.LoadScan(scan1);
@@ -41,6 +44,8 @@ TEST(SensorDataReader, read_test) {
 
 TEST(SensorDataReader, scaned_local_position_test) {
   slam::SensorDataReader reader;
+  reader.SetAngleOffset(
+      slam::ParamServer::Get("SensorDataReader_ANGLE_OFFSET"));
   reader.OpenScanFile("test.lsc");
   slam::Scan2D scan;
 
