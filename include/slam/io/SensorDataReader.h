@@ -3,7 +3,6 @@
 
 #include <fstream>
 #include <slam/geometry/Scan2D.h>
-#include <slam/parameters.h>
 
 namespace slam {
 
@@ -13,7 +12,7 @@ private:
   std::ifstream m_in_file;
 
 public:
-  SensorDataReader() : m_angle_offset(param::SensorDataReader_ANGLE_OFFSET) {}
+  SensorDataReader() {}
 
   ~SensorDataReader(){};
 

@@ -40,12 +40,15 @@ bool SlamLauncher::SetFilename(const std::string filename) {
   return m_sensor_reader.OpenScanFile(filename);
 }
 
-void SlamLauncher::Run() {
+void SlamLauncher::Initialize() {
   m_map_drawer.InitGnuplot();
   m_map_drawer.SetAspectRatio(-0.9);
-
   m_slam_frontend.Initialize();
+  m_sensor_reader.SetAngleOffset(
+      ParamServer::Get("SensorDataReader_ANGLE_OFFSET"));
+}
 
+void SlamLauncher::Run() {
   static int skip =
       static_cast<int>(ParamServer::Get("SlamLauncher_PLOT_SKIP"));
   static int usleep_time =
@@ -93,7 +96,6 @@ void SlamLauncher::CustomizeFrameWork(const std::string &type) {
     m_customizer.CustomizeD();
   else if (type == "customE")
     m_customizer.CustomizeE();
-
   else if (type == "customF")
     m_customizer.CustomizeF();
   else if (type == "customG")

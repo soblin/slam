@@ -45,6 +45,7 @@ int main(int argc, char **argv) {
     std::cout << "failed to open " << filepath << std::endl;
   }
   sl.CustomizeFrameWork(customize);
+  sl.Initialize();
   sl.Run();
   std::cout << "finished completely" << std::endl;
 }
