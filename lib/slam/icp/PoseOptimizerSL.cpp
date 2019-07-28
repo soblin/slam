@@ -110,4 +110,6 @@ double PoseOptimizerSL::ObjFunc(double step, Pose2D &pose,
   return m_cost_func_ptr->CalcValue(tx, ty, th);
 }
 
+void PoseOptimizerSL::Initialize() { m_cost_func_ptr->Initialize(); }
+
 } // namespace slam

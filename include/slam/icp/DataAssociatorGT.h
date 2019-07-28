@@ -20,6 +20,8 @@ public:
   virtual double FindCorrespondence(const Scan2D *curScan,
                                     const Pose2D &predictedPose) override;
 
+  virtual void Initialize() override;
+
   friend class DataAssociatorGTTestFriend;
 };
 

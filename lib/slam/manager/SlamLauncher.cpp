@@ -17,7 +17,7 @@ namespace slam {
 void SlamLauncher::SetOdometryOnly(bool only) { m_odometry_only = only; }
 
 void SlamLauncher::MapByOdometry(const Scan2D &scan) {
-  PointCloudMap *cloud_map_ptr = PointCloudMapSingleton::GetCloudMap();
+  static PointCloudMap *cloud_map_ptr = PointCloudMapSingleton::GetCloudMap();
 
   Pose2D pose;
   Pose2D::CalcRelativePose(scan.pose(), m_initial_pose, pose);
@@ -40,19 +40,23 @@ bool SlamLauncher::SetFilename(const std::string filename) {
   return m_sensor_reader.OpenScanFile(filename);
 }
 
-void SlamLauncher::Run() {
+void SlamLauncher::Initialize() {
   m_map_drawer.InitGnuplot();
   m_map_drawer.SetAspectRatio(-0.9);
+  m_slam_frontend.Initialize();
+  m_sensor_reader.SetAngleOffset(
+      ParamServer::Get("SensorDataReader_ANGLE_OFFSET"));
+}
 
-  m_slam_frontend.Init();
-
-  int skip = static_cast<int>(ParamServer::Get("SlamLauncher_PLOT_SKIP"));
-  int usleep_time =
+void SlamLauncher::Run() {
+  static int skip =
+      static_cast<int>(ParamServer::Get("SlamLauncher_PLOT_SKIP"));
+  static int usleep_time =
       static_cast<int>(ParamServer::Get("SlamLauncher_SLEEP_TIME"));
 
   Scan2D scan_buf;
   bool eof = m_sensor_reader.LoadScan(scan_buf);
-  PointCloudMap *cloud_map_ptr = PointCloudMapSingleton::GetCloudMap();
+  static PointCloudMap *cloud_map_ptr = PointCloudMapSingleton::GetCloudMap();
 
   while (!eof) {
     int cnt = CounterServer::Get();
@@ -92,7 +96,6 @@ void SlamLauncher::CustomizeFrameWork(const std::string &type) {
     m_customizer.CustomizeD();
   else if (type == "customE")
     m_customizer.CustomizeE();
-
   else if (type == "customF")
     m_customizer.CustomizeF();
   else if (type == "customG")

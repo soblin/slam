@@ -46,4 +46,6 @@ double CostFunctionED::CalcValue(double tx, double ty, double th /*rad*/) {
   return CalcValueImpl(tx, ty, th, val_thresh);
 }
 
+void CostFunctionED::Initialize() {}
+
 } /* namespace slam */

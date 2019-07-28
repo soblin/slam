@@ -1,3 +1,5 @@
+#include <cassert>
+#include <cmath>
 #include <slam/manager/CounterServer.h>
 #include <slam/manager/ParamServer.h>
 #include <slam/manager/SlamFrontEnd.h>
@@ -5,20 +7,26 @@
 
 namespace slam {
 
-void SlamFrontEnd::Init() {
+void SlamFrontEnd::Initialize() {
   CounterServer::Create();
 
   ParamServer::Create();
   RegisterParams();
+
+  // Initialize the chained classes and update their parameters
+  assert(!m_scan_matcher_ptr);
+  if (!m_scan_matcher_ptr)
+    m_scan_matcher_ptr->Initialize();
+
+  PointCloudMap *cloud_map_ptr = PointCloudMapSingleton::GetCloudMap();
+  cloud_map_ptr->Initialize();
 }
 
 // process the scan data, which was generated at SensorDataReader
 void SlamFrontEnd::Process(Scan2D &scan) {
-  PointCloudMap *cloud_map_ptr = PointCloudMapSingleton::GetCloudMap();
+  static PointCloudMap *cloud_map_ptr = PointCloudMapSingleton::GetCloudMap();
 
   int cnt = CounterServer::Get();
-  if (cnt == 0)
-    Init();
 
   m_scan_matcher_ptr->MatchScan(scan);
   // get the estimated current pose with ICP

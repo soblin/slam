@@ -25,4 +25,9 @@ void PointCloudMapBS::MakeGlobalMap() {}
 void PointCloudMapBS::MakeLocalMap() {}
 void PointCloudMapBS::RemakeMaps(const std::vector<Pose2D> &newposes) {}
 
+void PointCloudMapBS::Initialize() {
+  int reserve_size = ParamServer::Get("PointCloudMap_MAX_POINT_NUM");
+  m_global_map.reserve(reserve_size);
+}
+
 } /* namespace slam */

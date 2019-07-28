@@ -28,6 +28,7 @@ public:
   bool SetFilename(const std::string filename);
   void Run();
   void CustomizeFrameWork(const std::string &type);
+  void Initialize();
 };
 
 } // namespace slam

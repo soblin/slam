@@ -47,4 +47,5 @@ double CostFunctionPD::CalcValue(double tx, double ty, double th /*rad*/) {
   return error;
 }
 
+void CostFunctionPD::Initialize() {}
 } // namespace slam

@@ -31,6 +31,7 @@ public:
   ~PoseOptimizer() {}
 
   virtual double OptimizePose(const Pose2D &initPose, Pose2D &estimatePose) = 0;
+  virtual void Initialize() = 0;
 
   friend class PoseOptimizerTestFriend;
 };

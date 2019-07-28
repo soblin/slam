@@ -82,4 +82,6 @@ double PoseOptimizerSD::OptimizePose(const Pose2D &initPose,
                           tick_theta, error_thresh, descent_coeff);
 }
 
+void PoseOptimizerSD::Initialize() { m_cost_func_ptr->Initialize(); }
+
 } /* namespace slam */

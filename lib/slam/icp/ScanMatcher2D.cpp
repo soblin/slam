@@ -1,5 +1,5 @@
+#include <cassert>
 #include <cmath>
-#include <iostream>
 #include <slam/icp/ScanMatcher2D.h>
 #include <slam/manager/ParamServer.h>
 
@@ -8,7 +8,7 @@ namespace slam {
 static bool is_first = true;
 
 bool ScanMatcher2D::MatchScan(Scan2D &curScan) {
-  PointCloudMap *cloud_map_ptr = PointCloudMapSingleton::GetCloudMap();
+  static PointCloudMap *cloud_map_ptr = PointCloudMapSingleton::GetCloudMap();
 
   // uniformalize the scaned points
   if (m_scan_point_resampler_ptr != nullptr)
@@ -72,7 +72,7 @@ bool ScanMatcher2D::MatchScan(Scan2D &curScan) {
 }
 
 void ScanMatcher2D::GrowMap(const Scan2D &scan, const Pose2D &pose) {
-  PointCloudMap *cloud_map_ptr = PointCloudMapSingleton::GetCloudMap();
+  static PointCloudMap *cloud_map_ptr = PointCloudMapSingleton::GetCloudMap();
 
   const auto &scaned_points = scan.scaned_points();
   double tx = pose.tx();
@@ -103,4 +103,17 @@ void ScanMatcher2D::GrowMap(const Scan2D &scan, const Pose2D &pose) {
   cloud_map_ptr->MakeLocalMap();
 }
 
+void ScanMatcher2D::Initialize() {
+  assert(!m_estimator_ptr);
+  m_estimator_ptr->Initialize();
+
+  assert(!m_ref_scan_maker_ptr);
+  m_ref_scan_maker_ptr->Initialize();
+
+  if (!m_scan_point_resampler_ptr)
+    m_scan_point_resampler_ptr->Initialize();
+
+  if (!m_scan_point_analyser_ptr)
+    m_scan_point_analyser_ptr->Initialize();
+}
 } /* namespace slam */

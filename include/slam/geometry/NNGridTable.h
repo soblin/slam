@@ -3,7 +3,7 @@
 
 #include <slam/geometry/Pose2D.h>
 #include <slam/geometry/ScanPoint2D.h>
-#include <slam/parameters.h>
+#include <slam/manager/ParamServer.h>
 #include <vector>
 
 namespace slam {
@@ -16,11 +16,7 @@ struct NNGridCell {
 
 class NNGridTable {
 public:
-  NNGridTable() {
-    int width = 2 * m_table_size + 1;
-    m_table.resize(width * width);
-    Clear();
-  }
+  NNGridTable() {}
   ~NNGridTable() { Clear(); }
 
   inline void Clear() {
@@ -33,12 +29,12 @@ public:
   const ScanPoint2D *FindClosestPoint(const ScanPoint2D *query,
                                       const Pose2D &basePose);
   void MakeCellPoints(std::vector<ScanPoint2D> &points);
+  void Initialize();
 
 private:
-  const double m_cell_size = param::NNGridTable_CELL_SIZE;
-  const double m_domain_size = param::NNGridTable_DOMAIN_SIZE;
-  const int m_table_size = static_cast<int>(param::NNGridTable_DOMAIN_SIZE /
-                                            param::NNGridTable_CELL_SIZE);
+  double m_cell_size = 0;
+  double m_domain_size = 0;
+  int m_table_size = 0;
 
   std::vector<NNGridCell> m_table;
 

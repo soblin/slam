@@ -12,9 +12,7 @@ private:
   NNGridTable m_grid_table;
 
 public:
-  PointCloudMapGT() : PointCloudMap() {
-    m_all_points.reserve(param::PointCloudMap_MAX_POINT_NUM);
-  }
+  PointCloudMapGT() : PointCloudMap() {}
   virtual ~PointCloudMapGT() { m_all_points.clear(); }
 
   virtual void AddPose(const Pose2D &p) override;
@@ -24,6 +22,7 @@ public:
   virtual void MakeGlobalMap() override;
   virtual void MakeLocalMap() override;
   virtual void RemakeMaps(const std::vector<Pose2D> &newPoses) override;
+  virtual void Initialize() override;
   void SubsamplePoints(std::vector<ScanPoint2D> &subs);
 };
 

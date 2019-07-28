@@ -67,4 +67,6 @@ double DataAssociatorLS::FindCorrespondence(const Scan2D *curScanPtr,
   return ratio;
 }
 
+void DataAssociatorLS::Initialize() {}
+
 } /* namespace slam */

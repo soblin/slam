@@ -65,3 +65,6 @@ NNGridTableのテーブルを確保する際に, サイズをm\_table\_size * m\
 parameters.hをincludeしているファイルはすべて, ParameterServerからパラメータの初期値をもらうように変更するべき.
 
 PoseOptmizer{SD|SL}のwhileにおいてイテレーション回数の上限を設けたら最適化計算が終了するようになった. とりあえずコミット. 次にすべてのパラメータをParameterServerから受け取るようにする. オーバーヘッドはあるけど教育用だしそれでいいや.
+
+## 7/27
+9章に入る前にやっぱりパラメータをymlにまとめておきたい. "include/slam/parameters.h" にまとめていると値を変更するたびにコンパイルが必要になってしまう. `yaml-cpp` を使えばいいか. いくつかのクラスにおいて, constなメンバ変数を初期化するのに`slam/parameters.h` をインクルードしている. とりあえずこれらをすべて `ParamServer` から値をもらうように変更する. なので, 各クラスにInitialize()を持たせておいたほうが良い.

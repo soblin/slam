@@ -1,7 +1,7 @@
 #include <gtest/gtest.h>
 #include <slam/geometry/Scan2D.h>
 #include <slam/icp/ScanPointResampler.h>
-#include <slam/manager/SlamFrontEnd.h>
+#include <slam/manager/ParamServer.h>
 
 namespace slam {
 
@@ -16,9 +16,11 @@ using namespace slam;
 
 TEST_F(ScanPointResamplerTestFriend, testResamplePoints) {
   // initialize
-  SlamFrontEnd frontend;
-  frontend.Init();
-
+  //  SlamFrontEnd frontend;
+  //  frontend.Init();
+  ParamServer::Create();
+  ParamServer::Set("ScanPointResampler_DIST_INTERVAL", 0.05);
+  ParamServer::Set("ScanPointResampler_DIST_INTERPOLATE_THRESH", 0.25);
   Scan2D scan;
 
   double y = 2.0;

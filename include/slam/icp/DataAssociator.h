@@ -24,6 +24,7 @@ public:
   virtual void SetRefBase(const std::vector<ScanPoint2D> &points) = 0;
   virtual double FindCorrespondence(const Scan2D *curScanPtr,
                                     const Pose2D &predictedPose) = 0;
+  virtual void Initialize() = 0;
 };
 
 } /* namespace slam */

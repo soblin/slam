@@ -37,4 +37,10 @@ void PointCloudMapGT::RemakeMaps(const std::vector<Pose2D> &newPoses) {
   return;
 }
 
+void PointCloudMapGT::Initialize() {
+  int reserve_size = ParamServer::Get("PointCloudMap_MAX_POINT_NUM");
+  m_global_map.reserve(reserve_size);
+
+  m_grid_table.Initialize();
+}
 } // namespace slam
