@@ -4,8 +4,8 @@
 #include <slam/parameters.h>
 namespace slam {
 
-double CostFunctionED::CalcValueImpl(double tx, double ty, double th /*rad*/,
-                                     double val_thresh) {
+double CostFunctionED::CalcValue(double tx, double ty, double th /*rad*/,
+                                 double val_thresh) {
   double error = 0;
   int matched_num = 0;
   int total_num = 0;
@@ -42,7 +42,7 @@ double CostFunctionED::CalcValueImpl(double tx, double ty, double th /*rad*/,
 }
 
 double CostFunctionED::CalcValue(double tx, double ty, double th /*rad*/) {
-  return CalcValueImpl(tx, ty, th, param::CostFunction_VAL_THRESH);
+  return CalcValue(tx, ty, th, param::CostFunction_VAL_THRESH);
 }
 
 } /* namespace slam */

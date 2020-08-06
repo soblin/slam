@@ -6,14 +6,12 @@
 namespace slam {
 
 class CostFunctionED : public CostFunction {
-private:
-  double CalcValueImpl(double tx, double ty, double th, double val_threseh);
-
 public:
   CostFunctionED() : CostFunction() {}
   virtual ~CostFunctionED() {}
 
   virtual double CalcValue(double tx, double ty, double th /*rad*/) override;
+  double CalcValue(double tx, double ty, double th, double val_threseh);
 
   friend class CostFunctionEDTestFriend;
 };

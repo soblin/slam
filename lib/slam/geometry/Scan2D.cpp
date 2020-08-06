@@ -16,4 +16,4 @@ void Scan2D::SetPose(const slam::Pose2D &pose) { m_pose = pose; }
 
 void Scan2D::SetAngle(double rad) { m_pose.SetAngle(rad); }
 
-} // namespace
+} // namespace slam
