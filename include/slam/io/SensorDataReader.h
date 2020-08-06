@@ -24,6 +24,6 @@ public:
 private:
   bool LoadScanImpl(size_t cnt_id, Scan2D &output);
 };
-} // namespace
+} // namespace slam
 
 #endif
