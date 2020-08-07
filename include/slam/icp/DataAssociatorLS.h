@@ -21,6 +21,7 @@ public:
   // Impl of FindCorrespondence
   double FindCorrespondence(const Scan2D *curScanPtr,
                             const Pose2D &predictedPose, double thresh);
+
   virtual void Initialize() override;
 
   friend class DataAssociatorLSTestFriend;

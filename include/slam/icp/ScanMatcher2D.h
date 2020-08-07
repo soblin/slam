@@ -12,14 +12,6 @@
 namespace slam {
 
 class ScanMatcher2D {
-private:
-  Pose2D m_init_pose; // the pose of the origin of the map. default(0, 0, 0)
-
-  PoseEstimatorICP *m_estimator_ptr;
-  RefScanMaker *m_ref_scan_maker_ptr;
-  ScanPointResampler *m_scan_point_resampler_ptr;
-  ScanPointAnalyser *m_scan_point_analyser_ptr;
-
 public:
   inline void SetEstimatorICP(PoseEstimatorICP *p) { m_estimator_ptr = p; }
   inline void SetRefScanMaker(RefScanMaker *p) { m_ref_scan_maker_ptr = p; }
@@ -42,6 +34,19 @@ public:
   void Initialize();
   bool MatchScan(Scan2D &scan);
   void GrowMap(const Scan2D &scan, const Pose2D &pose);
+
+private:
+  Pose2D m_init_pose; // the pose of the origin of the map. default(0, 0, 0)
+
+  PoseEstimatorICP *m_estimator_ptr = nullptr;
+  RefScanMaker *m_ref_scan_maker_ptr = nullptr;
+  ScanPointResampler *m_scan_point_resampler_ptr = nullptr;
+  ScanPointAnalyser *m_scan_point_analyser_ptr = nullptr;
+
+  // initialied in Initialize()
+  double m_score_thresh = 0;
+  double m_used_num_thresh = 0;
+  PointCloudMap *m_cloud_map_ptr = nullptr;
 };
 
 } /* namespace slam */

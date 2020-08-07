@@ -15,28 +15,25 @@ void SlamFrontEnd::Initialize() {
 
   // Initialize the chained classes and update their parameters
   assert(!m_scan_matcher_ptr);
-  if (!m_scan_matcher_ptr)
-    m_scan_matcher_ptr->Initialize();
+  m_scan_matcher_ptr->Initialize();
 
-  PointCloudMap *cloud_map_ptr = PointCloudMapSingleton::GetCloudMap();
-  cloud_map_ptr->Initialize();
+  m_cloud_map_ptr = PointCloudMapSingleton::GetCloudMap();
+  m_cloud_map_ptr->Initialize();
 }
 
 // process the scan data, which was generated at SensorDataReader
 void SlamFrontEnd::Process(Scan2D &scan) {
-  static PointCloudMap *cloud_map_ptr = PointCloudMapSingleton::GetCloudMap();
-
   int cnt = CounterServer::Get();
 
   m_scan_matcher_ptr->MatchScan(scan);
   // get the estimated current pose with ICP
-  //  Pose2D curPose = m_point_cloud_map_ptr->GetLastPose();
+  //  Pose2D curPose = m_point_m_cloud_map_ptr->GetLastPose();
   if (cnt == 0)
     ParamServer::Set("PointCloudMapGT_CELL_POINT_NUM_THRESH", 1.0);
   else
     ParamServer::Set("PointCloudMapGT_CELL_POINT_NUM_THRESH", 5.0);
 
-  cloud_map_ptr->MakeGlobalMap();
+  m_cloud_map_ptr->MakeGlobalMap();
 
   CounterServer::Increment();
 }

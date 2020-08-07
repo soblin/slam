@@ -12,13 +12,13 @@ protected:
   std::vector<const ScanPoint2D *> m_cur_points;
   std::vector<const ScanPoint2D *> m_ref_points;
 
-  double m_match_rate;
+  double m_match_rate = -1;
 
 public:
   inline double GetMatchRate() const { return m_match_rate; }
 
 public:
-  CostFunction() : m_match_rate(-1) {}
+  CostFunction() {}
   ~CostFunction() {}
 
   virtual double CalcValue(double tx, double ty, double th) = 0;

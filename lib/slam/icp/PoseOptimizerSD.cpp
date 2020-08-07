@@ -24,12 +24,8 @@ double PoseOptimizerSD::OptimizePoseImpl(const Pose2D &initPose,
   double dd = ds;
   double dth = dtheta;
 
-  static const double diff_thresh =
-      ParamServer::Get("PoseOptimizer_VAL_DIFF_THRESH");
-  static const int max_iteration =
-      ParamServer::Get("PoseOptimizerSD_ITERATION");
-  while (std::fabs(eval_old - eval) > diff_thresh &&
-         number_of_iteration < max_iteration) {
+  while (std::fabs(eval_old - eval) > val_diff_thresh &&
+         number_of_iteration < m_max_iteration) {
     number_of_iteration++;
     eval_old = eval;
 
@@ -69,19 +65,18 @@ double PoseOptimizerSD::OptimizePoseImpl(const Pose2D &initPose,
 
 double PoseOptimizerSD::OptimizePose(const Pose2D &initPose,
                                      Pose2D &estimatePose) {
-  static const double val_diff_thresh =
-      ParamServer::Get("PoseOptimizer_VAL_DIFF_THRESH");
-  static const double tick_dist = ParamServer::Get("PoseOptimizer_TickDist");
-  static const double tick_theta = ParamServer::Get("PoseOptimizer_TickTheta");
-  static const double error_thresh =
-      ParamServer::Get("PoseOptimizer_ERROR_THRESH");
-  static const double descent_coeff =
-      ParamServer::Get("PoseOptimizer_DescentCoeff");
-
-  return OptimizePoseImpl(initPose, estimatePose, val_diff_thresh, tick_dist,
-                          tick_theta, error_thresh, descent_coeff);
+  return OptimizePoseImpl(initPose, estimatePose, m_val_diff_thresh, m_dd, m_da,
+                          m_error_thresh, m_descent_coeff);
 }
 
-void PoseOptimizerSD::Initialize() { m_cost_func_ptr->Initialize(); }
+void PoseOptimizerSD::Initialize() {
+  m_cost_func_ptr->Initialize();
+  m_val_diff_thresh = ParamServer::Get("PoseOptimizer_VAL_DIFF_THRESH");
+  m_max_iteration = ParamServer::Get("PoseOptimizerSD_ITERATION");
+  m_dd = ParamServer::Get("PoseOptimizer_TickDist");
+  m_da = ParamServer::Get("PoseOptimizer_TickTheta");
+  m_error_thresh = ParamServer::Get("PoseOptimizer_ERROR_THRESH");
+  m_descent_coeff = ParamServer::Get("PoseOptimizer_DescentCoeff");
+}
 
 } /* namespace slam */

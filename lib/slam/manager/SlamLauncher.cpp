@@ -17,8 +17,6 @@ namespace slam {
 void SlamLauncher::SetOdometryOnly(bool only) { m_odometry_only = only; }
 
 void SlamLauncher::MapByOdometry(const Scan2D &scan) {
-  static PointCloudMap *cloud_map_ptr = PointCloudMapSingleton::GetCloudMap();
-
   Pose2D pose;
   Pose2D::CalcRelativePose(scan.pose(), m_initial_pose, pose);
   const auto scaned_points = scan.scaned_points();
@@ -31,9 +29,9 @@ void SlamLauncher::MapByOdometry(const Scan2D &scan) {
     global_points.emplace_back(global_point);
   }
 
-  cloud_map_ptr->AddPose(pose);
-  cloud_map_ptr->AddPoints(global_points);
-  cloud_map_ptr->MakeGlobalMap();
+  m_cloud_map_ptr->AddPose(pose);
+  m_cloud_map_ptr->AddPoints(global_points);
+  m_cloud_map_ptr->MakeGlobalMap();
 }
 
 bool SlamLauncher::SetFilename(const std::string filename) {
@@ -41,22 +39,22 @@ bool SlamLauncher::SetFilename(const std::string filename) {
 }
 
 void SlamLauncher::Initialize() {
-  m_map_drawer.InitGnuplot();
-  m_map_drawer.SetAspectRatio(-0.9);
+  // Initialization of frontend, the parameters are registered
   m_slam_frontend.Initialize();
-  m_sensor_reader.SetAngleOffset(
-      ParamServer::Get("SensorDataReader_ANGLE_OFFSET"));
+  // Initialize member instance
+  m_map_drawer.Initialize();
+  m_map_drawer.SetAspectRatio(-0.9);
+  // the parameter values have been registered
+  m_sensor_reader.Initialize();
+  m_cloud_map_ptr = PointCloudMapSingleton::GetCloudMap();
+  m_odometry_only = false;
+  m_draw_skip = static_cast<int>(ParamServer::Get("SlamLauncher_PLOT_SKIP"));
+  m_usleep_time = static_cast<int>(ParamServer::Get("SlamLauncher_SLEEP_TIME"));
 }
 
 void SlamLauncher::Run() {
-  static int skip =
-      static_cast<int>(ParamServer::Get("SlamLauncher_PLOT_SKIP"));
-  static int usleep_time =
-      static_cast<int>(ParamServer::Get("SlamLauncher_SLEEP_TIME"));
-
   Scan2D scan_buf;
   bool eof = m_sensor_reader.LoadScan(scan_buf);
-  static PointCloudMap *cloud_map_ptr = PointCloudMapSingleton::GetCloudMap();
 
   while (!eof) {
     int cnt = CounterServer::Get();
@@ -74,12 +72,12 @@ void SlamLauncher::Run() {
       // use ICP and add to PointCloudMap
       m_slam_frontend.Process(scan_buf);
     }
-    if (cnt % skip == 0) {
-      m_map_drawer.DrawGp(cloud_map_ptr);
+    if (cnt % m_draw_skip == 0) {
+      m_map_drawer.DrawGp(m_cloud_map_ptr);
     }
 
     eof = m_sensor_reader.LoadScan(scan_buf);
-    usleep(usleep_time);
+    usleep(m_usleep_time);
   }
 }
 

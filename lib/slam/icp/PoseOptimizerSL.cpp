@@ -20,21 +20,14 @@ double PoseOptimizerSL::OptimizePose(const Pose2D &initPose,
   double cost = m_cost_func_ptr->CalcValue(tx, ty, th);
   int number_of_iteration = 0;
 
-  static const double val_diff_thresh =
-      ParamServer::Get("PoseOptimizer_VAL_DIFF_THRESH");
-  static const int max_iteration =
-      ParamServer::Get("PoseOptimizerSL_ITERATION");
-
-  while (std::fabs(prev_cost - cost) > val_diff_thresh &&
-         number_of_iteration < max_iteration) {
+  while (std::fabs(prev_cost - cost) > m_val_diff_thresh &&
+         number_of_iteration < m_max_iteration) {
     number_of_iteration++;
     prev_cost = cost;
 
-    static const double dd = ParamServer::Get("PoseOptimizer_TickDist");
-    static const double da = ParamServer::Get("PoseOptimizer_TickTheta");
-    double dx = (m_cost_func_ptr->CalcValue(tx + dd, ty, th) - cost) / dd;
-    double dy = (m_cost_func_ptr->CalcValue(tx, ty + dd, th) - cost) / dd;
-    double dth = (m_cost_func_ptr->CalcValue(tx, ty, th + da) - cost) / da;
+    double dx = (m_cost_func_ptr->CalcValue(tx + m_dd, ty, th) - cost) / m_dd;
+    double dy = (m_cost_func_ptr->CalcValue(tx, ty + m_dd, th) - cost) / m_dd;
+    double dth = (m_cost_func_ptr->CalcValue(tx, ty, th + m_da) - cost) / m_da;
 
     tx += dx;
     ty += dy;
@@ -63,8 +56,7 @@ double PoseOptimizerSL::OptimizePose(const Pose2D &initPose,
 
   m_repeat_num++;
 
-  static double error_thresh = ParamServer::Get("PoseOptimizer_ERROR_THRESH");
-  if (m_repeat_num > 0 && min_cost < error_thresh)
+  if (m_repeat_num > 0 && min_cost < m_error_thresh)
     m_error_sum += min_cost;
 
   estimatePose.SetVal(tx_min, ty_min, th_min);
@@ -74,16 +66,14 @@ double PoseOptimizerSL::OptimizePose(const Pose2D &initPose,
 
 double PoseOptimizerSL::LineSearch(double ev0, Pose2D &pose,
                                    const Pose2D &direction) {
-  static const double search_range =
-      ParamServer::Get("PoseOptimizer_SEARCH_RANGE");
-
   int bits = std::numeric_limits<double>::digits;
-  boost::uintmax_t maxIter = 40;
+  boost::uintmax_t max_iter = m_max_iteration;
+
   std::pair<double, double> result = boost::math::tools::brent_find_minima(
       [this, &pose, &direction](double step) {
         return ObjFunc(step, pose, direction);
       },
-      -search_range, search_range, bits, maxIter);
+      -m_search_range, m_search_range, bits, max_iter);
 
   double step = result.first; // the step width
   double min_val = result.second;
@@ -110,6 +100,16 @@ double PoseOptimizerSL::ObjFunc(double step, Pose2D &pose,
   return m_cost_func_ptr->CalcValue(tx, ty, th);
 }
 
-void PoseOptimizerSL::Initialize() { m_cost_func_ptr->Initialize(); }
+void PoseOptimizerSL::Initialize() {
+  m_val_diff_thresh = ParamServer::Get("PoseOptimizer_VAL_DIFF_THRESH");
+  m_max_iteration =
+      static_cast<int>(ParamServer::Get("PoseOptimizerSL_ITERATION"));
+  m_dd = ParamServer::Get("PoseOptimizer_TickDist");
+  m_da = ParamServer::Get("PoseOptimizer_TickTheta");
+  m_error_thresh = ParamServer::Get("PoseOptimizer_ERROR_THRESH");
+  m_search_range = ParamServer::Get("PoseOptimizer_SEARCH_RANGE");
+
+  m_cost_func_ptr->Initialize();
+}
 
 } // namespace slam

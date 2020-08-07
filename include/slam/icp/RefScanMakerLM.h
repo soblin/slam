@@ -11,6 +11,7 @@ public:
   virtual ~RefScanMakerLM(){};
 
   virtual const Scan2D *MakeRefScan() override;
+  virtual void Initialize() override;
 };
 
 } // namespace slam

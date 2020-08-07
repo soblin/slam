@@ -8,10 +8,10 @@ namespace slam {
 
 class PoseOptimizer {
 protected:
-  int m_repeat_num;
-  double m_error_sum;
+  int m_repeat_num = 0;
+  double m_error_sum = 0;
 
-  CostFunction *m_cost_func_ptr;
+  CostFunction *m_cost_func_ptr = nullptr;
 
 public:
   inline void SetCostFunction(CostFunction *f) { m_cost_func_ptr = f; }
@@ -24,10 +24,7 @@ public:
   }
 
 public:
-  PoseOptimizer() : m_cost_func_ptr(nullptr) {
-    m_repeat_num = 0;
-    m_error_sum = 0;
-  }
+  PoseOptimizer() {}
   ~PoseOptimizer() {}
 
   virtual double OptimizePose(const Pose2D &initPose, Pose2D &estimatePose) = 0;

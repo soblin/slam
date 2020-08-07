@@ -12,19 +12,19 @@ namespace slam {
 
 class MapDrawer {
 private:
-  FILE *m_gp;
-  double m_xmin, m_xmax;
-  double m_ymin, m_ymax;
-  double m_ratio;
+  FILE *m_gp = nullptr;
+  double m_xmin = -10, m_xmax = 10;
+  double m_ymin = -10, m_ymax = 10;
+  double m_ratio = -1.0;
+  double m_step_point = 0;
+  double m_step_pose = 0;
+  double m_dd = 0;
 
 public:
-  MapDrawer()
-      : m_gp(nullptr), m_xmin(-10), m_xmax(10), m_ymin(-10), m_ymax(10),
-        m_ratio(-1.0) {}
-
+  MapDrawer() {}
   ~MapDrawer() { FinishGnuplot(); }
 
-  void InitGnuplot();
+  void Initialize();
   void FinishGnuplot();
   void SetAspectRatio(double a);
   void SetRange(double R);

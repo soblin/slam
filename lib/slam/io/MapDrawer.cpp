@@ -11,12 +11,15 @@ static constexpr bool logger = false;
 
 namespace slam {
 
-void MapDrawer::InitGnuplot() {
+void MapDrawer::Initialize() {
 #ifdef __linux__
   m_gp = popen("gnuplot", "w");
 #elif _WIN32
   m_gp = _popen("gnuplot", "w");
 #endif
+  m_step_point = static_cast<int>(ParamServer::Get("MapDrawer_STEP_POINT"));
+  m_step_pose = static_cast<int>(ParamServer::Get("MapDrawer_STEP_POSE"));
+  m_dd = ParamServer::Get("MapDrawer_DD");
 }
 
 void MapDrawer::FinishGnuplot() {
@@ -79,9 +82,7 @@ void MapDrawer::DrawGp(const std::vector<ScanPoint2D> &scaned_points,
   fprintf(m_gp, "plot '-' w p pt 7 ps 0.1 lc rgb 0x0, '-' with vector\n");
 
   // plot the point cloud
-  int step = static_cast<int>(ParamServer::Get("MapDrawer_STEP_POINT"));
-
-  for (size_t i = 0, size = scaned_points.size(); i < size; i += step) {
+  for (size_t i = 0, size = scaned_points.size(); i < size; i += m_step_point) {
     double tx = scaned_points[i].x();
     double ty = scaned_points[i].y();
     fprintf(m_gp, "%lf %lf\n", tx, ty);
@@ -90,10 +91,9 @@ void MapDrawer::DrawGp(const std::vector<ScanPoint2D> &scaned_points,
   fprintf(m_gp, "e\n");
 
   // plot the robot pose
-  step = static_cast<int>(ParamServer::Get("MapDrawer_STEP_POSE"));
-  double d = ParamServer::Get("MapDrawer_DD");
+  double d = m_dd;
 
-  for (size_t i = 0, size = poses.size(); i < size; i += step) {
+  for (size_t i = 0, size = poses.size(); i < size; i += m_step_pose) {
     double cx = poses[i].tx();
     double cy = poses[i].ty();
     double Cos = poses[i].R00();

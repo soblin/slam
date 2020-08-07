@@ -30,6 +30,7 @@ TEST(SensorDataReader, read_test) {
   ofs.close();
 
   slam::SensorDataReader reader;
+  reader.Initialize();
   reader.SetAngleOffset(
       slam::ParamServer::Get("SensorDataReader_ANGLE_OFFSET"));
   reader.OpenScanFile("test.lsc");
@@ -44,6 +45,7 @@ TEST(SensorDataReader, read_test) {
 
 TEST(SensorDataReader, scaned_local_position_test) {
   slam::SensorDataReader reader;
+  reader.Initialize();
   reader.SetAngleOffset(
       slam::ParamServer::Get("SensorDataReader_ANGLE_OFFSET"));
   reader.OpenScanFile("test.lsc");

@@ -18,6 +18,14 @@ public:
 private:
   double LineSearch(double ev0, Pose2D &pose, const Pose2D &direction);
   double ObjFunc(double tt, Pose2D &pose, const Pose2D &direction);
+
+private:
+  double m_val_diff_thresh = 0;
+  int m_max_iteration = -1;
+  double m_dd = 0;
+  double m_da = 0;
+  double m_error_thresh = 0;
+  double m_search_range = 0;
 };
 
 } // namespace slam

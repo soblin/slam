@@ -4,17 +4,15 @@
 namespace slam {
 
 const Scan2D *RefScanMakerBS::MakeRefScan() {
-  static PointCloudMap *cloud_map_ptr = PointCloudMapSingleton::GetCloudMap();
-
   std::vector<ScanPoint2D> newScan;
 
   Pose2D lastPose;
-  cloud_map_ptr->GetLastPose(lastPose);
+  m_cloud_map_ptr->GetLastPose(lastPose);
   double tx = lastPose.tx();
   double ty = lastPose.ty();
 
   const std::vector<ScanPoint2D> &scaned_points =
-      cloud_map_ptr->GetLastScan().scaned_points();
+      m_cloud_map_ptr->GetLastScan().scaned_points();
   for (unsigned i = 0; i < scaned_points.size(); ++i) {
     const ScanPoint2D &scan_point = scaned_points[i];
 
@@ -33,6 +31,10 @@ const Scan2D *RefScanMakerBS::MakeRefScan() {
   m_ref_scan.SetScanedPoints(newScan);
 
   return &m_ref_scan;
+}
+
+void RefScanMakerBS::Initialize() {
+  m_cloud_map_ptr = PointCloudMapSingleton::GetCloudMap();
 }
 
 } /* namespace slam */

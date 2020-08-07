@@ -11,15 +11,18 @@ public:
   inline void SetScanMatcher2D(ScanMatcher2D *p) { m_scan_matcher_ptr = p; }
 
 public:
-  SlamFrontEnd() : m_scan_matcher_ptr(nullptr) {}
+  SlamFrontEnd() {}
   ~SlamFrontEnd() {}
 
   void Initialize();
   void Process(Scan2D &scan);
 
 private:
-  ScanMatcher2D *m_scan_matcher_ptr;
+  ScanMatcher2D *m_scan_matcher_ptr = nullptr;
   void RegisterParams();
+
+  // initialized in Initialize()
+  PointCloudMap *m_cloud_map_ptr = nullptr;
 };
 
 } /* namespace slam */

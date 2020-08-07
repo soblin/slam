@@ -7,10 +7,6 @@
 namespace slam {
 
 class SensorDataReader {
-private:
-  int m_angle_offset;
-  std::ifstream m_in_file;
-
 public:
   SensorDataReader() {}
 
@@ -19,11 +15,17 @@ public:
   bool OpenScanFile(const std::string &filepath);
   void CloseScanFile();
   void SetAngleOffset(int offset);
-
+  void Initialize();
   bool LoadScan(Scan2D &output);
 
 private:
   bool LoadScanImpl(Scan2D &output);
+
+private:
+  int m_angle_offset = 0;
+  std::ifstream m_in_file;
+  double m_max_scan_range = 0;
+  double m_min_scan_range = 0;
 };
 } // namespace slam
 

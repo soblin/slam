@@ -9,12 +9,12 @@ namespace slam {
 
 class PoseEstimatorICP {
 private:
-  const Scan2D *m_cur_scan;
-  std::size_t m_used_points_num; // the number of points used for ICP
-  double m_matched_rate;
+  const Scan2D *m_cur_scan = nullptr;
+  std::size_t m_used_points_num = 0; // the number of points used for ICP
+  double m_matched_rate = 0;
 
-  PoseOptimizer *m_optimizer_ptr;
-  DataAssociator *m_associator_ptr;
+  PoseOptimizer *m_optimizer_ptr = nullptr;
+  DataAssociator *m_associator_ptr = nullptr;
 
 public:
   inline void SetPoseOptimizer(PoseOptimizer *p) { m_optimizer_ptr = p; }
@@ -31,7 +31,7 @@ public:
   }
 
 public:
-  PoseEstimatorICP() : m_used_points_num(0), m_matched_rate(0) {}
+  PoseEstimatorICP() {}
   ~PoseEstimatorICP() {}
 
   double EstimatePose(const Pose2D &initPose, Pose2D &estimatePose);
