@@ -25,6 +25,6 @@ public:
 private:
   bool LoadScanImpl(Scan2D &output);
 };
-} // namespace
+} // namespace slam
 
 #endif

@@ -70,7 +70,7 @@ TEST_F(ScanPointResamplerTestFriend, testResamplePoints) {
   point = resampled_points[10];
   ASSERT_FLOAT_EQ(point.x(), 0.70);
 }
-}
+} // namespace slam
 
 int main(int argc, char **argv) {
   ::testing::InitGoogleTest(&argc, argv);

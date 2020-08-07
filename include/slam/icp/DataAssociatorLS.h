@@ -10,9 +10,6 @@ namespace slam {
 class DataAssociatorLS : public DataAssociator {
 private:
   std::vector<const ScanPoint2D *> m_base_points; // use as temporary storage
-  // Impl of FindCorrespondence
-  double FindCorrespondence(const Scan2D *curScanPtr,
-                            const Pose2D &predictedPose, double thresh);
 
 public:
   DataAssociatorLS() : DataAssociator() {}
@@ -21,6 +18,9 @@ public:
   virtual void SetRefBase(const std::vector<ScanPoint2D> &points) override;
   virtual double FindCorrespondence(const Scan2D *curScanPtr,
                                     const Pose2D &predictedPose) override;
+  // Impl of FindCorrespondence
+  double FindCorrespondence(const Scan2D *curScanPtr,
+                            const Pose2D &predictedPose, double thresh);
   virtual void Initialize() override;
 
   friend class DataAssociatorLSTestFriend;

@@ -19,7 +19,7 @@ public:
     return dass.FindCorrespondence(curScan, predictedPose, thresh);
   }
 };
-}
+} // namespace slam
 
 using namespace slam;
 
