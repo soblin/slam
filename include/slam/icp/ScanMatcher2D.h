@@ -13,6 +13,14 @@ namespace slam {
 
 class ScanMatcher2D {
 public:
+  ScanMatcher2D() {}
+  ~ScanMatcher2D() {}
+
+  void Initialize();
+  bool MatchScan(Scan2D &scan);
+  void GrowMap(const Scan2D &scan, const Pose2D &pose);
+
+public:
   inline void SetEstimatorICP(PoseEstimatorICP *p) { m_estimator_ptr = p; }
   inline void SetRefScanMaker(RefScanMaker *p) { m_ref_scan_maker_ptr = p; }
   inline void SetInitPose(const Pose2D &p) { m_init_pose = p; }
@@ -22,18 +30,6 @@ public:
   inline void SetScanPointAnalyser(ScanPointAnalyser *p) {
     m_scan_point_analyser_ptr = p;
   }
-
-public:
-  ScanMatcher2D()
-      : m_estimator_ptr(nullptr), m_ref_scan_maker_ptr(nullptr),
-        m_scan_point_resampler_ptr(nullptr),
-        m_scan_point_analyser_ptr(nullptr) {}
-
-  ~ScanMatcher2D() {}
-
-  void Initialize();
-  bool MatchScan(Scan2D &scan);
-  void GrowMap(const Scan2D &scan, const Pose2D &pose);
 
 private:
   Pose2D m_init_pose; // the pose of the origin of the map. default(0, 0, 0)
@@ -50,4 +46,4 @@ private:
 };
 
 } /* namespace slam */
-#endif /* scan_matcher_2d_h */
+#endif /* SCAN_MATCHER_2D_H */

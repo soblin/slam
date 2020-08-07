@@ -6,24 +6,6 @@
 namespace slam {
 
 class Pose2D {
-private:
-  double m_tx;
-  double m_ty;
-  // angle is restricted to (-M_PI, M_PI]
-  double m_th; // [rad]
-  double m_Rmat[2][2];
-
-public:
-  inline double tx() const { return m_tx; }
-  inline double ty() const { return m_ty; }
-  inline double th() const { return m_th; }
-  inline double &tx() { return m_tx; }
-  inline double &ty() { return m_ty; }
-  inline double R00() const { return m_Rmat[0][0]; }
-  inline double R01() const { return m_Rmat[0][1]; }
-  inline double R10() const { return m_Rmat[1][0]; }
-  inline double R11() const { return m_Rmat[1][1]; }
-
 public:
   Pose2D() : m_tx(0), m_ty(0), m_th(0) {
     m_Rmat[0][0] = m_Rmat[1][1] = 1.0;
@@ -46,6 +28,24 @@ public:
                                Pose2D &relative);
   static void CalcGlobalPose(const Pose2D &relative, const Pose2D &base,
                              Pose2D &global);
+
+public:
+  inline double tx() const { return m_tx; }
+  inline double ty() const { return m_ty; }
+  inline double th() const { return m_th; }
+  inline double &tx() { return m_tx; }
+  inline double &ty() { return m_ty; }
+  inline double R00() const { return m_Rmat[0][0]; }
+  inline double R01() const { return m_Rmat[0][1]; }
+  inline double R10() const { return m_Rmat[1][0]; }
+  inline double R11() const { return m_Rmat[1][1]; }
+
+private:
+  double m_tx;
+  double m_ty;
+  // angle is restricted to (-M_PI, M_PI]
+  double m_th; // [rad]
+  double m_Rmat[2][2];
 };
 
 } // namespace slam

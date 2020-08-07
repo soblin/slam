@@ -20,6 +20,21 @@
 namespace slam {
 
 class FrameWorkCustomizer {
+public:
+  FrameWorkCustomizer() {}
+  ~FrameWorkCustomizer() {}
+
+  inline void SetSlamFrontEnd(SlamFrontEnd *f) { m_slam_front_end_ptr = f; }
+
+  void CustomizeA();
+  void CustomizeB();
+  void CustomizeC();
+  void CustomizeD();
+  void CustomizeE();
+  void CustomizeF();
+  void CustomizeG();
+  void CustomizeH();
+
 private:
   RefScanMakerBS m_ref_scan_maker_bs;
   RefScanMakerLM m_ref_scan_maker_lm;
@@ -45,21 +60,6 @@ private:
 
   SlamFrontEnd *m_slam_front_end_ptr =
       nullptr; // points the the instance in SlamLauncher
-
-public:
-  FrameWorkCustomizer() {}
-  ~FrameWorkCustomizer() {}
-
-  inline void SetSlamFrontEnd(SlamFrontEnd *f) { m_slam_front_end_ptr = f; }
-
-  void CustomizeA();
-  void CustomizeB();
-  void CustomizeC();
-  void CustomizeD();
-  void CustomizeE();
-  void CustomizeF();
-  void CustomizeG();
-  void CustomizeH();
 };
 
 } /* namespace slam */

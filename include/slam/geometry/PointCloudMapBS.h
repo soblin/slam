@@ -13,6 +13,7 @@ public:
   PointCloudMapBS() : PointCloudMap() {}
   virtual ~PointCloudMapBS() {}
 
+  virtual void Initialize() override;
   virtual void AddPose(const Pose2D &pose) override;
   virtual void AddPoint(const ScanPoint2D &scan) override;
   virtual void AddPoint(ScanPoint2D &&scan) override;
@@ -20,7 +21,6 @@ public:
   virtual void MakeGlobalMap() override;
   virtual void MakeLocalMap() override;
   virtual void RemakeMaps(const std::vector<Pose2D> &newposes) override;
-  virtual void Initialize() override;
 };
 
 } /* namespace slam */

@@ -6,24 +6,21 @@
 namespace slam {
 
 class ScanPointResampler {
-private:
-  bool FindInterpolatePointImpl(const ScanPoint2D &curPoint,
-                                const ScanPoint2D &prevPoint,
-                                ScanPoint2D &nextPoint, bool &inserted,
-                                double &acc_dist, double interval_thresh,
-                                double interpolate_thresh);
-
 public:
   ScanPointResampler() {}
   ~ScanPointResampler() {}
 
+  void Initialize() {}
   void ResamplePoints(Scan2D *scan);
   bool FindInterpolatePoint(const ScanPoint2D &curPoint,
                             const ScanPoint2D &prevPoint,
                             ScanPoint2D &nextPoint, bool &inserted,
                             double &acc_dist);
-  void Initialize() {}
-  friend class ScanPointResamplerTestFriend;
+  bool FindInterpolatePoint(const ScanPoint2D &curPoint,
+                            const ScanPoint2D &prevPoint,
+                            ScanPoint2D &nextPoint, bool &inserted,
+                            double &acc_dist, double interval_thresh,
+                            double interpolate_thresh);
 };
 
 } // namespace slam

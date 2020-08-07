@@ -12,15 +12,21 @@
 namespace slam {
 
 class PointCloudMap {
-protected:
-  // accumulated poses and scaned points(global frame)
-  std::vector<Pose2D> m_poses;
-  std::vector<ScanPoint2D> m_global_map;
-  std::vector<ScanPoint2D> m_local_map;
+public:
+  PointCloudMap() {}
+  virtual ~PointCloudMap() {
+    m_poses.reserve(0);
+    m_global_map.reserve(0);
+  }
 
-  // for ICP
-  Pose2D m_last_pose;
-  Scan2D m_last_scan;
+  virtual void Initialize() = 0;
+  virtual void AddPose(const Pose2D &pose) = 0;
+  virtual void AddPoint(const ScanPoint2D &scan) = 0;
+  virtual void AddPoint(ScanPoint2D &&scan) = 0;
+  virtual void AddPoints(const std::vector<ScanPoint2D> &scans) = 0;
+  virtual void MakeGlobalMap() = 0;
+  virtual void MakeLocalMap() = 0;
+  virtual void RemakeMaps(const std::vector<Pose2D> &newposes) = 0;
 
 public:
   inline const std::vector<Pose2D> &poses() const { return m_poses; }
@@ -38,24 +44,23 @@ public:
   inline void SetLastPose(const Pose2D &pose) { m_last_pose = pose; }
   inline void SetLastScan(const Scan2D &scan) { m_last_scan = scan; }
 
-  PointCloudMap() {}
+protected:
+  // accumulated poses and scaned points(global frame)
+  std::vector<Pose2D> m_poses;
+  std::vector<ScanPoint2D> m_global_map;
+  std::vector<ScanPoint2D> m_local_map;
 
-  virtual ~PointCloudMap() {
-    m_poses.reserve(0);
-    m_global_map.reserve(0);
-  }
-
-  virtual void AddPose(const Pose2D &pose) = 0;
-  virtual void AddPoint(const ScanPoint2D &scan) = 0;
-  virtual void AddPoint(ScanPoint2D &&scan) = 0;
-  virtual void AddPoints(const std::vector<ScanPoint2D> &scans) = 0;
-  virtual void MakeGlobalMap() = 0;
-  virtual void MakeLocalMap() = 0;
-  virtual void RemakeMaps(const std::vector<Pose2D> &newposes) = 0;
-  virtual void Initialize() = 0;
+  // for ICP
+  Pose2D m_last_pose;
+  Scan2D m_last_scan;
 };
 
 class PointCloudMapSingleton {
+private:
+  PointCloudMapSingleton(){};
+  static PointCloudMapSingleton *m_instance_ptr;
+  static PointCloudMap *m_point_cloud_map_ptr;
+
 public:
   static PointCloudMap *GetCloudMap() { return m_point_cloud_map_ptr; }
   static void Create(PointCloudMap *ptr) {
@@ -64,12 +69,7 @@ public:
     }
     m_point_cloud_map_ptr = ptr;
   }
-
-private:
-  PointCloudMapSingleton(){};
-  static PointCloudMapSingleton *m_instance_ptr;
-  static PointCloudMap *m_point_cloud_map_ptr;
 };
 
 } /* namespace slam */
-#endif
+#endif /* POINT_CLOUD_MAP */

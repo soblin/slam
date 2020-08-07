@@ -7,15 +7,15 @@
 namespace slam {
 
 class ParamServer {
-public:
-  static void Create();
-  static double Get(const std::string &key);
-  static void Set(const std::string &key, double val);
-
 private:
   ParamServer(){};
   static ParamServer *m_instance_ptr;
   static std::map<std::string, double> m_params;
+
+public:
+  static void Create();
+  static double Get(const std::string &key);
+  static void Set(const std::string &key, double val);
 };
 
 } // namespace slam

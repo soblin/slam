@@ -7,20 +7,6 @@ class ScanPoint2D {
 public:
   enum PointType { UNKNOWN, LINE, CORNER, ISOLATE };
 
-private:
-  double m_x, m_y;
-  double m_nx, m_ny;
-  double m_travel;
-  PointType m_type;
-
-public:
-  inline double x() const { return m_x; }
-  inline double y() const { return m_y; }
-  inline double nx() const { return m_nx; }
-  inline double ny() const { return m_ny; }
-  inline double travel() const { return m_travel; }
-  inline PointType type() const { return m_type; }
-
 public:
   ScanPoint2D() : m_x(0), m_y(0) { init(); }
   ScanPoint2D(double x, double y) : m_x(x), m_y(y) { init(); }
@@ -34,6 +20,20 @@ public:
   void SetTravel(double travel);
   void SetType(PointType type);
   void SetNormal(double nx, double ny);
+
+public:
+  inline double x() const { return m_x; }
+  inline double y() const { return m_y; }
+  inline double nx() const { return m_nx; }
+  inline double ny() const { return m_ny; }
+  inline double travel() const { return m_travel; }
+  inline PointType type() const { return m_type; }
+
+private:
+  double m_x, m_y;
+  double m_nx, m_ny;
+  double m_travel;
+  PointType m_type;
 };
 
 struct Vector2D {

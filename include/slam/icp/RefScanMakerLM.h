@@ -10,8 +10,8 @@ public:
   RefScanMakerLM() : RefScanMaker() {}
   virtual ~RefScanMakerLM(){};
 
-  virtual const Scan2D *MakeRefScan() override;
   virtual void Initialize() override;
+  virtual const Scan2D *MakeRefScan() override;
 };
 
 } // namespace slam

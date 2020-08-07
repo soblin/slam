@@ -10,17 +10,13 @@ public:
   PoseOptimizerSD() : PoseOptimizer() {}
   virtual ~PoseOptimizerSD() {}
 
+  virtual void Initialize() override;
   virtual double OptimizePose(const Pose2D &initPose,
                               Pose2D &estimatePose) override;
 
-  virtual void Initialize() override;
-
-  friend class PoseOptimizerSDTestFriend;
-
-private:
-  double OptimizePoseImpl(const Pose2D &initPose, Pose2D &estimatePose,
-                          double val_diff_thresh, double ds, double dth,
-                          double err_thresh, double descent);
+  double OptimizePose(const Pose2D &initPose, Pose2D &estimatePose,
+                      double val_diff_thresh, double ds, double dth,
+                      double err_thresh, double descent);
 
 private:
   double m_val_diff_thresh = 0;
@@ -29,7 +25,10 @@ private:
   double m_da = 0;
   double m_error_thresh = 0;
   double m_descent_coeff = 0;
+
+public:
+  friend class PoseOptimizerSDTestFriend;
 };
 
 } /* namespace slam */
-#endif /* pose_optimizer_sd_h */
+#endif /* POSE_OPTIMIZER_SD_H */

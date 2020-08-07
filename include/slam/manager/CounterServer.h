@@ -4,6 +4,11 @@
 namespace slam {
 
 class CounterServer {
+private:
+  CounterServer() {}
+  static CounterServer *m_instance_ptr;
+  static int m_cnt;
+
 public:
   static void Create() {
     if (m_instance_ptr == nullptr) {
@@ -15,11 +20,6 @@ public:
   static int Get() { return m_cnt; }
 
   static void Increment() { m_cnt++; }
-
-private:
-  CounterServer() {}
-  static CounterServer *m_instance_ptr;
-  static int m_cnt;
 };
 
 } // namespace slam

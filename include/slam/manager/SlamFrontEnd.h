@@ -8,14 +8,14 @@ namespace slam {
 
 class SlamFrontEnd {
 public:
-  inline void SetScanMatcher2D(ScanMatcher2D *p) { m_scan_matcher_ptr = p; }
-
-public:
   SlamFrontEnd() {}
   ~SlamFrontEnd() {}
 
   void Initialize();
   void Process(Scan2D &scan);
+
+public:
+  inline void SetScanMatcher2D(ScanMatcher2D *p) { m_scan_matcher_ptr = p; }
 
 private:
   ScanMatcher2D *m_scan_matcher_ptr = nullptr;

@@ -7,29 +7,28 @@
 namespace slam {
 
 class CostFunction {
+public:
+  CostFunction() {}
+  ~CostFunction() {}
+
+  virtual void Initialize() = 0;
+  virtual double CalcValue(double tx, double ty, double th) = 0;
+
+public:
+  inline double GetMatchRate() const { return m_match_rate; }
+  inline void SetPoints(const std::vector<const ScanPoint2D *> &cur,
+                        const std::vector<const ScanPoint2D *> &ref) {
+    m_cur_points = cur;
+    m_ref_points = ref;
+  }
+
 protected:
   // the set of points matched with DataAssiciator
   std::vector<const ScanPoint2D *> m_cur_points;
   std::vector<const ScanPoint2D *> m_ref_points;
 
   double m_match_rate = -1;
-
-public:
-  inline double GetMatchRate() const { return m_match_rate; }
-
-public:
-  CostFunction() {}
-  ~CostFunction() {}
-
-  virtual double CalcValue(double tx, double ty, double th) = 0;
-
-  void SetPoints(std::vector<const ScanPoint2D *> &cur,
-                 std::vector<const ScanPoint2D *> &ref) {
-    m_cur_points = cur;
-    m_ref_points = ref;
-  }
-  virtual void Initialize() = 0;
 };
 
 } /* namespace slam */
-#endif /* cost_function_h */
+#endif /* COST_FUNCTION_H */

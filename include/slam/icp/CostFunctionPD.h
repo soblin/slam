@@ -10,9 +10,10 @@ public:
   CostFunctionPD() : CostFunction() {}
   virtual ~CostFunctionPD() {}
 
+  virtual void Initialize() override;
   virtual double CalcValue(double tx, double ty, double th) override;
 
-  virtual void Initialize() override;
+  friend class CostFunctionPDTestFriend;
 };
 
 } // namespace slam

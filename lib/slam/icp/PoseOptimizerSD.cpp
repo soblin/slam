@@ -4,11 +4,11 @@
 
 namespace slam {
 
-double PoseOptimizerSD::OptimizePoseImpl(const Pose2D &initPose,
-                                         Pose2D &estimatePose,
-                                         double val_diff_thresh, double ds,
-                                         double dtheta, double err_thresh,
-                                         double descent) {
+double PoseOptimizerSD::OptimizePose(const Pose2D &initPose,
+                                     Pose2D &estimatePose,
+                                     double val_diff_thresh, double ds,
+                                     double dtheta, double err_thresh,
+                                     double descent) {
   double tx = initPose.tx();
   double ty = initPose.ty();
   double th = initPose.th();
@@ -65,8 +65,8 @@ double PoseOptimizerSD::OptimizePoseImpl(const Pose2D &initPose,
 
 double PoseOptimizerSD::OptimizePose(const Pose2D &initPose,
                                      Pose2D &estimatePose) {
-  return OptimizePoseImpl(initPose, estimatePose, m_val_diff_thresh, m_dd, m_da,
-                          m_error_thresh, m_descent_coeff);
+  return OptimizePose(initPose, estimatePose, m_val_diff_thresh, m_dd, m_da,
+                      m_error_thresh, m_descent_coeff);
 }
 
 void PoseOptimizerSD::Initialize() {

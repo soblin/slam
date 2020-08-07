@@ -18,9 +18,9 @@ void NNGridTable::AddPoint(const ScanPoint2D *point) {
   m_table[index].points.emplace_back(point);
 }
 
-const ScanPoint2D *NNGridTable::FindClosestPointImpl(const ScanPoint2D *query,
-                                                     const Pose2D &basePose,
-                                                     double dist_thresh) {
+const ScanPoint2D *NNGridTable::FindClosestPoint(const ScanPoint2D *query,
+                                                 const Pose2D &basePose,
+                                                 double dist_thresh) {
   ScanPoint2D query_glob;
   basePose.ToGlobalPoint(*query, query_glob);
 
@@ -68,18 +68,18 @@ const ScanPoint2D *NNGridTable::FindClosestPoint(const ScanPoint2D *query,
                                                  const Pose2D &basePose) {
   double min_dist_thresh = ParamServer::Get("NNGridTable_MIN_DIST_THRESH");
 
-  return FindClosestPointImpl(query, basePose, min_dist_thresh);
+  return FindClosestPoint(query, basePose, min_dist_thresh);
 }
 
 void NNGridTable::MakeCellPoints(std::vector<ScanPoint2D> &points) {
   double cell_thresh =
       ParamServer::Get("PointCloudMapGT_CELL_POINT_NUM_THRESH");
 
-  MakeCellPointsImpl(cell_thresh, points);
+  MakeCellPoints(cell_thresh, points);
 }
 
-void NNGridTable::MakeCellPointsImpl(int cell_point_num_thresh,
-                                     std::vector<ScanPoint2D> &cellPoints) {
+void NNGridTable::MakeCellPoints(int cell_point_num_thresh,
+                                 std::vector<ScanPoint2D> &cellPoints) {
   for (const auto &cell : m_table) {
     auto &points = cell.points;
     if (points.size() >= cell_point_num_thresh) {

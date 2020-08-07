@@ -4,10 +4,10 @@
 
 namespace slam {
 
-bool ScanPointAnalyser::CalcNormalImpl(int index,
-                                       const std::vector<ScanPoint2D> &points,
-                                       int dir, Vector2D &ret, double fpdmin,
-                                       double fpdmax) {
+bool ScanPointAnalyser::CalcNormal(int index,
+                                   const std::vector<ScanPoint2D> &points,
+                                   int dir, Vector2D &ret, double fpdmin,
+                                   double fpdmax) {
   const ScanPoint2D &point_of_interest = points[index];
   for (unsigned i = index + dir; i >= 0 && i < points.size(); i += dir) {
     const ScanPoint2D &point_iter = points[i];
@@ -34,13 +34,13 @@ bool ScanPointAnalyser::CalcNormal(int index,
   static const double fpdmin = ParamServer::Get("ScanPointAnalyser_FPDMIN");
   static const double fpdmax = ParamServer::Get("ScanPointAnalyser_FPDMAX");
 
-  return CalcNormalImpl(index, points, dir, ret, fpdmin, fpdmax);
+  return CalcNormal(index, points, dir, ret, fpdmin, fpdmax);
 }
 
-void ScanPointAnalyser::AnalysePointsImpl(std::vector<ScanPoint2D> &points,
-                                          double invalid_deg,
-                                          double corner_thresh_deg,
-                                          double corner_thresh_cos) {
+void ScanPointAnalyser::AnalysePoints(std::vector<ScanPoint2D> &points,
+                                      double invalid_deg,
+                                      double corner_thresh_deg,
+                                      double corner_thresh_cos) {
   for (unsigned i = 0; i < points.size(); ++i) {
     auto &point = points[i];
     ScanPoint2D::PointType type;
@@ -91,7 +91,7 @@ void ScanPointAnalyser::AnalysePoints(std::vector<ScanPoint2D> &points) {
   static const double corner_cos_thresh =
       ParamServer::Get("ScanPointAnalyser_COS_THRESH");
 
-  AnalysePointsImpl(points, invalid_deg, corner_deg_thresh, corner_cos_thresh);
+  AnalysePoints(points, invalid_deg, corner_deg_thresh, corner_cos_thresh);
 }
 
 } // namespace slam

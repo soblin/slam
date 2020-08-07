@@ -5,10 +5,12 @@
 
 namespace slam {
 
-bool ScanPointResampler::FindInterpolatePointImpl(
-    const ScanPoint2D &curPoint, const ScanPoint2D &prevPoint,
-    ScanPoint2D &insertPoint, bool &inserted, double &acc_dist,
-    double interval_thresh, double interpolate_thresh) {
+bool ScanPointResampler::FindInterpolatePoint(const ScanPoint2D &curPoint,
+                                              const ScanPoint2D &prevPoint,
+                                              ScanPoint2D &insertPoint,
+                                              bool &inserted, double &acc_dist,
+                                              double interval_thresh,
+                                              double interpolate_thresh) {
 
   double dx = curPoint.x() - prevPoint.x();
   double dy = curPoint.y() - prevPoint.y();
@@ -49,8 +51,8 @@ bool ScanPointResampler::FindInterpolatePoint(const ScanPoint2D &curPoint,
   static const double interpolate_thresh =
       ParamServer::Get("ScanPointResampler_DIST_INTERPOLATE_THRESH");
 
-  return FindInterpolatePointImpl(curPoint, prevPoint, insertPoint, inserted,
-                                  acc_dist, dist_interval, interpolate_thresh);
+  return FindInterpolatePoint(curPoint, prevPoint, insertPoint, inserted,
+                              acc_dist, dist_interval, interpolate_thresh);
 }
 
 void ScanPointResampler::ResamplePoints(Scan2D *scan) {

@@ -14,13 +14,13 @@ public:
   SlamLauncher() {}
   ~SlamLauncher() {}
 
+  void Initialize();
   void SetOdometryOnly(bool only);
   void ShowScans();
   void MapByOdometry(const Scan2D &scan);
   bool SetFilename(const std::string filename);
   void Run();
   void CustomizeFrameWork(const std::string &type);
-  void Initialize();
 
 private:
   Pose2D m_initial_pose;

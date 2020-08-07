@@ -9,23 +9,23 @@
 namespace slam {
 
 class DataAssociator {
-protected:
-  std::vector<const ScanPoint2D *> m_cur_points; // current scan, local-frame
-  std::vector<const ScanPoint2D *> m_ref_points; // global-frame
-
-public:
-  inline std::vector<const ScanPoint2D *> &cur_points() { return m_cur_points; }
-  inline std::vector<const ScanPoint2D *> &ref_points() { return m_ref_points; }
-
 public:
   DataAssociator() {}
   ~DataAssociator() {}
 
+  virtual void Initialize() = 0;
   virtual void SetRefBase(const std::vector<ScanPoint2D> &points) = 0;
   virtual double FindCorrespondence(const Scan2D *curScanPtr,
                                     const Pose2D &predictedPose) = 0;
-  virtual void Initialize() = 0;
+
+public:
+  inline std::vector<const ScanPoint2D *> cur_points() { return m_cur_points; }
+  inline std::vector<const ScanPoint2D *> ref_points() { return m_ref_points; }
+
+protected:
+  std::vector<const ScanPoint2D *> m_cur_points; // current scan, local-frame
+  std::vector<const ScanPoint2D *> m_ref_points; // global-frame
 };
 
 } /* namespace slam */
-#endif /* data_associator_h */
+#endif /* DATA_ASSOCIATOR_H */
