@@ -5,6 +5,8 @@
 
 namespace slam {
 
+void DataAssociatorLS::Initialize() {}
+
 void DataAssociatorLS::SetRefBase(const std::vector<ScanPoint2D> &points) {
   m_base_points.clear();
   for (unsigned i = 0; i < points.size(); ++i) {
@@ -66,7 +68,5 @@ double DataAssociatorLS::FindCorrespondence(const Scan2D *curScanPtr,
 
   return ratio;
 }
-
-void DataAssociatorLS::Initialize() {}
 
 } /* namespace slam */

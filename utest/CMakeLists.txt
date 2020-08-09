@@ -95,5 +95,16 @@ add_test(
   COMMAND $<TARGET_FILE:data_associatorgt_test>
   )
 
+add_executable(poseoptimizer_sd_test poseoptimizer_sd.cpp)
+target_link_libraries(poseoptimizer_sd_test
+  slam
+  gtest
+  gtest_main
+  pthread)
+add_test(
+  NAME poseoptimizer_sd
+  COMMAND $<TARGET_FILE:poseoptimizer_sd_test>
+  )
+
 set(EXECUTABLE_OUTPUT_PATH ${CMAKE_CURRENT_SOURCE_DIR}/bin)
 

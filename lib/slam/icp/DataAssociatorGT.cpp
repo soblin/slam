@@ -2,6 +2,8 @@
 
 namespace slam {
 
+void DataAssociatorGT::Initialize() {}
+
 void DataAssociatorGT::SetRefBase(const std::vector<ScanPoint2D> &refPoints) {
   m_grid_table.Clear();
   for (const auto &refPoint : refPoints) {
@@ -35,7 +37,5 @@ double DataAssociatorGT::FindCorrespondence(const Scan2D *curScan,
 
   return ratio;
 }
-
-void DataAssociatorGT::Initialize() {}
 
 } // namespace slam

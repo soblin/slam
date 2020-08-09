@@ -58,8 +58,8 @@ private:
   PoseEstimatorICP m_pose_estimator;
   ScanMatcher2D m_scan_matcher;
 
-  SlamFrontEnd *m_slam_front_end_ptr =
-      nullptr; // points the the instance in SlamLauncher
+  // points the the instance in SlamLauncher
+  SlamFrontEnd *m_slam_front_end_ptr = nullptr;
 };
 
 } /* namespace slam */

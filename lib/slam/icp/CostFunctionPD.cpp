@@ -5,6 +5,8 @@
 
 namespace slam {
 
+void CostFunctionPD::Initialize() {}
+
 double CostFunctionPD::CalcValue(double tx, double ty, double th /*rad*/) {
   double error = 0;
   int total_num = 0;
@@ -47,5 +49,4 @@ double CostFunctionPD::CalcValue(double tx, double ty, double th /*rad*/) {
   return error;
 }
 
-void CostFunctionPD::Initialize() {}
 } // namespace slam

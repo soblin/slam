@@ -4,6 +4,8 @@
 
 namespace slam {
 
+void CostFunctionED::Initialize() {}
+
 double CostFunctionED::CalcValue(double tx, double ty, double th /*rad*/,
                                  double val_thresh) {
   double error = 0;
@@ -45,7 +47,5 @@ double CostFunctionED::CalcValue(double tx, double ty, double th /*rad*/) {
   static const double val_thresh = ParamServer::Get("CostFunction_VAL_THRESH");
   return CalcValue(tx, ty, th, val_thresh);
 }
-
-void CostFunctionED::Initialize() {}
 
 } /* namespace slam */

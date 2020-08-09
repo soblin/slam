@@ -3,18 +3,9 @@
 #include <slam/icp/ScanPointResampler.h>
 #include <slam/manager/ParamServer.h>
 
-namespace slam {
-
-class ScanPointResamplerTestFriend : public ::testing::Test {
-public:
-  void ResamplePoints(ScanPointResampler &resampler, Scan2D *scan) {
-    resampler.ResamplePoints(scan);
-  }
-};
-
 using namespace slam;
 
-TEST_F(ScanPointResamplerTestFriend, testResamplePoints) {
+TEST(ScanPointResamplerTest, testResamplePoints) {
   // initialize
   //  SlamFrontEnd frontend;
   //  frontend.Init();
@@ -33,7 +24,8 @@ TEST_F(ScanPointResamplerTestFriend, testResamplePoints) {
 
   scan.SetScanedPoints(biased_points);
   ScanPointResampler resampler;
-  ResamplePoints(resampler, &scan);
+  resampler.Initialize();
+  resampler.ResamplePoints(&scan);
 
   auto resampled_points = scan.scaned_points();
   ASSERT_EQ(resampled_points.size(), 11);
@@ -70,7 +62,6 @@ TEST_F(ScanPointResamplerTestFriend, testResamplePoints) {
   point = resampled_points[10];
   ASSERT_FLOAT_EQ(point.x(), 0.70);
 }
-} // namespace slam
 
 int main(int argc, char **argv) {
   ::testing::InitGoogleTest(&argc, argv);

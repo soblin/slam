@@ -1,28 +1,9 @@
 #include <gtest/gtest.h>
 #include <slam/icp/DataAssociatorLS.h>
 
-namespace slam {
-
-class DataAssociatorLSTestFriend : public ::testing::Test {
-public:
-  void GetCurPoints(DataAssociatorLS &dass,
-                    std::vector<const ScanPoint2D *> &result) {
-    result = dass.m_cur_points;
-  }
-  void GetRefPoints(DataAssociatorLS &dass,
-                    std::vector<const ScanPoint2D *> &result) {
-    result = dass.m_ref_points;
-  }
-  double FindCorrespondenceImpl(DataAssociatorLS &dass, const Scan2D *curScan,
-                                const Pose2D &predictedPose, double thresh) {
-    return dass.FindCorrespondence(curScan, predictedPose, thresh);
-  }
-};
-} // namespace slam
-
 using namespace slam;
 
-TEST_F(DataAssociatorLSTestFriend, testFindCorrespondence) {
+TEST(DataAssociatorLS, testFindCorrespondence) {
   std::vector<ScanPoint2D> ref_points;
   std::vector<ScanPoint2D> cur_points;
   Pose2D predPose(0, 0, 0);
@@ -44,12 +25,11 @@ TEST_F(DataAssociatorLSTestFriend, testFindCorrespondence) {
   DataAssociatorLS dass;
 
   dass.SetRefBase(ref_points);
-  FindCorrespondenceImpl(dass, &curScan, predPose, 2.0);
+  double correspondecne = dass.FindCorrespondence(&curScan, predPose, 2.0);
 
-  std::vector<const ScanPoint2D *> curPointResult;
-  std::vector<const ScanPoint2D *> refPointResult;
-  GetCurPoints(dass, curPointResult);
-  GetRefPoints(dass, refPointResult);
+  std::vector<const ScanPoint2D *> curPointResult = dass.cur_points();
+  std::vector<const ScanPoint2D *> refPointResult = dass.ref_points();
+  ;
 
   // 0
   ASSERT_NEAR(curPointResult[0]->x(), Xs[0] - 0.8, 0.1);

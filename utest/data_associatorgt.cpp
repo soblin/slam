@@ -2,28 +2,9 @@
 #include <slam/icp/DataAssociatorGT.h>
 #include <slam/manager/SlamFrontEnd.h>
 
-namespace slam {
-
-class DataAssociatorGTTestFriend : public ::testing::Test {
-public:
-  void GetCurPoints(DataAssociatorGT &dass,
-                    std::vector<const ScanPoint2D *> &result) {
-    result = dass.m_cur_points;
-  }
-  void GetRefPoints(DataAssociatorGT &dass,
-                    std::vector<const ScanPoint2D *> &result) {
-    result = dass.m_ref_points;
-  }
-  double FindCorrespondenceImpl(DataAssociatorGT &dass, const Scan2D *curScan,
-                                const Pose2D &predictedPose, double thresh) {
-    return dass.FindCorrespondence(curScan, predictedPose, thresh);
-  }
-};
-} // namespace slam
-
 using namespace slam;
 
-TEST_F(DataAssociatorGTTestFriend, testFindCorrespondence) {
+TEST(DataAssociatorGT, testFindCorrespondence) {
   SlamFrontEnd frontend;
   frontend.Init();
 
@@ -48,12 +29,12 @@ TEST_F(DataAssociatorGTTestFriend, testFindCorrespondence) {
   DataAssociatorGT dass;
 
   dass.SetRefBase(ref_points);
-  FindCorrespondenceImpl(dass, &curScan, predPose, 2.0);
+  double correspondence = FindCorrespondence(dass, &curScan, predPose, 2.0);
 
   std::vector<const ScanPoint2D *> curPointResult;
   std::vector<const ScanPoint2D *> refPointResult;
-  GetCurPoints(dass, curPointResult);
-  GetRefPoints(dass, refPointResult);
+  curPointResult = dass.cur_points();
+  refPointResult = dass.ref_points();
 
   // 0
   ASSERT_NEAR(curPointResult[0]->x(), Xs[0] - 0.8, 0.1);

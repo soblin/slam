@@ -1,31 +1,15 @@
 #include <slam/icp/CostFunctionED.h>
 #include <slam/icp/DataAssociatorLS.h>
 #include <slam/icp/PoseOptimizerSD.h>
+#include <slam/manager/ParamServer.h>
 
 #include <gtest/gtest.h>
 
-namespace slam {
-
-class DataAssociatorLSTestFriend : public ::testing::Test {
-public:
-  void GetCurPoints(DataAssociatorLS &dass,
-                    std::vector<const ScanPoint2D *> &result) {
-    result = dass.m_cur_points;
-  }
-  void GetRefPoints(DataAssociatorLS &dass,
-                    std::vector<const ScanPoint2D *> &result) {
-    result = dass.m_ref_points;
-  }
-  double FindCorrespondenceImpl(DataAssociatorLS &dass, const Scan2D *curScan,
-                                const Pose2D &predictedPose, double thresh) {
-    return dass.FindCorrespondence(curScan, predictedPose, thresh);
-  }
-};
-} // namespace slam
-
 using namespace slam;
 
-TEST_F(DataAssociatorLSTestFriend, testFindCorrespondence) {
+TEST(PoseOptimizerSDTest, testOptimizePost) {
+  ParamServer::Create();
+  ParamServer::Set("PoseOptimizer_VAL_DIFF_THRESH", 0.1);
   std::vector<ScanPoint2D> ref_points;
   std::vector<ScanPoint2D> cur_points;
   Pose2D predPose(0, 0, 0);
@@ -35,31 +19,33 @@ TEST_F(DataAssociatorLSTestFriend, testFindCorrespondence) {
   std::vector<double> Ys = {10, 10, 10, 10, 10, 10, 10, 10,
                             9,  8,  7,  6,  5,  4,  3,  2};
   for (unsigned i = 0; i < Xs.size(); ++i) {
-    ref_points.emplace_back(i, Xs[i], Ys[i]);
+    ref_points.emplace_back(Xs[i], Ys[i]);
   }
   for (unsigned i = 0; i < Xs.size(); ++i) {
-    cur_points.emplace_back(i, Xs[i] - 0.8, Ys[i] - 1.0);
+    cur_points.emplace_back(Xs[i] - 0.8, Ys[i] - 1.0);
   }
   Scan2D curScan;
   curScan.SetPose(predPose);
   curScan.SetScanedPoints(cur_points);
 
   DataAssociatorLS dass;
-
+  dass.Initialize();
   dass.SetRefBase(ref_points);
-  FindCorrespondenceImpl(dass, &curScan, predPose, 2.0);
+  dass.FindCorrespondence(&curScan, predPose, 2.0);
 
   std::vector<const ScanPoint2D *> curPointResult;
   std::vector<const ScanPoint2D *> refPointResult;
-  GetCurPoints(dass, curPointResult);
-  GetRefPoints(dass, refPointResult);
+  curPointResult = dass.cur_points();
+  refPointResult = dass.ref_points();
 
   CostFunctionED cfunc;
+  cfunc.Initialize();
   PoseOptimizerSD optimizer;
   optimizer.SetCostFunction(&cfunc);
+  optimizer.Initialize();
   optimizer.SetPoints(curPointResult, refPointResult);
-  optimizer.SetValThresh(2.0);
-  optimizer.SetValDiffThresh(0.1);
+  // optimizer.SetValThresh(2.0);
+  // optimizer.SetValDiffThresh(0.1);
   Pose2D initPose(0, 0, 0);
   Pose2D estimatePose(0, 0, 0);
 
