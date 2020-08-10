@@ -14,11 +14,10 @@ void SlamFrontEnd::Initialize() {
   RegisterParams();
 
   // Initialize the chained classes and update their parameters
-  assert(!m_scan_matcher_ptr);
+  assert(m_scan_matcher_ptr != nullptr);
   m_scan_matcher_ptr->Initialize();
 
   m_cloud_map_ptr = PointCloudMapSingleton::GetCloudMap();
-  m_cloud_map_ptr->Initialize();
 }
 
 // process the scan data, which was generated at SensorDataReader

@@ -14,6 +14,19 @@ static constexpr bool logger = false;
 
 namespace slam {
 
+void SlamLauncher::Initialize() {
+  // Initialize member instance
+  // Initialization of frontend, the parameters are registered
+  m_slam_frontend.Initialize();
+  m_map_drawer.Initialize();
+  m_map_drawer.SetAspectRatio(-0.9);
+  // the parameter values have been registered
+  m_sensor_reader.Initialize();
+  m_odometry_only = false;
+  m_draw_skip = static_cast<int>(ParamServer::Get("SlamLauncher_PLOT_SKIP"));
+  m_usleep_time = static_cast<int>(ParamServer::Get("SlamLauncher_SLEEP_TIME"));
+}
+
 void SlamLauncher::SetOdometryOnly(bool only) { m_odometry_only = only; }
 
 void SlamLauncher::MapByOdometry(const Scan2D &scan) {
@@ -36,20 +49,6 @@ void SlamLauncher::MapByOdometry(const Scan2D &scan) {
 
 bool SlamLauncher::SetFilename(const std::string filename) {
   return m_sensor_reader.OpenScanFile(filename);
-}
-
-void SlamLauncher::Initialize() {
-  // Initialization of frontend, the parameters are registered
-  m_slam_frontend.Initialize();
-  // Initialize member instance
-  m_map_drawer.Initialize();
-  m_map_drawer.SetAspectRatio(-0.9);
-  // the parameter values have been registered
-  m_sensor_reader.Initialize();
-  m_cloud_map_ptr = PointCloudMapSingleton::GetCloudMap();
-  m_odometry_only = false;
-  m_draw_skip = static_cast<int>(ParamServer::Get("SlamLauncher_PLOT_SKIP"));
-  m_usleep_time = static_cast<int>(ParamServer::Get("SlamLauncher_SLEEP_TIME"));
 }
 
 void SlamLauncher::Run() {
@@ -100,6 +99,8 @@ void SlamLauncher::CustomizeFrameWork(const std::string &type) {
     m_customizer.CustomizeG();
   else
     m_customizer.CustomizeH();
+
+  m_cloud_map_ptr = PointCloudMapSingleton::GetCloudMap();
 }
 
 } // namespace slam

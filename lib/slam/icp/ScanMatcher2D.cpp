@@ -91,16 +91,16 @@ void ScanMatcher2D::GrowMap(const Scan2D &scan, const Pose2D &pose) {
 }
 
 void ScanMatcher2D::Initialize() {
-  assert(!m_estimator_ptr);
+  assert(m_estimator_ptr != nullptr);
   m_estimator_ptr->Initialize();
 
-  assert(!m_ref_scan_maker_ptr);
+  assert(m_ref_scan_maker_ptr != nullptr);
   m_ref_scan_maker_ptr->Initialize();
 
-  if (!m_scan_point_resampler_ptr)
+  if (m_scan_point_resampler_ptr != nullptr)
     m_scan_point_resampler_ptr->Initialize();
 
-  if (!m_scan_point_analyser_ptr)
+  if (m_scan_point_analyser_ptr != nullptr)
     m_scan_point_analyser_ptr->Initialize();
 
   m_cloud_map_ptr = PointCloudMapSingleton::GetCloudMap();

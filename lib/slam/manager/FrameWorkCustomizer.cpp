@@ -10,13 +10,13 @@ void FrameWorkCustomizer::CustomizeA() {
   CostFunction *cfunc = &m_cost_function_ed;
   PoseOptimizer *popt = &m_pose_optimizer_sd;
 
-  // common
-  m_slam_front_end_ptr->SetScanMatcher2D(&m_scan_matcher);
-  m_scan_matcher.SetEstimatorICP(&m_pose_estimator);
-
   // customize
   // use PointCloudMapBS
   PointCloudMapSingleton::Create(&m_point_cloud_map_bs);
+
+  // common
+  m_slam_front_end_ptr->SetScanMatcher2D(&m_scan_matcher);
+  m_scan_matcher.SetEstimatorICP(&m_pose_estimator);
 
   popt->SetCostFunction(cfunc);
   m_pose_estimator.SetDataAssociator(dass);
@@ -31,13 +31,13 @@ void FrameWorkCustomizer::CustomizeB() {
   CostFunction *cfunc = &m_cost_function_ed;
   PoseOptimizer *popt = &m_pose_optimizer_sd;
 
-  // common
-  m_slam_front_end_ptr->SetScanMatcher2D(&m_scan_matcher);
-  m_scan_matcher.SetEstimatorICP(&m_pose_estimator);
-
   // customize
   // use PointCloudMapGT
   PointCloudMapSingleton::Create(&m_point_cloud_map_gt);
+
+  // common
+  m_slam_front_end_ptr->SetScanMatcher2D(&m_scan_matcher);
+  m_scan_matcher.SetEstimatorICP(&m_pose_estimator);
 
   popt->SetCostFunction(cfunc);
   m_pose_estimator.SetDataAssociator(dass);
@@ -52,13 +52,13 @@ void FrameWorkCustomizer::CustomizeC() {
   CostFunction *cfunc = &m_cost_function_ed;
   PoseOptimizer *popt = &m_pose_optimizer_sl;
 
-  // common
-  m_slam_front_end_ptr->SetScanMatcher2D(&m_scan_matcher);
-  m_scan_matcher.SetEstimatorICP(&m_pose_estimator);
-
   // customize
   // use PointCloudMapGT
   PointCloudMapSingleton::Create(&m_point_cloud_map_gt);
+
+  // common
+  m_slam_front_end_ptr->SetScanMatcher2D(&m_scan_matcher);
+  m_scan_matcher.SetEstimatorICP(&m_pose_estimator);
 
   popt->SetCostFunction(cfunc);
   m_pose_estimator.SetDataAssociator(dass);
@@ -73,13 +73,13 @@ void FrameWorkCustomizer::CustomizeD() {
   CostFunction *cfunc = &m_cost_function_ed;
   PoseOptimizer *popt = &m_pose_optimizer_sl;
 
-  // common
-  m_slam_front_end_ptr->SetScanMatcher2D(&m_scan_matcher);
-  m_scan_matcher.SetEstimatorICP(&m_pose_estimator);
-
   // customize
   // use PointCloudMapGT
   PointCloudMapSingleton::Create(&m_point_cloud_map_gt);
+
+  // common
+  m_slam_front_end_ptr->SetScanMatcher2D(&m_scan_matcher);
+  m_scan_matcher.SetEstimatorICP(&m_pose_estimator);
 
   popt->SetCostFunction(cfunc);
   m_pose_estimator.SetDataAssociator(dass);
@@ -94,13 +94,13 @@ void FrameWorkCustomizer::CustomizeE() {
   CostFunction *cfunc = &m_cost_function_ed;
   PoseOptimizer *popt = &m_pose_optimizer_sl;
 
-  // common
-  m_slam_front_end_ptr->SetScanMatcher2D(&m_scan_matcher);
-  m_scan_matcher.SetEstimatorICP(&m_pose_estimator);
-
   // customize
   // use PointCloudMapGT
   PointCloudMapSingleton::Create(&m_point_cloud_map_gt);
+
+  // common
+  m_slam_front_end_ptr->SetScanMatcher2D(&m_scan_matcher);
+  m_scan_matcher.SetEstimatorICP(&m_pose_estimator);
 
   popt->SetCostFunction(cfunc);
   m_pose_estimator.SetDataAssociator(dass);
@@ -117,13 +117,13 @@ void FrameWorkCustomizer::CustomizeF() {
   CostFunction *cfunc = &m_cost_function_pd;
   PoseOptimizer *popt = &m_pose_optimizer_sl;
 
-  // common
-  m_slam_front_end_ptr->SetScanMatcher2D(&m_scan_matcher);
-  m_scan_matcher.SetEstimatorICP(&m_pose_estimator);
-
   // customize
   // use PointCloudMapGT
   PointCloudMapSingleton::Create(&m_point_cloud_map_gt);
+
+  // common
+  m_slam_front_end_ptr->SetScanMatcher2D(&m_scan_matcher);
+  m_scan_matcher.SetEstimatorICP(&m_pose_estimator);
 
   popt->SetCostFunction(cfunc);
   m_pose_estimator.SetDataAssociator(dass);
@@ -141,13 +141,13 @@ void FrameWorkCustomizer::CustomizeG() {
   CostFunction *cfunc = &m_cost_function_pd;
   PoseOptimizer *popt = &m_pose_optimizer_sl;
 
-  // common
-  m_slam_front_end_ptr->SetScanMatcher2D(&m_scan_matcher);
-  m_scan_matcher.SetEstimatorICP(&m_pose_estimator);
-
   // customize
   // use PointCloudMapGT
   PointCloudMapSingleton::Create(&m_point_cloud_map_gt);
+
+  // common
+  m_slam_front_end_ptr->SetScanMatcher2D(&m_scan_matcher);
+  m_scan_matcher.SetEstimatorICP(&m_pose_estimator);
 
   popt->SetCostFunction(cfunc);
   m_pose_estimator.SetDataAssociator(dass);
@@ -165,13 +165,13 @@ void FrameWorkCustomizer::CustomizeH() {
   CostFunction *cfunc = &m_cost_function_pd;
   PoseOptimizer *popt = &m_pose_optimizer_sl;
 
-  // common
-  m_slam_front_end_ptr->SetScanMatcher2D(&m_scan_matcher);
-  m_scan_matcher.SetEstimatorICP(&m_pose_estimator);
-
   // customize
   // use PointCloudMapGT
   PointCloudMapSingleton::Create(&m_point_cloud_map_gt);
+
+  // common
+  m_slam_front_end_ptr->SetScanMatcher2D(&m_scan_matcher);
+  m_scan_matcher.SetEstimatorICP(&m_pose_estimator);
 
   popt->SetCostFunction(cfunc);
   m_pose_estimator.SetDataAssociator(dass);
