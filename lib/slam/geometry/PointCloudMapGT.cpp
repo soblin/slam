@@ -29,6 +29,7 @@ void PointCloudMapGT::AddPoints(const std::vector<ScanPoint2D> &points) {
 void PointCloudMapGT::MakeGlobalMap() {
   m_global_map.clear();
   SubsamplePoints(m_global_map);
+  // m_global_map = m_all_points;
 }
 
 void PointCloudMapGT::MakeLocalMap() { m_local_map = m_global_map; }
