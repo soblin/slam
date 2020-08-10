@@ -32,7 +32,7 @@ static constexpr double MapDrawer_STEP_POSE = 10;
 static constexpr double MapDrawer_DD = 0.4;
 
 // SlamLauncher.cpp, 26
-static constexpr int SlamLauncher_SLEEP_TIME = 10000;
+static constexpr int SlamLauncher_SLEEP_TIME = 100000;
 static constexpr int SlamLauncher_PLOT_SKIP = 10;
 
 static constexpr double DataAssociatorLS_DIST_THRESH = 0.2;

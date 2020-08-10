@@ -12,10 +12,10 @@ public:
 
   ~SensorDataReader(){};
 
+  void Initialize();
   bool OpenScanFile(const std::string &filepath);
   void CloseScanFile();
   void SetAngleOffset(int offset);
-  void Initialize();
   bool LoadScan(Scan2D &output);
 
 private:

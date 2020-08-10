@@ -5,6 +5,12 @@
 
 namespace slam {
 
+void SensorDataReader::Initialize() {
+  m_max_scan_range = ParamServer::Get("Scan2D_MAX_SCAN_RANGE");
+  m_min_scan_range = ParamServer::Get("Scan2D_MIN_SCAN_RANGE");
+  m_angle_offset = ParamServer::Get("SensorDataReader_ANGLE_OFFSET");
+}
+
 bool SensorDataReader::OpenScanFile(const std::string &filepath) {
   m_in_file.open(filepath.c_str());
   if (!m_in_file.is_open()) {
@@ -17,12 +23,6 @@ bool SensorDataReader::OpenScanFile(const std::string &filepath) {
 void SensorDataReader::CloseScanFile() { m_in_file.close(); }
 
 void SensorDataReader::SetAngleOffset(int offset) { m_angle_offset = offset; }
-
-void SensorDataReader::Initialize() {
-  m_max_scan_range = ParamServer::Get("Scan2D_MAX_SCAN_RANGE");
-  m_min_scan_range = ParamServer::Get("Scan2D_MIN_SCAN_RANGE");
-  m_angle_offset = ParamServer::Get("SensorDataReader_ANGLE_OFFSET");
-}
 
 bool SensorDataReader::LoadScan(Scan2D &output) {
   bool is_scan = false;
