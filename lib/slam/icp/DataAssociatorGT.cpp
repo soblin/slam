@@ -2,7 +2,7 @@
 
 namespace slam {
 
-void DataAssociatorGT::Initialize() {}
+void DataAssociatorGT::Initialize() { m_grid_table.Initialize(); }
 
 void DataAssociatorGT::SetRefBase(const std::vector<ScanPoint2D> &refPoints) {
   m_grid_table.Clear();

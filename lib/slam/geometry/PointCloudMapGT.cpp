@@ -3,6 +3,13 @@
 
 namespace slam {
 
+void PointCloudMapGT::Initialize() {
+  int reserve_size = ParamServer::Get("PointCloudMap_MAX_POINT_NUM");
+  m_global_map.reserve(reserve_size);
+
+  m_grid_table.Initialize();
+}
+
 void PointCloudMapGT::AddPose(const Pose2D &p) { m_poses.emplace_back(p); }
 
 void PointCloudMapGT::AddPoint(const ScanPoint2D &p) {
@@ -36,12 +43,5 @@ void PointCloudMapGT::MakeLocalMap() { m_local_map = m_global_map; }
 
 void PointCloudMapGT::RemakeMaps(const std::vector<Pose2D> &newPoses) {
   return;
-}
-
-void PointCloudMapGT::Initialize() {
-  int reserve_size = ParamServer::Get("PointCloudMap_MAX_POINT_NUM");
-  m_global_map.reserve(reserve_size);
-
-  m_grid_table.Initialize();
 }
 } // namespace slam

@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE ipe SYSTEM "ipe.dtd">
 <ipe version="70212" creator="Ipe 7.2.13">
-<info created="D:20200810003305" modified="D:20200810154148"/>
+<info created="D:20200810003305" modified="D:20200811121843"/>
 <ipestyle name="basic">
 <symbol name="arrow/arc(spx)">
 <path stroke="sym-stroke" fill="sym-stroke" pen="sym-pen">
@@ -259,11 +259,11 @@ h
 <page>
 <layer name="alpha"/>
 <view layers="alpha" active="alpha"/>
-<path layer="alpha" matrix="1 0 0 1 624 32" fill="white">
-16 704 m
-16 16 l
-448 16 l
-448 704 l
+<path layer="alpha" fill="white">
+32 704 m
+32 16 l
+560 16 l
+560 704 l
 h
 </path>
 <text matrix="1 0 0 1 8 -32" transformations="translations" pos="40 712" stroke="black" type="label" width="119.841" height="11.955" depth="0" valign="center" size="LARGE">\bf{SlamLauncher}</text>

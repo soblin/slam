@@ -1,12 +1,15 @@
 #include <gtest/gtest.h>
 #include <slam/icp/DataAssociatorGT.h>
-#include <slam/manager/SlamFrontEnd.h>
+#include <slam/manager/ParamServer.h>
 
 using namespace slam;
 
 TEST(DataAssociatorGT, testFindCorrespondence) {
-  SlamFrontEnd frontend;
-  frontend.Init();
+  ParamServer::Create();
+  ParamServer::Set("NNGridTable_DOMAIN_SIZE", 10.0);
+  ParamServer::Set("PointCloudMapGT_CELL_POINT_NUM_THRESH", 5.0);
+  ParamServer::Set("NNGridTable_CELL_SIZE", 2.0);
+  ParamServer::Set("NNGridTable_MIN_DIST_THRESH", 5.0);
 
   std::vector<ScanPoint2D> ref_points;
   std::vector<ScanPoint2D> cur_points;
@@ -27,14 +30,18 @@ TEST(DataAssociatorGT, testFindCorrespondence) {
   curScan.SetScanedPoints(cur_points);
 
   DataAssociatorGT dass;
+  dass.Initialize();
 
   dass.SetRefBase(ref_points);
-  double correspondence = FindCorrespondence(dass, &curScan, predPose, 2.0);
+  double correspondence = dass.FindCorrespondence(&curScan, predPose);
 
   std::vector<const ScanPoint2D *> curPointResult;
   std::vector<const ScanPoint2D *> refPointResult;
   curPointResult = dass.cur_points();
   refPointResult = dass.ref_points();
+
+  ASSERT_EQ(curPointResult.size(), 16);
+  ASSERT_EQ(refPointResult.size(), 16);
 
   // 0
   ASSERT_NEAR(curPointResult[0]->x(), Xs[0] - 0.8, 0.1);

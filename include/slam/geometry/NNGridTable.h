@@ -21,14 +21,14 @@ public:
 
   void Initialize();
   void AddPoint(const ScanPoint2D *point);
+  void MakeCellPoints(std::vector<ScanPoint2D> &points);
   void MakeCellPoints(int cell_point_num_thresh,
                       std::vector<ScanPoint2D> &points);
   const ScanPoint2D *FindClosestPoint(const ScanPoint2D *query,
                                       const Pose2D &basePose);
   const ScanPoint2D *FindClosestPoint(const ScanPoint2D *query,
                                       const Pose2D &basePose,
-                                      double dist_thresh);
-  void MakeCellPoints(std::vector<ScanPoint2D> &points);
+                                      double scope_thresh);
 
 public:
   inline void Clear() {
@@ -43,6 +43,9 @@ private:
   int m_table_size = 0;
 
   std::vector<NNGridCell> m_table;
+
+public:
+  friend class NNGridTableTestFriend;
 };
 
 } // namespace slam

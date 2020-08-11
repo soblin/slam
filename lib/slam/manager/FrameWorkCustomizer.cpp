@@ -33,7 +33,7 @@ void FrameWorkCustomizer::CustomizeB() {
 
   // customize
   // use PointCloudMapGT
-  PointCloudMapSingleton::Create(&m_point_cloud_map_bs);
+  PointCloudMapSingleton::Create(&m_point_cloud_map_gt);
 
   // common
   m_slam_front_end_ptr->SetScanMatcher2D(&m_scan_matcher);
@@ -54,7 +54,7 @@ void FrameWorkCustomizer::CustomizeC() {
 
   // customize
   // use PointCloudMapGT
-  PointCloudMapSingleton::Create(&m_point_cloud_map_bs);
+  PointCloudMapSingleton::Create(&m_point_cloud_map_gt);
 
   // common
   m_slam_front_end_ptr->SetScanMatcher2D(&m_scan_matcher);
@@ -75,7 +75,7 @@ void FrameWorkCustomizer::CustomizeD() {
 
   // customize
   // use PointCloudMapGT
-  PointCloudMapSingleton::Create(&m_point_cloud_map_bs);
+  PointCloudMapSingleton::Create(&m_point_cloud_map_gt);
 
   // common
   m_slam_front_end_ptr->SetScanMatcher2D(&m_scan_matcher);
@@ -96,7 +96,7 @@ void FrameWorkCustomizer::CustomizeE() {
 
   // customize
   // use PointCloudMapGT
-  PointCloudMapSingleton::Create(&m_point_cloud_map_bs);
+  PointCloudMapSingleton::Create(&m_point_cloud_map_gt);
 
   // common
   m_slam_front_end_ptr->SetScanMatcher2D(&m_scan_matcher);
@@ -119,7 +119,7 @@ void FrameWorkCustomizer::CustomizeF() {
 
   // customize
   // use PointCloudMapGT
-  PointCloudMapSingleton::Create(&m_point_cloud_map_bs);
+  PointCloudMapSingleton::Create(&m_point_cloud_map_gt);
 
   // common
   m_slam_front_end_ptr->SetScanMatcher2D(&m_scan_matcher);
@@ -143,7 +143,7 @@ void FrameWorkCustomizer::CustomizeG() {
 
   // customize
   // use PointCloudMapGT
-  PointCloudMapSingleton::Create(&m_point_cloud_map_bs);
+  PointCloudMapSingleton::Create(&m_point_cloud_map_gt);
 
   // common
   m_slam_front_end_ptr->SetScanMatcher2D(&m_scan_matcher);
@@ -167,7 +167,7 @@ void FrameWorkCustomizer::CustomizeH() {
 
   // customize
   // use PointCloudMapGT
-  PointCloudMapSingleton::Create(&m_point_cloud_map_bs);
+  PointCloudMapSingleton::Create(&m_point_cloud_map_gt);
 
   // common
   m_slam_front_end_ptr->SetScanMatcher2D(&m_scan_matcher);

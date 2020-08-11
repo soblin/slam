@@ -18,6 +18,7 @@ void SlamFrontEnd::Initialize() {
   m_scan_matcher_ptr->Initialize();
 
   m_cloud_map_ptr = PointCloudMapSingleton::GetCloudMap();
+  m_cloud_map_ptr->Initialize();
 }
 
 // process the scan data, which was generated at SensorDataReader

@@ -84,7 +84,7 @@ add_test(
   COMMAND $<TARGET_FILE:scanpointresampler_test>
   )
 
-add_executable(data_associatorgt_test data_associatorls.cpp)
+add_executable(data_associatorgt_test data_associatorgt.cpp)
 target_link_libraries(data_associatorgt_test
   slam
   gtest
@@ -106,5 +106,15 @@ add_test(
   COMMAND $<TARGET_FILE:poseoptimizer_sd_test>
   )
 
-set(EXECUTABLE_OUTPUT_PATH ${CMAKE_CURRENT_SOURCE_DIR}/bin)
+add_executable(nn_gridtable_test nn_gridtable.cpp)
+target_link_libraries(nn_gridtable_test
+  slam
+  gtest
+  gtest_main
+  pthread)
+add_test(
+  NAME nn_gridtable
+  COMMAND $<TARGET_FILE:nn_gridtable_test>
+  )
 
+set(EXECUTABLE_OUTPUT_PATH ${CMAKE_CURRENT_SOURCE_DIR}/bin)
