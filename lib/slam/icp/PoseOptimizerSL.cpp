@@ -6,6 +6,17 @@
 
 namespace slam {
 
+void PoseOptimizerSL::Initialize() {
+  m_cost_func_ptr->Initialize();
+  m_val_diff_thresh = ParamServer::Get("PoseOptimizer_VAL_DIFF_THRESH");
+  m_max_iteration =
+      static_cast<int>(ParamServer::Get("PoseOptimizerSL_ITERATION"));
+  m_dd = ParamServer::Get("PoseOptimizer_TickDist");
+  m_da = ParamServer::Get("PoseOptimizer_TickTheta");
+  m_error_thresh = ParamServer::Get("PoseOptimizer_ERROR_THRESH");
+  m_search_range = ParamServer::Get("PoseOptimizer_SEARCH_RANGE");
+}
+
 double PoseOptimizerSL::OptimizePose(const Pose2D &initPose,
                                      Pose2D &estimatePose) {
   double th = initPose.th();
@@ -98,18 +109,6 @@ double PoseOptimizerSL::ObjFunc(double step, Pose2D &pose,
     th += 2 * M_PI;
 
   return m_cost_func_ptr->CalcValue(tx, ty, th);
-}
-
-void PoseOptimizerSL::Initialize() {
-  m_val_diff_thresh = ParamServer::Get("PoseOptimizer_VAL_DIFF_THRESH");
-  m_max_iteration =
-      static_cast<int>(ParamServer::Get("PoseOptimizerSL_ITERATION"));
-  m_dd = ParamServer::Get("PoseOptimizer_TickDist");
-  m_da = ParamServer::Get("PoseOptimizer_TickTheta");
-  m_error_thresh = ParamServer::Get("PoseOptimizer_ERROR_THRESH");
-  m_search_range = ParamServer::Get("PoseOptimizer_SEARCH_RANGE");
-
-  m_cost_func_ptr->Initialize();
 }
 
 } // namespace slam

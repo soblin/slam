@@ -18,11 +18,10 @@ public:
   inline void SetScanMatcher2D(ScanMatcher2D *p) { m_scan_matcher_ptr = p; }
 
 private:
-  ScanMatcher2D *m_scan_matcher_ptr = nullptr;
-  void RegisterParams();
-
   // initialized in Initialize()
   PointCloudMap *m_cloud_map_ptr = nullptr;
+  ScanMatcher2D *m_scan_matcher_ptr = nullptr;
+  void RegisterParams();
 };
 
 } /* namespace slam */

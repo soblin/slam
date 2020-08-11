@@ -4,6 +4,16 @@
 
 namespace slam {
 
+void PoseOptimizerSD::Initialize() {
+  m_cost_func_ptr->Initialize();
+  m_val_diff_thresh = ParamServer::Get("PoseOptimizer_VAL_DIFF_THRESH");
+  m_max_iteration = ParamServer::Get("PoseOptimizerSD_ITERATION");
+  m_dd = ParamServer::Get("PoseOptimizer_TickDist");
+  m_da = ParamServer::Get("PoseOptimizer_TickTheta");
+  m_error_thresh = ParamServer::Get("PoseOptimizer_ERROR_THRESH");
+  m_descent_coeff = ParamServer::Get("PoseOptimizer_DescentCoeff");
+}
+
 double PoseOptimizerSD::OptimizePose(const Pose2D &initPose,
                                      Pose2D &estimatePose,
                                      double val_diff_thresh, double ds,
@@ -67,16 +77,6 @@ double PoseOptimizerSD::OptimizePose(const Pose2D &initPose,
                                      Pose2D &estimatePose) {
   return OptimizePose(initPose, estimatePose, m_val_diff_thresh, m_dd, m_da,
                       m_error_thresh, m_descent_coeff);
-}
-
-void PoseOptimizerSD::Initialize() {
-  m_cost_func_ptr->Initialize();
-  m_val_diff_thresh = ParamServer::Get("PoseOptimizer_VAL_DIFF_THRESH");
-  m_max_iteration = ParamServer::Get("PoseOptimizerSD_ITERATION");
-  m_dd = ParamServer::Get("PoseOptimizer_TickDist");
-  m_da = ParamServer::Get("PoseOptimizer_TickTheta");
-  m_error_thresh = ParamServer::Get("PoseOptimizer_ERROR_THRESH");
-  m_descent_coeff = ParamServer::Get("PoseOptimizer_DescentCoeff");
 }
 
 } /* namespace slam */

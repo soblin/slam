@@ -5,6 +5,25 @@
 
 namespace slam {
 
+void ScanMatcher2D::Initialize() {
+  assert(m_estimator_ptr != nullptr);
+  m_estimator_ptr->Initialize();
+
+  assert(m_ref_scan_maker_ptr != nullptr);
+  m_ref_scan_maker_ptr->Initialize();
+
+  if (m_scan_point_resampler_ptr != nullptr)
+    m_scan_point_resampler_ptr->Initialize();
+
+  if (m_scan_point_analyser_ptr != nullptr)
+    m_scan_point_analyser_ptr->Initialize();
+
+  m_cloud_map_ptr = PointCloudMapSingleton::GetCloudMap();
+
+  m_score_thresh = ParamServer::Get("ScanMatcher2D_SCORE_THRESH");
+  m_used_num_thresh = ParamServer::Get("ScanMatcher2D_USED_NUM_THRESH");
+}
+
 static bool is_first = true;
 
 bool ScanMatcher2D::MatchScan(Scan2D &curScan) {
@@ -88,24 +107,5 @@ void ScanMatcher2D::GrowMap(const Scan2D &scan, const Pose2D &pose) {
   m_cloud_map_ptr->SetLastPose(pose);
   m_cloud_map_ptr->SetLastScan(scan);
   m_cloud_map_ptr->MakeLocalMap();
-}
-
-void ScanMatcher2D::Initialize() {
-  assert(m_estimator_ptr != nullptr);
-  m_estimator_ptr->Initialize();
-
-  assert(m_ref_scan_maker_ptr != nullptr);
-  m_ref_scan_maker_ptr->Initialize();
-
-  if (m_scan_point_resampler_ptr != nullptr)
-    m_scan_point_resampler_ptr->Initialize();
-
-  if (m_scan_point_analyser_ptr != nullptr)
-    m_scan_point_analyser_ptr->Initialize();
-
-  m_cloud_map_ptr = PointCloudMapSingleton::GetCloudMap();
-
-  m_score_thresh = ParamServer::Get("ScanMatcher2D_SCORE_THRESH");
-  m_used_num_thresh = ParamServer::Get("ScanMatcher2D_USED_NUM_THRESH");
 }
 } /* namespace slam */

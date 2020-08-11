@@ -3,6 +3,10 @@
 
 namespace slam {
 
+void RefScanMakerBS::Initialize() {
+  m_cloud_map_ptr = PointCloudMapSingleton::GetCloudMap();
+}
+
 const Scan2D *RefScanMakerBS::MakeRefScan() {
   std::vector<ScanPoint2D> newScan;
 
@@ -31,10 +35,6 @@ const Scan2D *RefScanMakerBS::MakeRefScan() {
   m_ref_scan.SetScanedPoints(newScan);
 
   return &m_ref_scan;
-}
-
-void RefScanMakerBS::Initialize() {
-  m_cloud_map_ptr = PointCloudMapSingleton::GetCloudMap();
 }
 
 } /* namespace slam */
