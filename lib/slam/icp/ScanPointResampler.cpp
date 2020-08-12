@@ -29,7 +29,7 @@ bool ScanPointResampler::FindInterpolatePoint(const ScanPoint2D &curPoint,
   } else {
     // the distance is more than the interval and less than the threshold
     // so interpolate a new point
-    static const double dist_interval =
+    const double dist_interval =
         ParamServer::Get("ScanPointResampler_DIST_INTERVAL");
     double ratio = (dist_interval - acc_dist) / L;
     double x2 = dx * ratio + prevPoint.x();
@@ -46,9 +46,9 @@ bool ScanPointResampler::FindInterpolatePoint(const ScanPoint2D &curPoint,
                                               ScanPoint2D &insertPoint,
                                               bool &inserted,
                                               double &acc_dist) {
-  static const double dist_interval =
+  const double dist_interval =
       ParamServer::Get("ScanPointResampler_DIST_INTERVAL");
-  static const double interpolate_thresh =
+  const double interpolate_thresh =
       ParamServer::Get("ScanPointResampler_DIST_INTERPOLATE_THRESH");
 
   return FindInterpolatePoint(curPoint, prevPoint, insertPoint, inserted,

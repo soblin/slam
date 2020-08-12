@@ -20,8 +20,7 @@ double DataAssociatorLS::FindCorrespondence(const slam::Scan2D *curScanPtr,
   // m_base_points
   // note: scaned point in curScanPtr is in local frame (of predictedPose)
   // while each point in m_base_points is in global frame
-  static const double dist_thresh =
-      ParamServer::Get("DataAssociatorLS_DIST_THRESH");
+  const double dist_thresh = ParamServer::Get("DataAssociatorLS_DIST_THRESH");
   return FindCorrespondence(curScanPtr, predictedPose, dist_thresh);
 }
 

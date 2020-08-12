@@ -4,6 +4,11 @@
 
 namespace slam {
 
+void PoseEstimatorICP::Initialize() {
+  m_optimizer_ptr->Initialize();
+  m_associator_ptr->Initialize();
+}
+
 double PoseEstimatorICP::EstimatePose(const Pose2D &initPose,
                                       Pose2D &estimatePose) {
   double eval_min = HUGE_VAL;
@@ -13,10 +18,9 @@ double PoseEstimatorICP::EstimatePose(const Pose2D &initPose,
   Pose2D pose = initPose;
   Pose2D pose_min = initPose;
 
-  static const double val_diff_thresh =
+  const double val_diff_thresh =
       ParamServer::Get("PoseEstimatorICP_VAL_DIFF_THRESH");
-  static const int max_iteration =
-      ParamServer::Get("PoseEstimatorICP_ITERATION");
+  const int max_iteration = ParamServer::Get("PoseEstimatorICP_ITERATION");
   for (int i = 0;
        std::abs(eval_old - eval) > val_diff_thresh && i < max_iteration; ++i) {
     if (i > 0)
@@ -49,8 +53,4 @@ double PoseEstimatorICP::EstimatePose(const Pose2D &initPose,
   return eval_min;
 }
 
-void PoseEstimatorICP::Initialize() {
-  m_optimizer_ptr->Initialize();
-  m_associator_ptr->Initialize();
-}
 } /* namespace slam */

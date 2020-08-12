@@ -44,7 +44,7 @@ double CostFunctionED::CalcValue(double tx, double ty, double th /*rad*/,
 }
 
 double CostFunctionED::CalcValue(double tx, double ty, double th /*rad*/) {
-  static const double val_thresh = ParamServer::Get("CostFunction_VAL_THRESH");
+  const double val_thresh = ParamServer::Get("CostFunction_VAL_THRESH");
   return CalcValue(tx, ty, th, val_thresh);
 }
 

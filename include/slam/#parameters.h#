@@ -28,15 +28,14 @@ static constexpr int SlamLauncher_SLEEP_TIME = 100000;
 // geometry
 // PointCloudMapBS.cpp line23
 static constexpr double PointCloudMapBS_SKIP = 5.0;
-
 // PointCloudMapBS.cpp, line8
 // PointCloudMapGT.cpp, line7
 static constexpr double PointCloudMap_MAX_POINT_NUM = 1000000;
-
 // NNGridTable.cpp, line30
 // SlamFrontEnd.cpp. line32, 34
 static constexpr int PointCloudMapGT_CELL_POINT_NUM_THRESH1 = 1;
 static constexpr int PointCloudMapGT_CELL_POINT_NUM_THRESH2 = 5;
+
 // NNGridTable.cpp, line8
 static constexpr double NNGridTable_CELL_SIZE = 0.05;
 // NNGridTable.cpp, line9

@@ -31,8 +31,8 @@ bool ScanPointAnalyser::CalcNormal(int index,
 bool ScanPointAnalyser::CalcNormal(int index,
                                    const std::vector<ScanPoint2D> &points,
                                    int dir, Vector2D &ret) {
-  static const double fpdmin = ParamServer::Get("ScanPointAnalyser_FPDMIN");
-  static const double fpdmax = ParamServer::Get("ScanPointAnalyser_FPDMAX");
+  const double fpdmin = ParamServer::Get("ScanPointAnalyser_FPDMIN");
+  const double fpdmax = ParamServer::Get("ScanPointAnalyser_FPDMAX");
 
   return CalcNormal(index, points, dir, ret, fpdmin, fpdmax);
 }
@@ -84,11 +84,10 @@ void ScanPointAnalyser::AnalysePoints(std::vector<ScanPoint2D> &points,
 }
 
 void ScanPointAnalyser::AnalysePoints(std::vector<ScanPoint2D> &points) {
-  static const double invalid_deg =
-      ParamServer::Get("ScanPointAnalyser_INVALID_DEG");
-  static const double corner_deg_thresh =
+  const double invalid_deg = ParamServer::Get("ScanPointAnalyser_INVALID_DEG");
+  const double corner_deg_thresh =
       ParamServer::Get("ScanPointAnalyser_CORNER_DEG_THRESH");
-  static const double corner_cos_thresh =
+  const double corner_cos_thresh =
       ParamServer::Get("ScanPointAnalyser_COS_THRESH");
 
   AnalysePoints(points, invalid_deg, corner_deg_thresh, corner_cos_thresh);

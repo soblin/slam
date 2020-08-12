@@ -33,8 +33,7 @@ double CostFunctionPD::CalcValue(double tx, double ty, double th /*rad*/) {
 
     double err = perpendic_dist * perpendic_dist;
 
-    static const double val_thresh =
-        ParamServer::Get("CostFunction_VAL_THRESH");
+    const double val_thresh = ParamServer::Get("CostFunction_VAL_THRESH");
     if (std::sqrt(err) <= val_thresh)
       valid_num++;
 
