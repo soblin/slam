@@ -81,12 +81,12 @@ void SlamFrontEnd::RegisterParams() {
                    param::PoseOptimizerSL_ITERATION);
   ParamServer::Set("PoseOptimizerSD_ITERATION",
                    param::PoseOptimizerSD_ITERATION);
-  ParamServer::Set("PoseOptimizer_TickDist", param::PoseOptimizer_TickDist);
-  ParamServer::Set("PoseOptimizer_TickTheta", param::PoseOptimizer_TickTheta);
+  ParamServer::Set("PoseOptimizer_TICK_DIST", param::PoseOptimizer_TICK_DIST);
+  ParamServer::Set("PoseOptimizer_TICK_DIST", param::PoseOptimizer_TICK_THETA);
   ParamServer::Set("PoseOptimizer_ERROR_THRESH",
                    param::PoseOptimizer_ERROR_THRESH);
-  ParamServer::Set("PoseOptimizer_DescentCoeff",
-                   param::PoseOptimizer_DescentCoeff);
+  ParamServer::Set("PoseOptimizer_DESCENT_COEFF",
+                   param::PoseOptimizer_DESCENT_COEFF);
   ParamServer::Set("PoseOptimizer_SEARCH_RANGE",
                    param::PoseOptimizer_SEARCH_RANGE);
   ParamServer::Set("PoseEstimatorICP_VAL_DIFF_THRESH",
@@ -117,6 +117,30 @@ void SlamFrontEnd::RegisterParams() {
                    param::ScanPointAnalyser_INVALID_DEG);
   ParamServer::Set("ScanPointAnalyser_COS_THRESH",
                    param::ScanPointAnalyser_COS_THRESH);
+
+  // CovarianceCalculator
+  ParamServer::Set("CovarianceCalculator_TICK_DIST",
+                   param::CovarianceCalculator_TICK_DIST);
+  ParamServer::Set("CovarianceCalculator_TICK_THETA",
+                   param::CovarianceCalculator_TICK_THETA);
+  ParamServer::Set("CovarianceCalculator_ICP_COV_SCALE1",
+                   param::CovarianceCalculator_ICP_COV_SCALE1);
+  ParamServer::Set("CovarianceCalculator_VEL_THRESH1",
+                   param::CovarianceCalculator_VEL_THRESH1);
+  ParamServer::Set("CovarianceCalculator_OMEGA_THRESH1",
+                   param::CovarianceCalculator_OMEGA_THRESH1);
+  ParamServer::Set("CovarianceCalculator_MCOV_COEFF_X",
+                   param::CovarianceCalculator_MCOV_COEFF_X);
+  ParamServer::Set("CovarianceCalculator_MCOV_COEFF_Y",
+                   param::CovarianceCalculator_MCOV_COEFF_Y);
+  ParamServer::Set("CovarianceCalculator_MCOV_COEFF_TH",
+                   param::CovarianceCalculator_MCOV_COEFF_TH);
+  ParamServer::Set("CovarianceCalculator_ICP_COV_SCALE2",
+                   param::CovarianceCalculator_ICP_COV_SCALE2);
+  ParamServer::Set("CovarianceCalculator_VEL_THRESH2",
+                   param::CovarianceCalculator_VEL_THRESH2);
+  ParamServer::Set("CovarianceCalculator_OMEGA_THRESH2",
+                   param::CovarianceCalculator_OMEGA_THRESH2);
 }
 
 } /* namespace slam */

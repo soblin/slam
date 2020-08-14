@@ -68,3 +68,6 @@ PoseOptmizer{SD|SL}のwhileにおいてイテレーション回数の上限を�
 
 ## 7/27
 9章に入る前にやっぱりパラメータをymlにまとめておきたい. "include/slam/parameters.h" にまとめていると値を変更するたびにコンパイルが必要になってしまう. `yaml-cpp` を使えばいいか. いくつかのクラスにおいて, constなメンバ変数を初期化するのに`slam/parameters.h` をインクルードしている. とりあえずこれらをすべて `ParamServer` から値をもらうように変更する. なので, 各クラスにInitialize()を持たせておいたほうが良い.
+
+## 08/13
+DataAssociatorでcur\_points()とref\_points()を参照することがあるけど，これはコピーなのかムーブなのか分からないことがある．

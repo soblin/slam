@@ -21,6 +21,12 @@ public:
 public:
   inline std::vector<const ScanPoint2D *> cur_points() { return m_cur_points; }
   inline std::vector<const ScanPoint2D *> ref_points() { return m_ref_points; }
+  inline const std::vector<const ScanPoint2D *> &cur_points_ref() {
+    return m_cur_points;
+  }
+  inline const std::vector<const ScanPoint2D *> &ref_points_ref() {
+    return m_ref_points;
+  }
 
 protected:
   std::vector<const ScanPoint2D *> m_cur_points; // current scan, local-frame

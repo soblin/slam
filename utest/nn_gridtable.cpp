@@ -28,7 +28,7 @@ TEST_F(NNGridTableTestFriend, testTableSize) {
       points.emplace_back(2 * i, 2 * j, 0, 0, ScanPoint2D::PointType::LINE);
     }
   }
-  for (int i = 0; i < points.size(); ++i) {
+  for (unsigned i = 0; i < points.size(); ++i) {
     grid_table.AddPoint(&points[i]);
   }
 

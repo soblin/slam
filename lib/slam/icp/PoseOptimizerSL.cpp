@@ -11,8 +11,8 @@ void PoseOptimizerSL::Initialize() {
   m_val_diff_thresh = ParamServer::Get("PoseOptimizer_VAL_DIFF_THRESH");
   m_max_iteration =
       static_cast<int>(ParamServer::Get("PoseOptimizerSL_ITERATION"));
-  m_dd = ParamServer::Get("PoseOptimizer_TickDist");
-  m_da = ParamServer::Get("PoseOptimizer_TickTheta");
+  m_dd = ParamServer::Get("PoseOptimizer_TICK_DIST");
+  m_da = ParamServer::Get("PoseOptimizer_TICK_THETA");
   m_error_thresh = ParamServer::Get("PoseOptimizer_ERROR_THRESH");
   m_search_range = ParamServer::Get("PoseOptimizer_SEARCH_RANGE");
 }

@@ -7,12 +7,12 @@ set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 add_compile_options(-std=c++11 -Wall -g -DDEBUG)
 
 find_package(Boost REQUIRED)
-#find_package(Eigen3)
+find_package(Eigen3)
 
 include_directories(
   include/
   ${Boost_INCLUDE_DIR}
-#  ${EIGEN3_INCLUDE_DIR}
+  ${EIGEN3_INCLUDE_DIR}
   )
 
 file(GLOB lib_sources
@@ -20,6 +20,7 @@ file(GLOB lib_sources
   "lib/slam/io/*.cpp"
   "lib/slam/icp/*.cpp"
   "lib/slam/manager/*.cpp"
+  "lib/slam/fuser/*.cpp"
   )
 
 file(GLOB lib_headers
@@ -27,6 +28,7 @@ file(GLOB lib_headers
   "include/slam/io/*.h"
   "include/slam/icp/*.h"
   "include/slam/manager/*.h"
+  "include/slam/fuser/*.h"
   "include/slam/parameters.h"
   )
 

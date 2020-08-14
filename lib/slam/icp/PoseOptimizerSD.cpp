@@ -8,10 +8,10 @@ void PoseOptimizerSD::Initialize() {
   m_cost_func_ptr->Initialize();
   m_val_diff_thresh = ParamServer::Get("PoseOptimizer_VAL_DIFF_THRESH");
   m_max_iteration = ParamServer::Get("PoseOptimizerSD_ITERATION");
-  m_dd = ParamServer::Get("PoseOptimizer_TickDist");
-  m_da = ParamServer::Get("PoseOptimizer_TickTheta");
+  m_dd = ParamServer::Get("PoseOptimizer_TICK_DIST");
+  m_da = ParamServer::Get("PoseOptimizer_TICK_THETA");
   m_error_thresh = ParamServer::Get("PoseOptimizer_ERROR_THRESH");
-  m_descent_coeff = ParamServer::Get("PoseOptimizer_DescentCoeff");
+  m_descent_coeff = ParamServer::Get("PoseOptimizer_DESCENT_COEFF");
 }
 
 double PoseOptimizerSD::OptimizePose(const Pose2D &initPose,

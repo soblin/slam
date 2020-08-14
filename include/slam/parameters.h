@@ -60,15 +60,15 @@ static constexpr double PoseOptimizerSL_ITERATION = 100;
 static constexpr double PoseOptimizerSD_ITERATION = 100;
 // PoseOptimizerSD.cpp, line11
 // PoseOptimizerSL.cpp, line14
-static constexpr double PoseOptimizer_TickDist = 0.00001;
+static constexpr double PoseOptimizer_TICK_DIST = 0.00001;
 // PoseOptimizerSD.cpp, line12
 // PoseOptimizerSL.cpp, line15
-static constexpr double PoseOptimizer_TickTheta = 0.0001;
+static constexpr double PoseOptimizer_TICK_THETA = 0.0001;
 // PoseOptimizerSD.cpp, line13
 // PoseOptimizerSL.cpp, line16
 static constexpr double PoseOptimizer_ERROR_THRESH = 100;
 // PoseOptimizerSD.cpp, line14
-static constexpr double PoseOptimizer_DescentCoeff = 0.00001;
+static constexpr double PoseOptimizer_DESCENT_COEFF = 0.00001;
 // PoseOptimizerSL.cpp, line17
 static constexpr double PoseOptimizer_SEARCH_RANGE = 2.0;
 
@@ -100,6 +100,33 @@ static constexpr int ScanPointAnalyser_INVALID_DEG = -1;
 
 // ScanPointResampler.cpp, line89
 static const double ScanPointAnalyser_COS_THRESH = std::cos(M_PI / 4);
+
+// CovarianceCalculator.cpp, line7
+static const double CovarianceCalculator_TICK_DIST = 0.00001;
+// CovarianceCalculator.cpp, line8
+static const double CovarianceCalculator_TICK_THETA = 0.00001;
+// CovarianceCalculator.cpp, line9
+static const double CovarianceCalculator_ALPHA1 = 1.0;
+// CovarianceCalculator.cpp, line10
+static const double CovarianceCalculator_ALPHA2 = 5.0;
+// CovarianceCalculator.cpp, line98
+static const double CovarianceCalculator_ICP_COV_SCALE1 = 0.1;
+// CovarianceCalculator.cpp, line117
+static const double CovarianceCalculator_VEL_THRESH1 = 0.02;
+// CovarianceCalculator.cpp, line118
+static const double CovarianceCalculator_OMEGA_THRESH1 = 0.05;
+// CovarianceCalculator.cpp, line131
+static const double CovarianceCalculator_MCOV_COEFF_X = 0.001;
+// CovarianceCalculator.cpp, line132
+static const double CovarianceCalculator_MCOV_COEFF_Y = 0.005;
+// CovarianceCalculator.cpp, line133
+static const double CovarianceCalculator_MCOV_COEFF_TH = 0.05;
+// CovarianceCalculator.cpp, line138
+static const double CovarianceCalculator_ICP_COV_SCALE2 = 1.0;
+// CovarianceCalculator.cpp, line146
+static const double CovarianceCalculator_VEL_THRESH2 = 0.001;
+// CovarianceCalculator.cpp, line147
+static const double CovarianceCalculator_OMEGA_THRESH2 = 0.01;
 
 } /* namespace param */
 } /* namespace slam */
