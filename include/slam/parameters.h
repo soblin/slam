@@ -53,29 +53,29 @@ static constexpr double CostFunction_VAL_THRESH = 0.2;
 
 // PoseOptimizerSD.cpp, line9
 // PoseOptimzierSL.cpp, line11
-static constexpr double PoseOptimizer_VAL_DIFF_THRESH = 0.000001;
+static constexpr double PoseOptimizer_VAL_DIFF_THRESH = 0.0001; // 0.000001
 // PoseOptimizerSD.cpp, line10
-static constexpr double PoseOptimizerSL_ITERATION = 100;
+static constexpr double PoseOptimizerSL_ITERATION = 50; // 100
 // PoseOptimizerSL.cpp, line13
-static constexpr double PoseOptimizerSD_ITERATION = 100;
+static constexpr double PoseOptimizerSD_ITERATION = 50; // 100
 // PoseOptimizerSD.cpp, line11
 // PoseOptimizerSL.cpp, line14
-static constexpr double PoseOptimizer_TICK_DIST = 0.00001;
+static constexpr double PoseOptimizer_TICK_DIST = 0.0001; // 0.00001
 // PoseOptimizerSD.cpp, line12
 // PoseOptimizerSL.cpp, line15
-static constexpr double PoseOptimizer_TICK_THETA = 0.0001;
+static constexpr double PoseOptimizer_TICK_THETA = 0.001; // 0.001
 // PoseOptimizerSD.cpp, line13
 // PoseOptimizerSL.cpp, line16
-static constexpr double PoseOptimizer_ERROR_THRESH = 100;
+static constexpr double PoseOptimizer_ERROR_THRESH = 50; // 100
 // PoseOptimizerSD.cpp, line14
-static constexpr double PoseOptimizer_DESCENT_COEFF = 0.00001;
+static constexpr double PoseOptimizer_DESCENT_COEFF = 0.0001; // 0.00001
 // PoseOptimizerSL.cpp, line17
 static constexpr double PoseOptimizer_SEARCH_RANGE = 2.0;
 
 // PoseEstimatorICP.cpp, line16
-static constexpr double PoseEstimatorICP_VAL_DIFF_THRESH = 0.000001;
+static constexpr double PoseEstimatorICP_VAL_DIFF_THRESH = 0.0001; // 0.000001
 // PoseEstimatorICP.cpp, line18
-static constexpr int PoseEstimatorICP_ITERATION = 100;
+static constexpr int PoseEstimatorICP_ITERATION = 50; // 100
 
 // static constexpr double PoseEstimatorICP_VAL_THRESH = 0.2;
 // ScanMatcher2D.cpp, line23

@@ -82,7 +82,7 @@ void SlamFrontEnd::RegisterParams() {
   ParamServer::Set("PoseOptimizerSD_ITERATION",
                    param::PoseOptimizerSD_ITERATION);
   ParamServer::Set("PoseOptimizer_TICK_DIST", param::PoseOptimizer_TICK_DIST);
-  ParamServer::Set("PoseOptimizer_TICK_DIST", param::PoseOptimizer_TICK_THETA);
+  ParamServer::Set("PoseOptimizer_TICK_THETA", param::PoseOptimizer_TICK_THETA);
   ParamServer::Set("PoseOptimizer_ERROR_THRESH",
                    param::PoseOptimizer_ERROR_THRESH);
   ParamServer::Set("PoseOptimizer_DESCENT_COEFF",
