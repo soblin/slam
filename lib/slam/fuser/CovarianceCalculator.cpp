@@ -25,7 +25,7 @@ static Eigen::Matrix3d svdInverse(const Eigen::Matrix3d &A) {
   Eigen::MatrixXd M1(m, n);
   for (size_t i = 0; i < n; ++i) {
     for (size_t j = 0; j < n; ++j) {
-      M1(i, j) = eU(i, j) / eS[i];
+      M1(i, j) = eU(j, i) / eS[i];
     }
   }
 

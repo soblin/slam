@@ -1,4 +1,3 @@
-#include <iostream>
 #include <slam/geometry/PointCloudMap.h>
 #include <slam/manager/FrameWorkCustomizer.h>
 

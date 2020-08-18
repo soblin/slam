@@ -4,8 +4,6 @@
 #include <slam/manager/CounterServer.h>
 #include <slam/manager/ParamServer.h>
 
-#include <iostream>
-
 namespace slam {
 
 void ScanMatcher2D::Initialize() {
@@ -83,6 +81,7 @@ bool ScanMatcher2D::MatchScan(Scan2D &curScan) {
       double ratio = m_pose_fuser_ptr->FusePose(
           &curScan, estimatedPose, odoMotion, lastPose, fusedPose, fusedCov);
       estimatedPose = fusedPose;
+
       m_cov = fusedCov;
 
       Eigen::Matrix3d covL;
