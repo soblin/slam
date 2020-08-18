@@ -28,9 +28,12 @@ void SlamFrontEnd::Process(Scan2D &scan) {
   m_scan_matcher_ptr->MatchScan(scan);
   // get the estimated current pose with ICP
   //  Pose2D curPose = m_point_m_cloud_map_ptr->GetLastPose();
-  if (cnt == 0)
+  int gt_cell_num_thresh =
+      ParamServer::Get("PointCloudMapGT_CELL_POINT_NUM_COUNTER_THRESH");
+
+  if (cnt < gt_cell_num_thresh) {
     ParamServer::Set("PointCloudMapGT_CELL_POINT_NUM_THRESH", 1.0);
-  else
+  } else
     ParamServer::Set("PointCloudMapGT_CELL_POINT_NUM_THRESH", 5.0);
 
   m_cloud_map_ptr->MakeGlobalMap();
@@ -54,12 +57,14 @@ void SlamFrontEnd::RegisterParams() {
   ParamServer::Set("SlamLauncher_SLEEP_TIME", param::SlamLauncher_SLEEP_TIME);
   ParamServer::Set("SlamLauncher_PLOT_SKIP", param::SlamLauncher_PLOT_SKIP);
 
-  // PointCloudMao
+  // PointCloudMap
   ParamServer::Set("PointCloudMapBS_SKIP", param::PointCloudMapBS_SKIP);
   ParamServer::Set("PointCloudMap_MAX_POINT_NUM",
                    param::PointCloudMap_MAX_POINT_NUM);
   ParamServer::Set("PointCloudMapGT_CELL_POINT_NUM_THRESH",
                    param::PointCloudMapGT_CELL_POINT_NUM_THRESH1);
+  ParamServer::Set("PointCloudMapGT_CELL_POINT_NUM_COUNTER_THRESH",
+                   param::PointCloudMapGT_CELL_POINT_NUM_COUNTER_THRESH);
 
   // NNGridTable
   ParamServer::Set("NNGridTable_MIN_DIST_THRESH",
@@ -123,6 +128,10 @@ void SlamFrontEnd::RegisterParams() {
                    param::CovarianceCalculator_TICK_DIST);
   ParamServer::Set("CovarianceCalculator_TICK_THETA",
                    param::CovarianceCalculator_TICK_THETA);
+  ParamServer::Set("CovarianceCalculator_ALPHA1",
+                   param::CovarianceCalculator_ALPHA1);
+  ParamServer::Set("CovarianceCalculator_ALPHA2",
+                   param::CovarianceCalculator_ALPHA2);
   ParamServer::Set("CovarianceCalculator_ICP_COV_SCALE1",
                    param::CovarianceCalculator_ICP_COV_SCALE1);
   ParamServer::Set("CovarianceCalculator_VEL_THRESH1",

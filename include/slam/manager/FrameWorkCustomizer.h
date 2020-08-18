@@ -1,6 +1,7 @@
 #ifndef FRAMEWORK_CUSTOMIZER_H
 #define FRAMEWORK_CUSTOMIZER_H
 
+#include <slam/fuser/PoseFuser.h>
 #include <slam/geometry/PointCloudMapBS.h>
 #include <slam/geometry/PointCloudMapGT.h>
 #include <slam/icp/CostFunctionED.h>
@@ -60,6 +61,8 @@ private:
 
   // points the the instance in SlamLauncher
   SlamFrontEnd *m_slam_front_end_ptr = nullptr;
+
+  PoseFuser m_pose_fuser;
 };
 
 } /* namespace slam */

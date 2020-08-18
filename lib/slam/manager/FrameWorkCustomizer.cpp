@@ -17,12 +17,16 @@ void FrameWorkCustomizer::CustomizeA() {
   // common
   m_slam_front_end_ptr->SetScanMatcher2D(&m_scan_matcher);
   m_scan_matcher.SetEstimatorICP(&m_pose_estimator);
+  m_scan_matcher.SetPoseFuser(&m_pose_fuser);
 
   popt->SetCostFunction(cfunc);
   m_pose_estimator.SetDataAssociator(dass);
   m_pose_estimator.SetPoseOptimizer(popt);
 
   m_scan_matcher.SetRefScanMaker(rsm);
+  // fuser
+  m_slam_front_end_ptr->SetDgCheck(false);
+  m_pose_fuser.SetDataAssociator(dass);
 }
 
 void FrameWorkCustomizer::CustomizeB() {
@@ -38,12 +42,16 @@ void FrameWorkCustomizer::CustomizeB() {
   // common
   m_slam_front_end_ptr->SetScanMatcher2D(&m_scan_matcher);
   m_scan_matcher.SetEstimatorICP(&m_pose_estimator);
+  m_scan_matcher.SetPoseFuser(&m_pose_fuser);
 
   popt->SetCostFunction(cfunc);
   m_pose_estimator.SetDataAssociator(dass);
   m_pose_estimator.SetPoseOptimizer(popt);
 
   m_scan_matcher.SetRefScanMaker(rsm);
+  // fuser
+  m_slam_front_end_ptr->SetDgCheck(false);
+  m_pose_fuser.SetDataAssociator(dass);
 }
 
 void FrameWorkCustomizer::CustomizeC() {
@@ -59,12 +67,16 @@ void FrameWorkCustomizer::CustomizeC() {
   // common
   m_slam_front_end_ptr->SetScanMatcher2D(&m_scan_matcher);
   m_scan_matcher.SetEstimatorICP(&m_pose_estimator);
+  m_scan_matcher.SetPoseFuser(&m_pose_fuser);
 
   popt->SetCostFunction(cfunc);
   m_pose_estimator.SetDataAssociator(dass);
   m_pose_estimator.SetPoseOptimizer(popt);
 
   m_scan_matcher.SetRefScanMaker(rsm);
+  // fuser
+  m_slam_front_end_ptr->SetDgCheck(false);
+  m_pose_fuser.SetDataAssociator(dass);
 }
 
 void FrameWorkCustomizer::CustomizeD() {
@@ -80,12 +92,16 @@ void FrameWorkCustomizer::CustomizeD() {
   // common
   m_slam_front_end_ptr->SetScanMatcher2D(&m_scan_matcher);
   m_scan_matcher.SetEstimatorICP(&m_pose_estimator);
+  m_scan_matcher.SetPoseFuser(&m_pose_fuser);
 
   popt->SetCostFunction(cfunc);
   m_pose_estimator.SetDataAssociator(dass);
   m_pose_estimator.SetPoseOptimizer(popt);
 
   m_scan_matcher.SetRefScanMaker(rsm);
+  // fuser
+  m_slam_front_end_ptr->SetDgCheck(false);
+  m_pose_fuser.SetDataAssociator(dass);
 }
 
 void FrameWorkCustomizer::CustomizeE() {
@@ -101,6 +117,7 @@ void FrameWorkCustomizer::CustomizeE() {
   // common
   m_slam_front_end_ptr->SetScanMatcher2D(&m_scan_matcher);
   m_scan_matcher.SetEstimatorICP(&m_pose_estimator);
+  m_scan_matcher.SetPoseFuser(&m_pose_fuser);
 
   popt->SetCostFunction(cfunc);
   m_pose_estimator.SetDataAssociator(dass);
@@ -109,6 +126,9 @@ void FrameWorkCustomizer::CustomizeE() {
   m_scan_matcher.SetRefScanMaker(rsm);
 
   m_scan_matcher.SetScanPointResampler(&m_scan_point_resampler);
+  // fuser
+  m_slam_front_end_ptr->SetDgCheck(false);
+  m_pose_fuser.SetDataAssociator(dass);
 }
 
 void FrameWorkCustomizer::CustomizeF() {
@@ -124,6 +144,7 @@ void FrameWorkCustomizer::CustomizeF() {
   // common
   m_slam_front_end_ptr->SetScanMatcher2D(&m_scan_matcher);
   m_scan_matcher.SetEstimatorICP(&m_pose_estimator);
+  m_scan_matcher.SetPoseFuser(&m_pose_fuser);
 
   popt->SetCostFunction(cfunc);
   m_pose_estimator.SetDataAssociator(dass);
@@ -133,6 +154,9 @@ void FrameWorkCustomizer::CustomizeF() {
 
   m_scan_matcher.SetScanPointAnalyser(&m_scan_point_analyser);
   //  m_scan_matcher.SetScanPointResampler(&m_scan_point_resampler);
+  // fuser
+  m_slam_front_end_ptr->SetDgCheck(false);
+  m_pose_fuser.SetDataAssociator(dass);
 }
 
 void FrameWorkCustomizer::CustomizeG() {
@@ -148,6 +172,7 @@ void FrameWorkCustomizer::CustomizeG() {
   // common
   m_slam_front_end_ptr->SetScanMatcher2D(&m_scan_matcher);
   m_scan_matcher.SetEstimatorICP(&m_pose_estimator);
+  m_scan_matcher.SetPoseFuser(&m_pose_fuser);
 
   popt->SetCostFunction(cfunc);
   m_pose_estimator.SetDataAssociator(dass);
@@ -157,6 +182,9 @@ void FrameWorkCustomizer::CustomizeG() {
 
   m_scan_matcher.SetScanPointAnalyser(&m_scan_point_analyser);
   m_scan_matcher.SetScanPointResampler(&m_scan_point_resampler);
+  // fuser
+  m_slam_front_end_ptr->SetDgCheck(false);
+  m_pose_fuser.SetDataAssociator(dass);
 }
 
 void FrameWorkCustomizer::CustomizeH() {
@@ -172,6 +200,7 @@ void FrameWorkCustomizer::CustomizeH() {
   // common
   m_slam_front_end_ptr->SetScanMatcher2D(&m_scan_matcher);
   m_scan_matcher.SetEstimatorICP(&m_pose_estimator);
+  m_scan_matcher.SetPoseFuser(&m_pose_fuser);
 
   popt->SetCostFunction(cfunc);
   m_pose_estimator.SetDataAssociator(dass);
@@ -181,6 +210,9 @@ void FrameWorkCustomizer::CustomizeH() {
 
   m_scan_matcher.SetScanPointAnalyser(&m_scan_point_analyser);
   m_scan_matcher.SetScanPointResampler(&m_scan_point_resampler);
+  // fuser
+  m_slam_front_end_ptr->SetDgCheck(true);
+  m_pose_fuser.SetDataAssociator(dass);
 }
 
 } /* namespace slam */

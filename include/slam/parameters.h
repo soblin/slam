@@ -33,6 +33,9 @@ static constexpr double PointCloudMapBS_SKIP = 5.0;
 // PointCloudMapGT.cpp, line7
 static constexpr double PointCloudMap_MAX_POINT_NUM = 1000000;
 
+// SlamFrontEnd.cpp, line31
+static constexpr int PointCloudMapGT_CELL_POINT_NUM_COUNTER_THRESH = 10;
+
 // NNGridTable.cpp, line30
 // SlamFrontEnd.cpp. line32, 34
 static constexpr int PointCloudMapGT_CELL_POINT_NUM_THRESH1 = 1;

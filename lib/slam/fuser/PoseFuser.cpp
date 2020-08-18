@@ -111,7 +111,7 @@ double PoseFuser::Fuse(const Eigen::Vector3d &mu1, const Eigen::Matrix3d &cv1,
   double da = mu2(2) - mu1(2);
   if (da > M_PI)
     mu11(2) += 2 * M_PI;
-  else if (da <= -M_PI)
+  else if (da < -M_PI)
     mu11(2) -= 2 * M_PI;
 
   Vector3d nu1 = IC1 * mu11;
@@ -121,7 +121,7 @@ double PoseFuser::Fuse(const Eigen::Vector3d &mu1, const Eigen::Matrix3d &cv1,
 
   if (mu(2) > M_PI)
     mu(2) -= 2 * M_PI;
-  else if (mu(2) <= -M_PI)
+  else if (mu(2) < -M_PI)
     mu(2) += 2 * M_PI;
 
   Vector3d W1 = IC1 * mu11;

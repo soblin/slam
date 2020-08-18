@@ -1,7 +1,10 @@
 #include <cassert>
 #include <cmath>
 #include <slam/icp/ScanMatcher2D.h>
+#include <slam/manager/CounterServer.h>
 #include <slam/manager/ParamServer.h>
+
+#include <iostream>
 
 namespace slam {
 
@@ -18,13 +21,14 @@ void ScanMatcher2D::Initialize() {
   if (m_scan_point_analyser_ptr != nullptr)
     m_scan_point_analyser_ptr->Initialize();
 
+  if (m_pose_fuser_ptr != nullptr)
+    m_pose_fuser_ptr->Initialize();
+
   m_cloud_map_ptr = PointCloudMapSingleton::GetCloudMap();
 
   m_score_thresh = ParamServer::Get("ScanMatcher2D_SCORE_THRESH");
   m_used_num_thresh = ParamServer::Get("ScanMatcher2D_USED_NUM_THRESH");
 }
-
-static bool is_first = true;
 
 bool ScanMatcher2D::MatchScan(Scan2D &curScan) {
   // uniformalize the scaned points
@@ -35,9 +39,9 @@ bool ScanMatcher2D::MatchScan(Scan2D &curScan) {
   if (m_scan_point_analyser_ptr != nullptr)
     m_scan_point_analyser_ptr->AnalysePoints(curScan.scaned_points_ref());
 
-  if (is_first) {
+  if (m_is_first) {
     GrowMap(curScan, m_init_pose);
-    is_first = false;
+    m_is_first = false;
     return true;
   }
 
@@ -70,16 +74,40 @@ bool ScanMatcher2D::MatchScan(Scan2D &curScan) {
   bool successful =
       (score <= m_score_thresh && usedNum >= m_used_num_thresh) ? true : false;
 
-  // use raw odometry
-  if (!successful)
-    estimatedPose = predictedPose;
+  if (m_dgcheck) {
+    if (successful) {
+      Pose2D fusedPose;
+      Eigen::Matrix3d fusedCov;
+      m_pose_fuser_ptr->SetRefBase(refScan);
 
+      double ratio = m_pose_fuser_ptr->FusePose(
+          &curScan, estimatedPose, odoMotion, lastPose, fusedPose, fusedCov);
+      estimatedPose = fusedPose;
+      m_cov = fusedCov;
+
+      Eigen::Matrix3d covL;
+      CovarianceCalculator::RotateCovariance(lastPose, fusedCov, covL, true);
+      Eigen::Matrix3d tcov;
+      CovarianceCalculator::AccumulateCovariance(lastPose, estimatedPose,
+                                                 m_totalcov, covL, tcov);
+      m_totalcov = tcov;
+    } else {
+      estimatedPose = predictedPose;
+      m_pose_fuser_ptr->CalcOdometryCovariance(odoMotion, lastPose, m_cov);
+    }
+  } else {
+    // use raw odometry
+    if (!successful)
+      estimatedPose = predictedPose;
+  }
   // add the current scan with the estimated Pose
   GrowMap(curScan, estimatedPose);
 
   // for validation
   Pose2D estimatedMotion;
   Pose2D::CalcRelativePose(estimatedPose, lastPose, estimatedMotion);
+
+  m_acc_dist = std::hypot(estimatedMotion.tx(), estimatedMotion.ty());
 
   return successful;
 }

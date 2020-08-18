@@ -1,6 +1,7 @@
 #ifndef SCAN_MATCHER_2D_H
 #define SCAN_MATCHER_2D_H
 
+#include <slam/fuser/PoseFuser.h>
 #include <slam/geometry/PointCloudMap.h>
 #include <slam/geometry/Pose2D.h>
 #include <slam/geometry/Scan2D.h>
@@ -30,6 +31,8 @@ public:
   inline void SetScanPointAnalyser(ScanPointAnalyser *p) {
     m_scan_point_analyser_ptr = p;
   }
+  inline void SetPoseFuser(PoseFuser *p) { m_pose_fuser_ptr = p; }
+  inline void SetDgCheck(bool t) { m_dgcheck = t; }
 
 private:
   Pose2D m_init_pose; // the pose of the origin of the map. default(0, 0, 0)
@@ -38,6 +41,12 @@ private:
   RefScanMaker *m_ref_scan_maker_ptr = nullptr;
   ScanPointResampler *m_scan_point_resampler_ptr = nullptr;
   ScanPointAnalyser *m_scan_point_analyser_ptr = nullptr;
+  PoseFuser *m_pose_fuser_ptr = nullptr;
+  bool m_dgcheck = false;
+  Eigen::Matrix3d m_cov;
+  Eigen::Matrix3d m_totalcov;
+  double m_acc_dist = 0;
+  bool m_is_first = true;
 
   // initialied in Initialize()
   double m_score_thresh = 0;

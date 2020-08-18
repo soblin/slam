@@ -16,6 +16,7 @@ public:
 
 public:
   inline void SetScanMatcher2D(ScanMatcher2D *p) { m_scan_matcher_ptr = p; }
+  inline void SetDgCheck(bool p) { m_scan_matcher_ptr->SetDgCheck(p); }
 
 private:
   // initialized in Initialize()
