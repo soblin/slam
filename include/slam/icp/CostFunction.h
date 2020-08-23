@@ -15,12 +15,9 @@ public:
   virtual double CalcValue(double tx, double ty, double th) = 0;
 
 public:
-  inline double GetMatchRate() const { return m_match_rate; }
-  inline void SetPoints(const std::vector<const ScanPoint2D *> &cur,
-                        const std::vector<const ScanPoint2D *> &ref) {
-    m_cur_points = cur;
-    m_ref_points = ref;
-  }
+  double GetMatchRate() const;
+  void SetPoints(const std::vector<const ScanPoint2D *> &cur,
+                 const std::vector<const ScanPoint2D *> &ref);
 
 protected:
   // the set of points matched with DataAssiciator
@@ -29,6 +26,15 @@ protected:
 
   double m_match_rate = -1;
 };
+
+inline double CostFunction::GetMatchRate() const { return m_match_rate; }
+
+inline void
+CostFunction::SetPoints(const std::vector<const ScanPoint2D *> &cur,
+                        const std::vector<const ScanPoint2D *> &ref) {
+  m_cur_points = cur;
+  m_ref_points = ref;
+}
 
 } /* namespace slam */
 #endif /* COST_FUNCTION_H */

@@ -9,7 +9,7 @@ bool ScanPointAnalyser::CalcNormal(int index,
                                    int dir, Vector2D &ret, double fpdmin,
                                    double fpdmax) {
   const ScanPoint2D &point_of_interest = points[index];
-  for (unsigned i = index + dir; i >= 0 && i < points.size(); i += dir) {
+  for (size_t i = index + dir; i >= 0 && i < points.size(); i += dir) {
     const ScanPoint2D &point_iter = points[i];
     double dx = point_of_interest.x() - point_iter.x();
     double dy = point_of_interest.y() - point_iter.y();
@@ -41,7 +41,7 @@ void ScanPointAnalyser::AnalysePoints(std::vector<ScanPoint2D> &points,
                                       double invalid_deg,
                                       double corner_thresh_deg,
                                       double corner_thresh_cos) {
-  for (unsigned i = 0; i < points.size(); ++i) {
+  for (size_t i = 0; i < points.size(); ++i) {
     auto &point = points[i];
     ScanPoint2D::PointType type;
     Vector2D nL, nR, normal;

@@ -1,6 +1,7 @@
 #include <iostream>
 #include <math.h>
 #include <slam/io/SensorDataReader.h>
+#include <slam/manager/CounterServer.h>
 #include <slam/manager/ParamServer.h>
 
 namespace slam {
@@ -41,11 +42,13 @@ bool SensorDataReader::LoadScanImpl(Scan2D &output) {
   // Attention! the angle is [deg]
   // LASERSCAN id t1 t2 n theta_1[deg] d_1 ... theta_n[deg] d_n odom_x odom_y
   // odom_th[rad]
+  int cnt = CounterServer::Get();
+
   m_in_file >> type;
   if (type == "LASERSCAN") {
     // misc
-    int id, t1, t2;
-    m_in_file >> id >> t1 >> t2;
+    int sid, t1, t2;
+    m_in_file >> sid >> t1 >> t2;
 
     // Scan2D
     std::vector<ScanPoint2D> scan_points;
@@ -53,13 +56,14 @@ bool SensorDataReader::LoadScanImpl(Scan2D &output) {
     m_in_file >> scan_num;
     scan_points.reserve(scan_num);
     double deg, dist;
-    ScanPoint2D scan_point;
     for (int i = 0; i < scan_num; ++i) {
+      ScanPoint2D scan_point;
       m_in_file >> deg >> dist;
       deg += m_angle_offset;
       if (dist >= m_max_scan_range || dist <= m_min_scan_range)
         continue;
       scan_point.CalcXY(dist, M_PI * deg / 180);
+      scan_point.SetId(cnt);
       scan_points.emplace_back(scan_point);
     }
     output.SetScanedPoints(scan_points);
@@ -72,6 +76,7 @@ bool SensorDataReader::LoadScanImpl(Scan2D &output) {
     double th; // [rad]
     m_in_file >> th;
     output.SetAngle(th);
+    output.SetId(cnt);
 
     return true;
   } else {

@@ -11,6 +11,11 @@ static double normalize(double x) {
 
 namespace slam {
 
+Pose2D::Pose2D() : m_tx(0), m_ty(0), m_th(0) {
+  m_Rmat[0][0] = m_Rmat[1][1] = 1.0;
+  m_Rmat[0][1] = m_Rmat[1][0] = 0.0;
+}
+
 Pose2D::Pose2D(double tx, double ty, double th) : m_tx(tx), m_ty(ty) {
   double rad = th / 180.0 * M_PI;
   m_th = normalize(rad);

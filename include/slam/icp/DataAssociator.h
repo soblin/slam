@@ -19,19 +19,33 @@ public:
                                     const Pose2D &predictedPose) = 0;
 
 public:
-  inline std::vector<const ScanPoint2D *> cur_points() { return m_cur_points; }
-  inline std::vector<const ScanPoint2D *> ref_points() { return m_ref_points; }
-  inline const std::vector<const ScanPoint2D *> &cur_points_ref() {
-    return m_cur_points;
-  }
-  inline const std::vector<const ScanPoint2D *> &ref_points_ref() {
-    return m_ref_points;
-  }
+  std::vector<const ScanPoint2D *> cur_points();
+  std::vector<const ScanPoint2D *> ref_points();
+  const std::vector<const ScanPoint2D *> &cur_points_ref();
+  inline const std::vector<const ScanPoint2D *> &ref_points_ref();
 
 protected:
   std::vector<const ScanPoint2D *> m_cur_points; // current scan, local-frame
   std::vector<const ScanPoint2D *> m_ref_points; // global-frame
 };
+
+inline std::vector<const ScanPoint2D *> DataAssociator::cur_points() {
+  return m_cur_points;
+}
+
+inline std::vector<const ScanPoint2D *> DataAssociator::ref_points() {
+  return m_ref_points;
+}
+
+inline const std::vector<const ScanPoint2D *> &
+DataAssociator::cur_points_ref() {
+  return m_cur_points;
+}
+
+inline const std::vector<const ScanPoint2D *> &
+DataAssociator::ref_points_ref() {
+  return m_ref_points;
+}
 
 } /* namespace slam */
 #endif /* DATA_ASSOCIATOR_H */

@@ -20,7 +20,7 @@ double DataAssociatorGT::FindCorrespondence(const Scan2D *curScan,
 
   auto length = curScan->scaned_points().size();
 
-  for (unsigned i = 0; i < length; ++i) {
+  for (size_t i = 0; i < length; ++i) {
     // query point
     const ScanPoint2D *cur_point_ptr = &(curScan->scaned_points()[i]);
 

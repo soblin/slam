@@ -21,6 +21,7 @@ file(GLOB lib_sources
   "lib/slam/icp/*.cpp"
   "lib/slam/manager/*.cpp"
   "lib/slam/fuser/*.cpp"
+  "lib/slam/loop_closure/*.cpp"
   )
 
 file(GLOB lib_headers
@@ -30,6 +31,8 @@ file(GLOB lib_headers
   "include/slam/manager/*.h"
   "include/slam/fuser/*.h"
   "include/slam/parameters.h"
+  "include/slam/loop_closure/*.h"
+  "include/slam/p2o/p2o.h"
   )
 
 file(GLOB test_sources "utest/*.cpp")

@@ -15,8 +15,8 @@ public:
   void Process(Scan2D &scan);
 
 public:
-  inline void SetScanMatcher2D(ScanMatcher2D *p) { m_scan_matcher_ptr = p; }
-  inline void SetDgCheck(bool p) { m_scan_matcher_ptr->SetDgCheck(p); }
+  void SetScanMatcher2D(ScanMatcher2D *p);
+  void SetDgCheck(bool p);
 
 private:
   // initialized in Initialize()
@@ -24,6 +24,13 @@ private:
   ScanMatcher2D *m_scan_matcher_ptr = nullptr;
   void RegisterParams();
 };
+
+inline void SlamFrontEnd::SetScanMatcher2D(ScanMatcher2D *p) {
+  m_scan_matcher_ptr = p;
+}
+inline void SlamFrontEnd::SetDgCheck(bool p) {
+  m_scan_matcher_ptr->SetDgCheck(p);
+}
 
 } /* namespace slam */
 #endif /* slam_front_end_h */

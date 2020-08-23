@@ -9,7 +9,7 @@ void DataAssociatorLS::Initialize() {}
 
 void DataAssociatorLS::SetRefBase(const std::vector<ScanPoint2D> &points) {
   m_base_points.clear();
-  for (unsigned i = 0; i < points.size(); ++i) {
+  for (size_t i = 0; i < points.size(); ++i) {
     m_base_points.emplace_back(&points[i]);
   }
 }
@@ -36,7 +36,7 @@ double DataAssociatorLS::FindCorrespondence(const Scan2D *curScanPtr,
   m_cur_points.clear();
   m_ref_points.clear();
 
-  for (unsigned i = 0; i < curScanPtr->scaned_points().size(); ++i) {
+  for (size_t i = 0; i < curScanPtr->scaned_points().size(); ++i) {
     // the scan point of interest
     const ScanPoint2D *point_of_interest_local =
         &(curScanPtr->scaned_points()[i]);

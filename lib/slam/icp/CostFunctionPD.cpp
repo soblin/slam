@@ -12,7 +12,7 @@ double CostFunctionPD::CalcValue(double tx, double ty, double th /*rad*/) {
   int total_num = 0;
   int valid_num = 0;
 
-  for (unsigned i = 0; i < m_cur_points.size(); ++i) {
+  for (size_t i = 0; i < m_cur_points.size(); ++i) {
     const auto cur_point = m_cur_points[i];
     const auto ref_point = m_ref_points[i];
 

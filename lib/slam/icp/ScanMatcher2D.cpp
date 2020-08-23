@@ -117,7 +117,7 @@ void ScanMatcher2D::GrowMap(const Scan2D &scan, const Pose2D &pose) {
   double ty = pose.ty();
 
   // std::vector<ScanPoint2D> scaned_points_global;
-  for (unsigned i = 0; i < scaned_points.size(); ++i) {
+  for (size_t i = 0; i < scaned_points.size(); ++i) {
     const ScanPoint2D &scan_point = scaned_points[i];
     if (scan_point.type() == ScanPoint2D::PointType::ISOLATE)
       continue;

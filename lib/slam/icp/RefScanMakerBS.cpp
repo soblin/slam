@@ -17,7 +17,7 @@ const Scan2D *RefScanMakerBS::MakeRefScan() {
 
   const std::vector<ScanPoint2D> &scaned_points =
       m_cloud_map_ptr->GetLastScan().scaned_points();
-  for (unsigned i = 0; i < scaned_points.size(); ++i) {
+  for (size_t i = 0; i < scaned_points.size(); ++i) {
     const ScanPoint2D &scan_point = scaned_points[i];
 
     double x =

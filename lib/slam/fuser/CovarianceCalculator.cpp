@@ -87,7 +87,7 @@ double CovarianceCalculator::CalcICPCovariance(
 
   std::vector<double> Jx, Jy, Jt;
 
-  for (unsigned i = 0; i < curPoints.size(); ++i) {
+  for (size_t i = 0; i < curPoints.size(); ++i) {
     const ScanPoint2D *cur_point = curPoints[i];
     const ScanPoint2D *ref_point = refPoints[i];
 
@@ -105,7 +105,7 @@ double CovarianceCalculator::CalcICPCovariance(
   }
 
   Eigen::Matrix3d hes = Eigen::Matrix3d::Zero(3, 3);
-  for (unsigned i = 0; i < Jx.size(); ++i) {
+  for (size_t i = 0; i < Jx.size(); ++i) {
     hes(0, 0) += Jx[i] * Jx[i];
     hes(0, 1) += Jx[i] * Jy[i];
     hes(0, 2) += Jx[i] * Jt[i];

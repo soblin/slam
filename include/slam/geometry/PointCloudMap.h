@@ -29,20 +29,16 @@ public:
   virtual void RemakeMaps(const std::vector<Pose2D> &newposes) = 0;
 
 public:
-  inline const std::vector<Pose2D> &poses() const { return m_poses; }
-  inline const std::vector<ScanPoint2D> &global_map() const {
-    return m_global_map;
-  }
-  inline const std::vector<ScanPoint2D> &local_map() const {
-    return m_local_map;
-  }
+  const std::vector<Pose2D> &poses() const;
+  const std::vector<ScanPoint2D> &global_map() const;
+  const std::vector<ScanPoint2D> &local_map() const;
 
-  inline void GetLastPose(Pose2D &pose) const { pose = m_last_pose; }
-  inline void GetLastScan(Scan2D &scan) const { scan = m_last_scan; }
-  inline const Scan2D &GetLastScan() const { return m_last_scan; }
-  inline const Pose2D &GetLastPose() const { return m_last_pose; }
-  inline void SetLastPose(const Pose2D &pose) { m_last_pose = pose; }
-  inline void SetLastScan(const Scan2D &scan) { m_last_scan = scan; }
+  void GetLastPose(Pose2D &pose) const;
+  void GetLastScan(Scan2D &scan) const;
+  const Scan2D &GetLastScan() const;
+  const Pose2D &GetLastPose() const;
+  void SetLastPose(const Pose2D &pose);
+  void SetLastScan(const Scan2D &scan);
 
 protected:
   // accumulated poses and scaned points(global frame)
@@ -70,6 +66,31 @@ public:
     m_point_cloud_map_ptr = ptr;
   }
 };
+
+inline const std::vector<Pose2D> &PointCloudMap::poses() const {
+  return m_poses;
+}
+inline const std::vector<ScanPoint2D> &PointCloudMap::global_map() const {
+  return m_global_map;
+}
+inline const std::vector<ScanPoint2D> &PointCloudMap::local_map() const {
+  return m_local_map;
+}
+
+inline void PointCloudMap::GetLastPose(Pose2D &pose) const {
+  pose = m_last_pose;
+}
+inline void PointCloudMap::GetLastScan(Scan2D &scan) const {
+  scan = m_last_scan;
+}
+inline const Scan2D &PointCloudMap::GetLastScan() const { return m_last_scan; }
+inline const Pose2D &PointCloudMap::GetLastPose() const { return m_last_pose; }
+inline void PointCloudMap::SetLastPose(const Pose2D &pose) {
+  m_last_pose = pose;
+}
+inline void PointCloudMap::SetLastScan(const Scan2D &scan) {
+  m_last_scan = scan;
+}
 
 } /* namespace slam */
 #endif /* POINT_CLOUD_MAP */

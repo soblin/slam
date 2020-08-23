@@ -70,7 +70,7 @@ void ScanPointResampler::ResamplePoints(Scan2D *scan) {
 
   resampled_points.emplace_back(point.x(), point.y());
 
-  for (unsigned i = 1; i < scaned_points.size(); ++i) {
+  for (size_t i = 1; i < scaned_points.size(); ++i) {
     point = scaned_points[i];
     bool inserted = false;
 

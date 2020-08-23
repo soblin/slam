@@ -21,7 +21,7 @@ void PointCloudMapBS::AddPoint(ScanPoint2D &&scan) {
 
 void PointCloudMapBS::AddPoints(const std::vector<ScanPoint2D> &scans) {
   const double skip = ParamServer::Get("PointCloudMapBS_SKIP");
-  for (unsigned i = 0; i < scans.size(); i += skip) {
+  for (size_t i = 0; i < scans.size(); i += skip) {
     m_global_map.push_back(scans[i]);
   }
 }

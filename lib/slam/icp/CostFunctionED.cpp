@@ -12,7 +12,7 @@ double CostFunctionED::CalcValue(double tx, double ty, double th /*rad*/,
   int matched_num = 0;
   int total_num = 0;
 
-  for (unsigned i = 0; i < m_cur_points.size(); ++i) {
+  for (size_t i = 0; i < m_cur_points.size(); ++i) {
     const ScanPoint2D *cur_point_iter = m_cur_points[i];
     const ScanPoint2D *ref_point_iter = m_ref_points[i];
 

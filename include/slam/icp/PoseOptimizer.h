@@ -15,14 +15,10 @@ public:
   virtual double OptimizePose(const Pose2D &initPose, Pose2D &estimatePose) = 0;
 
 public:
-  inline void SetCostFunction(CostFunction *f) { m_cost_func_ptr = f; }
-  inline void SetPoints(const std::vector<const ScanPoint2D *> &cur,
-                        const std::vector<const ScanPoint2D *> &ref) {
-    m_cost_func_ptr->SetPoints(cur, ref);
-  }
-  inline void GetMatchRate(double &val) {
-    val = m_cost_func_ptr->GetMatchRate();
-  }
+  void SetCostFunction(CostFunction *f);
+  void SetPoints(const std::vector<const ScanPoint2D *> &cur,
+                 const std::vector<const ScanPoint2D *> &ref);
+  void GetMatchRate(double &val);
 
 protected:
   int m_repeat_num = 0;
@@ -33,6 +29,18 @@ protected:
 public:
   friend class PoseOptimizerTestFriend;
 };
+
+inline void PoseOptimizer::SetCostFunction(CostFunction *f) {
+  m_cost_func_ptr = f;
+}
+inline void
+PoseOptimizer::SetPoints(const std::vector<const ScanPoint2D *> &cur,
+                         const std::vector<const ScanPoint2D *> &ref) {
+  m_cost_func_ptr->SetPoints(cur, ref);
+}
+inline void PoseOptimizer::GetMatchRate(double &val) {
+  val = m_cost_func_ptr->GetMatchRate();
+}
 
 } /* namespace slam */
 #endif /* POSE_OPTIMIZER_H */

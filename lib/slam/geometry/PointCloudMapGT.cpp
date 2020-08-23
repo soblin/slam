@@ -22,7 +22,7 @@ void PointCloudMapGT::AddPoint(ScanPoint2D &&p) {
 
 void PointCloudMapGT::SubsamplePoints(std::vector<ScanPoint2D> &subs) {
   m_grid_table.Clear();
-  for (unsigned i = 0; i < m_all_points.size(); ++i)
+  for (size_t i = 0; i < m_all_points.size(); ++i)
     m_grid_table.AddPoint(&m_all_points[i]);
 
   m_grid_table.MakeCellPoints(subs);

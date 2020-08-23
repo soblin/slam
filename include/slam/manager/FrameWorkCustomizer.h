@@ -25,7 +25,7 @@ public:
   FrameWorkCustomizer() {}
   ~FrameWorkCustomizer() {}
 
-  inline void SetSlamFrontEnd(SlamFrontEnd *f) { m_slam_front_end_ptr = f; }
+  void SetSlamFrontEnd(SlamFrontEnd *f);
 
   void CustomizeA();
   void CustomizeB();
@@ -64,6 +64,10 @@ private:
 
   PoseFuser m_pose_fuser;
 };
+
+inline void FrameWorkCustomizer::SetSlamFrontEnd(SlamFrontEnd *f) {
+  m_slam_front_end_ptr = f;
+}
 
 } /* namespace slam */
 #endif /* framework_customizer_h */

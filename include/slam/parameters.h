@@ -28,10 +28,11 @@ static constexpr int SlamLauncher_SLEEP_TIME = 100000;
 // geometry
 // PointCloudMapBS.cpp line23
 static constexpr double PointCloudMapBS_SKIP = 5.0;
-
 // PointCloudMapBS.cpp, line8
 // PointCloudMapGT.cpp, line7
 static constexpr double PointCloudMap_MAX_POINT_NUM = 1000000;
+// PointCloudMapLP.cpp, line45
+static constexpr int PointCloudMapLP_ACC_DIST_THRESH = 10;
 
 // SlamFrontEnd.cpp, line31
 static constexpr int PointCloudMapGT_CELL_POINT_NUM_COUNTER_THRESH = 10;
@@ -130,6 +131,31 @@ static const double CovarianceCalculator_ICP_COV_SCALE2 = 1.0;
 static const double CovarianceCalculator_VEL_THRESH2 = 0.001;
 // CovarianceCalculator.cpp, line147
 static const double CovarianceCalculator_OMEGA_THRESH2 = 0.01;
+
+// PoseGraph.cpp, line7
+static const int PoseGraph_POOL_SIZE = 100000;
+
+// SlamBackEnd.cpp, line20
+static const int SlamBackEnd_P2O_N = 5;
+
+// LoopDetectorSS.cpp, line7
+static const double LoopDetectorSS_RADIUS = 4.0;
+// LoopDetectorSS.cpp, line8
+static const double LoopDetectorSS_ACC_DIST_THRESH = 10;
+// LoopDetectorSS.cpp, line9
+static const double LoopDetectorSS_SCORE_THRESH = 0.2;
+// LoopDetectorSS.cpp, line95
+static const int LoopDetectorSS_USED_NUM_MIN = 50;
+// LoopDetectorSS.cpp, line97
+static const double LoopDetectorSS_RANGE_T = 1.0;
+// LoopDetectorSS.cpp, line98
+static constexpr double LoopDetectorSS_RANGE_A = M_PI / 4;
+// LoopDetectorSS.cpp, line99
+static const double LoopDetectorSS_DD = 0.2;
+// LoopDetectorSS.cpp, line100
+static constexpr double LoopDetectorSS_DA = 2 * M_PI / 180;
+// LoopDetectorSS.cpp, line101
+static double LoopDetectorSS_MATCH_THRESH = 0.8;
 
 } /* namespace param */
 } /* namespace slam */

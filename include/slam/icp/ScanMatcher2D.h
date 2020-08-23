@@ -22,17 +22,13 @@ public:
   void GrowMap(const Scan2D &scan, const Pose2D &pose);
 
 public:
-  inline void SetEstimatorICP(PoseEstimatorICP *p) { m_estimator_ptr = p; }
-  inline void SetRefScanMaker(RefScanMaker *p) { m_ref_scan_maker_ptr = p; }
-  inline void SetInitPose(const Pose2D &p) { m_init_pose = p; }
-  inline void SetScanPointResampler(ScanPointResampler *p) {
-    m_scan_point_resampler_ptr = p;
-  }
-  inline void SetScanPointAnalyser(ScanPointAnalyser *p) {
-    m_scan_point_analyser_ptr = p;
-  }
-  inline void SetPoseFuser(PoseFuser *p) { m_pose_fuser_ptr = p; }
-  inline void SetDgCheck(bool t) { m_dgcheck = t; }
+  void SetEstimatorICP(PoseEstimatorICP *p);
+  void SetRefScanMaker(RefScanMaker *p);
+  void SetInitPose(const Pose2D &p);
+  void SetScanPointResampler(ScanPointResampler *p);
+  void SetScanPointAnalyser(ScanPointAnalyser *p);
+  void SetPoseFuser(PoseFuser *p);
+  void SetDgCheck(bool t);
 
 private:
   Pose2D m_init_pose; // the pose of the origin of the map. default(0, 0, 0)
@@ -53,6 +49,22 @@ private:
   double m_used_num_thresh = 0;
   PointCloudMap *m_cloud_map_ptr = nullptr;
 };
+
+inline void ScanMatcher2D::SetEstimatorICP(PoseEstimatorICP *p) {
+  m_estimator_ptr = p;
+}
+inline void ScanMatcher2D::SetRefScanMaker(RefScanMaker *p) {
+  m_ref_scan_maker_ptr = p;
+}
+inline void ScanMatcher2D::SetInitPose(const Pose2D &p) { m_init_pose = p; }
+inline void ScanMatcher2D::SetScanPointResampler(ScanPointResampler *p) {
+  m_scan_point_resampler_ptr = p;
+}
+inline void ScanMatcher2D::SetScanPointAnalyser(ScanPointAnalyser *p) {
+  m_scan_point_analyser_ptr = p;
+}
+inline void ScanMatcher2D::SetPoseFuser(PoseFuser *p) { m_pose_fuser_ptr = p; }
+inline void ScanMatcher2D::SetDgCheck(bool t) { m_dgcheck = t; }
 
 } /* namespace slam */
 #endif /* SCAN_MATCHER_2D_H */

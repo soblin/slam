@@ -7,11 +7,7 @@ namespace slam {
 
 class Pose2D {
 public:
-  Pose2D() : m_tx(0), m_ty(0), m_th(0) {
-    m_Rmat[0][0] = m_Rmat[1][1] = 1.0;
-    m_Rmat[0][1] = m_Rmat[1][0] = 0.0;
-  }
-
+  Pose2D();
   Pose2D(double tx, double ty, double th /*[deg]*/);
 
   void Reset();
@@ -30,15 +26,15 @@ public:
                              Pose2D &global);
 
 public:
-  inline double tx() const { return m_tx; }
-  inline double ty() const { return m_ty; }
-  inline double th() const { return m_th; }
-  inline double &tx() { return m_tx; }
-  inline double &ty() { return m_ty; }
-  inline double R00() const { return m_Rmat[0][0]; }
-  inline double R01() const { return m_Rmat[0][1]; }
-  inline double R10() const { return m_Rmat[1][0]; }
-  inline double R11() const { return m_Rmat[1][1]; }
+  double tx() const;
+  double ty() const;
+  double th() const;
+  double &tx();
+  double &ty();
+  double R00() const;
+  double R01() const;
+  double R10() const;
+  double R11() const;
 
 private:
   double m_tx;
@@ -47,6 +43,16 @@ private:
   double m_th; // [rad]
   double m_Rmat[2][2];
 };
+
+inline double Pose2D::tx() const { return m_tx; }
+inline double Pose2D::ty() const { return m_ty; }
+inline double Pose2D::th() const { return m_th; }
+inline double &Pose2D::tx() { return m_tx; }
+inline double &Pose2D::ty() { return m_ty; }
+inline double Pose2D::R00() const { return m_Rmat[0][0]; }
+inline double Pose2D::R01() const { return m_Rmat[0][1]; }
+inline double Pose2D::R10() const { return m_Rmat[1][0]; }
+inline double Pose2D::R11() const { return m_Rmat[1][1]; }
 
 } // namespace slam
 

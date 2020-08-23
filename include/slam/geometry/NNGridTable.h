@@ -31,11 +31,7 @@ public:
                                       double scope_thresh);
 
 public:
-  inline void Clear() {
-    for (auto &cell : m_table) {
-      cell.Clear();
-    }
-  }
+  void Clear();
 
 private:
   double m_cell_size = 0;
@@ -47,6 +43,12 @@ private:
 public:
   friend class NNGridTableTestFriend;
 };
+
+inline void NNGridTable::Clear() {
+  for (auto &cell : m_table) {
+    cell.Clear();
+  }
+}
 
 } // namespace slam
 #endif /* NN_GRID_TABLE_H */

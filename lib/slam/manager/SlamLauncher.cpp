@@ -58,7 +58,10 @@ void SlamLauncher::Run() {
   while (!eof) {
     int cnt = CounterServer::Get();
 
-    if (m_odometry_only) {
+    if (!m_odometry_only) {
+      // use ICP and add to PointCloudMap
+      m_slam_frontend.Process(scan_buf);
+    } else {
       if (cnt == 0) {
         m_initial_pose = scan_buf.pose();
         m_initial_pose.CalcRmat();
@@ -67,13 +70,8 @@ void SlamLauncher::Run() {
       MapByOdometry(scan_buf);
     }
 
-    else {
-      // use ICP and add to PointCloudMap
-      m_slam_frontend.Process(scan_buf);
-    }
-    if (cnt % m_draw_skip == 0) {
+    if (cnt % m_draw_skip == 0)
       m_map_drawer.DrawGp(m_cloud_map_ptr);
-    }
 
     eof = m_sensor_reader.LoadScan(scan_buf);
     usleep(m_usleep_time);
@@ -97,6 +95,8 @@ void SlamLauncher::CustomizeFrameWork(const std::string &type) {
     m_customizer.CustomizeF();
   else if (type == "customG")
     m_customizer.CustomizeG();
+  else if (type == "customH")
+    m_customizer.CustomizeH();
   else
     m_customizer.CustomizeH();
 

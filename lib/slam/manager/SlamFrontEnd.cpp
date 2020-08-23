@@ -28,7 +28,7 @@ void SlamFrontEnd::Process(Scan2D &scan) {
   m_scan_matcher_ptr->MatchScan(scan);
   // get the estimated current pose with ICP
   //  Pose2D curPose = m_point_m_cloud_map_ptr->GetLastPose();
-  int gt_cell_num_thresh =
+  const int gt_cell_num_thresh =
       ParamServer::Get("PointCloudMapGT_CELL_POINT_NUM_COUNTER_THRESH");
 
   if (cnt < gt_cell_num_thresh) {
@@ -65,6 +65,8 @@ void SlamFrontEnd::RegisterParams() {
                    param::PointCloudMapGT_CELL_POINT_NUM_THRESH1);
   ParamServer::Set("PointCloudMapGT_CELL_POINT_NUM_COUNTER_THRESH",
                    param::PointCloudMapGT_CELL_POINT_NUM_COUNTER_THRESH);
+  ParamServer::Set("PointCloudMapLP_ACC_DIST_THRESH",
+                   param::PointCloudMapLP_ACC_DIST_THRESH);
 
   // NNGridTable
   ParamServer::Set("NNGridTable_MIN_DIST_THRESH",
@@ -150,6 +152,27 @@ void SlamFrontEnd::RegisterParams() {
                    param::CovarianceCalculator_VEL_THRESH2);
   ParamServer::Set("CovarianceCalculator_OMEGA_THRESH2",
                    param::CovarianceCalculator_OMEGA_THRESH2);
+
+  // PoseGraph
+  ParamServer::Set("PoseGraph_POOL_SIZE", param::PoseGraph_POOL_SIZE);
+
+  // SlamBackEnd
+  ParamServer::Set("SlamBackEnd_P2O_N", param::SlamBackEnd_P2O_N);
+
+  // LoopDetectorSS
+  ParamServer::Set("LoopDetectorSS_RADIUS", param::LoopDetectorSS_RADIUS);
+  ParamServer::Set("LoopDetectorSS_ACC_DIST_THRESH",
+                   param::LoopDetectorSS_ACC_DIST_THRESH);
+  ParamServer::Set("LoopDetectorSS_SCORE_THRESH",
+                   param::LoopDetectorSS_SCORE_THRESH);
+  ParamServer::Set("LoopDetectorSS_USED_NUM_MIN",
+                   param::LoopDetectorSS_USED_NUM_MIN);
+  ParamServer::Set("LoopDetectorSS_RANGE_T", param::LoopDetectorSS_RANGE_T);
+  ParamServer::Set("LoopDetectorSS_RANGE_A", param::LoopDetectorSS_RANGE_A);
+  ParamServer::Set("LoopDetectorSS_DD", param::LoopDetectorSS_DD);
+  ParamServer::Set("LoopDetectorSS_DA", param::LoopDetectorSS_DA);
+  ParamServer::Set("LoopDetectorSS_MATCH_THRESH",
+                   param::LoopDetectorSS_MATCH_THRESH);
 }
 
 } /* namespace slam */
