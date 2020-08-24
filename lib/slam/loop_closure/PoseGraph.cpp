@@ -2,7 +2,6 @@
 #include <slam/manager/ParamServer.h>
 
 static Eigen::Matrix3d svdInverse(const Eigen::Matrix3d &A) {
-
   size_t m = A.rows();
   size_t n = A.cols();
 

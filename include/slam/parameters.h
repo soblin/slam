@@ -6,11 +6,11 @@
 namespace slam {
 namespace param {
 
-// SensorDataReader.h, line27
+// SensorDataReader.cpp, line10
 static constexpr double Scan2D_MAX_SCAN_RANGE = 6.0;
-// SensorDataReader.h, line28
-static constexpr double Scan2D_MIN_SCAN_RANGE = 0.1;
 // SensorDataReader.cpp, line11
+static constexpr double Scan2D_MIN_SCAN_RANGE = 0.1;
+// SensorDataReader.cpp, line13
 static constexpr double SensorDataReader_ANGLE_OFFSET = 180;
 
 // MapDrawer.cpp, line20
@@ -30,15 +30,18 @@ static constexpr int SlamLauncher_SLEEP_TIME = 100000;
 static constexpr double PointCloudMapBS_SKIP = 5.0;
 // PointCloudMapBS.cpp, line8
 // PointCloudMapGT.cpp, line7
+// PointCluddMapLP.cpp, line64
 static constexpr double PointCloudMap_MAX_POINT_NUM = 1000000;
-// PointCloudMapLP.cpp, line45
+// PointCloudMapLP.cpp, line63
 static constexpr int PointCloudMapLP_ACC_DIST_THRESH = 10;
 
-// SlamFrontEnd.cpp, line31
+// SlamFrontEnd.cpp, line37
 static constexpr int PointCloudMapGT_CELL_POINT_NUM_COUNTER_THRESH = 10;
+// SlamFrontEnd.cpp, line
+static constexpr int SlamFrontEnd_KEYFRAME_SKIP = SlamLauncher_PLOT_SKIP;
 
 // NNGridTable.cpp, line30
-// SlamFrontEnd.cpp. line32, 34
+// SlamFrontEnd.cpp. line41, 43
 static constexpr int PointCloudMapGT_CELL_POINT_NUM_THRESH1 = 1;
 static constexpr int PointCloudMapGT_CELL_POINT_NUM_THRESH2 = 5;
 // NNGridTable.cpp, line8
@@ -48,62 +51,62 @@ static constexpr double NNGridTable_DOMAIN_SIZE = 40;
 // NNGridTable.cpp, line109
 static constexpr double NNGridTable_MIN_DIST_THRESH = 0.2;
 
-// DataAssociatorLS.cpp, line24
+// DataAssociatorLS.cpp, line23
 static constexpr double DataAssociatorLS_DIST_THRESH = 0.2;
 
 // CostFunctionED.cpp, line47
-// CostFunctionPD.cpp, line37
+// CostFunctionPD.cpp, line36
 static constexpr double CostFunction_VAL_THRESH = 0.2;
 
 // PoseOptimizerSD.cpp, line9
 // PoseOptimzierSL.cpp, line11
-static constexpr double PoseOptimizer_VAL_DIFF_THRESH = 0.0001; // 0.000001
+static constexpr double PoseOptimizer_VAL_DIFF_THRESH = 0.001; // 0.000001
 // PoseOptimizerSD.cpp, line10
 static constexpr double PoseOptimizerSL_ITERATION = 50; // 100
 // PoseOptimizerSL.cpp, line13
 static constexpr double PoseOptimizerSD_ITERATION = 50; // 100
 // PoseOptimizerSD.cpp, line11
 // PoseOptimizerSL.cpp, line14
-static constexpr double PoseOptimizer_TICK_DIST = 0.0001; // 0.00001
+static constexpr double PoseOptimizer_TICK_DIST = 0.001; // 0.00001
 // PoseOptimizerSD.cpp, line12
 // PoseOptimizerSL.cpp, line15
-static constexpr double PoseOptimizer_TICK_THETA = 0.001; // 0.001
+static constexpr double PoseOptimizer_TICK_THETA = 0.01; // 0.001
 // PoseOptimizerSD.cpp, line13
 // PoseOptimizerSL.cpp, line16
 static constexpr double PoseOptimizer_ERROR_THRESH = 50; // 100
 // PoseOptimizerSD.cpp, line14
-static constexpr double PoseOptimizer_DESCENT_COEFF = 0.0001; // 0.00001
+static constexpr double PoseOptimizer_DESCENT_COEFF = 0.001; // 0.00001
 // PoseOptimizerSL.cpp, line17
 static constexpr double PoseOptimizer_SEARCH_RANGE = 2.0;
 
-// PoseEstimatorICP.cpp, line16
+// PoseEstimatorICP.cpp, line21
 static constexpr double PoseEstimatorICP_VAL_DIFF_THRESH = 0.0001; // 0.000001
-// PoseEstimatorICP.cpp, line18
+// PoseEstimatorICP.cpp, line23
 static constexpr int PoseEstimatorICP_ITERATION = 50; // 100
 
-// static constexpr double PoseEstimatorICP_VAL_THRESH = 0.2;
-// ScanMatcher2D.cpp, line23
+// static constexpr double PosEstimatorICP_VAL_THRESH = 0.2;
+// ScanMatcher2D.cpp, line27
 static constexpr double ScanMatcher2D_SCORE_THRESH = 1.0;
-// ScanMatcher2D.cpp, line24
+// ScanMatcher2D.cpp, line28
 static constexpr double ScanMatcher2D_USED_NUM_THRESH = 50;
 
-// ScanPointResampler.cpp, line32
-// ScanPointResampler.cpp, line48
+// ScanPointResampler.cpp, line33
+// ScanPointResampler.cpp, line50
 static constexpr double ScanPointResampler_DIST_INTERVAL = 0.05;
-// ScanPointResampler.cpp, line49
+// ScanPointResampler.cpp, line52
 static constexpr double ScanPointResampler_DIST_INTERPOLATE_THRESH = 0.25;
 
 // ScanPointAnalyser.cpp, line34
 static constexpr double ScanPointAnalyser_FPDMIN = 0.06;
 // ScanPointAnalyser.cpp, line35
 static constexpr double ScanPointAnalyser_FPDMAX = 1.0;
-// ScanPointAnalyser.cpp, line87
+// ScanPointAnalyser.cpp, line89
 static constexpr int ScanPointAnalyser_CORNER_DEG_THRESH = 45;
-// ScanPointAnalyser.cpp, line88
+// ScanPointAnalyser.cpp, line87
 static constexpr int ScanPointAnalyser_INVALID_DEG = -1;
-
-// ScanPointResampler.cpp, line89
-static const double ScanPointAnalyser_COS_THRESH = std::cos(M_PI / 4);
+// ScanPointResampler.cpp, line91
+static const double ScanPointAnalyser_COS_THRESH =
+    std::cos(1.0 * ScanPointAnalyser_CORNER_DEG_THRESH);
 
 // CovarianceCalculator.cpp, line7
 static const double CovarianceCalculator_TICK_DIST = 0.00001;

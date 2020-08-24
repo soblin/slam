@@ -16,7 +16,7 @@ public:
   bool CalcNormal(int index, const std::vector<ScanPoint2D> &points, int dir,
                   Vector2D &ret);
   void AnalysePoints(std::vector<ScanPoint2D> &points, double invalid_deg,
-                     double corner_thresh_deg, double corner_thresh_cos);
+                     double corner_thresh_cos);
   bool CalcNormal(int index, const std::vector<ScanPoint2D> &points, int dir,
                   Vector2D &ret, double fpdmin, double fpdmax);
 };

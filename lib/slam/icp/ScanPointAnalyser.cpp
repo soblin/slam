@@ -39,7 +39,6 @@ bool ScanPointAnalyser::CalcNormal(int index,
 
 void ScanPointAnalyser::AnalysePoints(std::vector<ScanPoint2D> &points,
                                       double invalid_deg,
-                                      double corner_thresh_deg,
                                       double corner_thresh_cos) {
   for (size_t i = 0; i < points.size(); ++i) {
     auto &point = points[i];
@@ -85,12 +84,10 @@ void ScanPointAnalyser::AnalysePoints(std::vector<ScanPoint2D> &points,
 
 void ScanPointAnalyser::AnalysePoints(std::vector<ScanPoint2D> &points) {
   const double invalid_deg = ParamServer::Get("ScanPointAnalyser_INVALID_DEG");
-  const double corner_deg_thresh =
-      ParamServer::Get("ScanPointAnalyser_CORNER_DEG_THRESH");
   const double corner_cos_thresh =
       ParamServer::Get("ScanPointAnalyser_COS_THRESH");
 
-  AnalysePoints(points, invalid_deg, corner_deg_thresh, corner_cos_thresh);
+  AnalysePoints(points, invalid_deg, corner_cos_thresh);
 }
 
 } // namespace slam

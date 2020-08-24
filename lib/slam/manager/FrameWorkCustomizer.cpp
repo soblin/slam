@@ -3,20 +3,31 @@
 
 namespace slam {
 
+void FrameWorkCustomizer::CustomizeCommon() {
+  // common
+  m_slam_front_end_ptr->SetScanMatcher2D(&m_scan_matcher);
+  m_scan_matcher.SetEstimatorICP(&m_pose_estimator);
+  m_scan_matcher.SetPoseFuser(&m_pose_fuser);
+  // loop detector
+  m_loop_detector_ss.SetPoseEstimator(&m_pose_estimator);
+  m_loop_detector_ss.SetPoseFuser(&m_pose_fuser);
+  m_loop_detector_ss.SetDataAssociator(&m_data_associator_gt);
+  m_loop_detector_ss.SetCostFunction(&m_cost_function_pd);
+  m_loop_detector_ss.SetPointCloudMap(&m_point_cloud_map_lp);
+}
+
 void FrameWorkCustomizer::CustomizeA() {
   RefScanMaker *rsm = &m_ref_scan_maker_bs;
   DataAssociator *dass = &m_data_associator_ls;
   CostFunction *cfunc = &m_cost_function_ed;
   PoseOptimizer *popt = &m_pose_optimizer_sd;
+  LoopDetector *lpd = &m_loop_detector;
 
   // customize
   // use PointCloudMapBS
   PointCloudMapSingleton::Create(&m_point_cloud_map_bs);
 
-  // common
-  m_slam_front_end_ptr->SetScanMatcher2D(&m_scan_matcher);
-  m_scan_matcher.SetEstimatorICP(&m_pose_estimator);
-  m_scan_matcher.SetPoseFuser(&m_pose_fuser);
+  CustomizeCommon();
 
   popt->SetCostFunction(cfunc);
   m_pose_estimator.SetDataAssociator(dass);
@@ -26,6 +37,8 @@ void FrameWorkCustomizer::CustomizeA() {
   // fuser
   m_slam_front_end_ptr->SetDgCheck(false);
   m_pose_fuser.SetDataAssociator(dass);
+  // loop detector
+  m_slam_front_end_ptr->SetLoopDetector(lpd);
 }
 
 void FrameWorkCustomizer::CustomizeB() {
@@ -33,15 +46,13 @@ void FrameWorkCustomizer::CustomizeB() {
   DataAssociator *dass = &m_data_associator_ls;
   CostFunction *cfunc = &m_cost_function_ed;
   PoseOptimizer *popt = &m_pose_optimizer_sd;
+  LoopDetector *lpd = &m_loop_detector;
 
   // customize
   // use PointCloudMapGT
   PointCloudMapSingleton::Create(&m_point_cloud_map_gt);
 
-  // common
-  m_slam_front_end_ptr->SetScanMatcher2D(&m_scan_matcher);
-  m_scan_matcher.SetEstimatorICP(&m_pose_estimator);
-  m_scan_matcher.SetPoseFuser(&m_pose_fuser);
+  CustomizeCommon();
 
   popt->SetCostFunction(cfunc);
   m_pose_estimator.SetDataAssociator(dass);
@@ -51,6 +62,8 @@ void FrameWorkCustomizer::CustomizeB() {
   // fuser
   m_slam_front_end_ptr->SetDgCheck(false);
   m_pose_fuser.SetDataAssociator(dass);
+  // loop detector
+  m_slam_front_end_ptr->SetLoopDetector(lpd);
 }
 
 void FrameWorkCustomizer::CustomizeC() {
@@ -58,15 +71,13 @@ void FrameWorkCustomizer::CustomizeC() {
   DataAssociator *dass = &m_data_associator_ls;
   CostFunction *cfunc = &m_cost_function_ed;
   PoseOptimizer *popt = &m_pose_optimizer_sl;
+  LoopDetector *lpd = &m_loop_detector;
 
   // customize
   // use PointCloudMapGT
   PointCloudMapSingleton::Create(&m_point_cloud_map_gt);
 
-  // common
-  m_slam_front_end_ptr->SetScanMatcher2D(&m_scan_matcher);
-  m_scan_matcher.SetEstimatorICP(&m_pose_estimator);
-  m_scan_matcher.SetPoseFuser(&m_pose_fuser);
+  CustomizeCommon();
 
   popt->SetCostFunction(cfunc);
   m_pose_estimator.SetDataAssociator(dass);
@@ -76,6 +87,8 @@ void FrameWorkCustomizer::CustomizeC() {
   // fuser
   m_slam_front_end_ptr->SetDgCheck(false);
   m_pose_fuser.SetDataAssociator(dass);
+  // loop detector
+  m_slam_front_end_ptr->SetLoopDetector(lpd);
 }
 
 void FrameWorkCustomizer::CustomizeD() {
@@ -83,15 +96,13 @@ void FrameWorkCustomizer::CustomizeD() {
   DataAssociator *dass = &m_data_associator_gt;
   CostFunction *cfunc = &m_cost_function_ed;
   PoseOptimizer *popt = &m_pose_optimizer_sl;
+  LoopDetector *lpd = &m_loop_detector;
 
   // customize
   // use PointCloudMapGT
   PointCloudMapSingleton::Create(&m_point_cloud_map_gt);
 
-  // common
-  m_slam_front_end_ptr->SetScanMatcher2D(&m_scan_matcher);
-  m_scan_matcher.SetEstimatorICP(&m_pose_estimator);
-  m_scan_matcher.SetPoseFuser(&m_pose_fuser);
+  CustomizeCommon();
 
   popt->SetCostFunction(cfunc);
   m_pose_estimator.SetDataAssociator(dass);
@@ -101,6 +112,8 @@ void FrameWorkCustomizer::CustomizeD() {
   // fuser
   m_slam_front_end_ptr->SetDgCheck(false);
   m_pose_fuser.SetDataAssociator(dass);
+  // loop detector
+  m_slam_front_end_ptr->SetLoopDetector(lpd);
 }
 
 void FrameWorkCustomizer::CustomizeE() {
@@ -108,15 +121,13 @@ void FrameWorkCustomizer::CustomizeE() {
   DataAssociator *dass = &m_data_associator_gt;
   CostFunction *cfunc = &m_cost_function_ed;
   PoseOptimizer *popt = &m_pose_optimizer_sl;
+  LoopDetector *lpd = &m_loop_detector;
 
   // customize
   // use PointCloudMapGT
   PointCloudMapSingleton::Create(&m_point_cloud_map_gt);
 
-  // common
-  m_slam_front_end_ptr->SetScanMatcher2D(&m_scan_matcher);
-  m_scan_matcher.SetEstimatorICP(&m_pose_estimator);
-  m_scan_matcher.SetPoseFuser(&m_pose_fuser);
+  CustomizeCommon();
 
   popt->SetCostFunction(cfunc);
   m_pose_estimator.SetDataAssociator(dass);
@@ -128,6 +139,8 @@ void FrameWorkCustomizer::CustomizeE() {
   // fuser
   m_slam_front_end_ptr->SetDgCheck(false);
   m_pose_fuser.SetDataAssociator(dass);
+  // loop detector
+  m_slam_front_end_ptr->SetLoopDetector(lpd);
 }
 
 void FrameWorkCustomizer::CustomizeF() {
@@ -135,15 +148,13 @@ void FrameWorkCustomizer::CustomizeF() {
   DataAssociator *dass = &m_data_associator_gt;
   CostFunction *cfunc = &m_cost_function_pd;
   PoseOptimizer *popt = &m_pose_optimizer_sl;
+  LoopDetector *lpd = &m_loop_detector;
 
   // customize
   // use PointCloudMapGT
   PointCloudMapSingleton::Create(&m_point_cloud_map_gt);
 
-  // common
-  m_slam_front_end_ptr->SetScanMatcher2D(&m_scan_matcher);
-  m_scan_matcher.SetEstimatorICP(&m_pose_estimator);
-  m_scan_matcher.SetPoseFuser(&m_pose_fuser);
+  CustomizeCommon();
 
   popt->SetCostFunction(cfunc);
   m_pose_estimator.SetDataAssociator(dass);
@@ -156,6 +167,8 @@ void FrameWorkCustomizer::CustomizeF() {
   // fuser
   m_slam_front_end_ptr->SetDgCheck(false);
   m_pose_fuser.SetDataAssociator(dass);
+  // loop detector
+  m_slam_front_end_ptr->SetLoopDetector(lpd);
 }
 
 void FrameWorkCustomizer::CustomizeG() {
@@ -163,15 +176,13 @@ void FrameWorkCustomizer::CustomizeG() {
   DataAssociator *dass = &m_data_associator_gt;
   CostFunction *cfunc = &m_cost_function_pd;
   PoseOptimizer *popt = &m_pose_optimizer_sl;
+  LoopDetector *lpd = &m_loop_detector;
 
   // customize
   // use PointCloudMapGT
   PointCloudMapSingleton::Create(&m_point_cloud_map_gt);
 
-  // common
-  m_slam_front_end_ptr->SetScanMatcher2D(&m_scan_matcher);
-  m_scan_matcher.SetEstimatorICP(&m_pose_estimator);
-  m_scan_matcher.SetPoseFuser(&m_pose_fuser);
+  CustomizeCommon();
 
   popt->SetCostFunction(cfunc);
   m_pose_estimator.SetDataAssociator(dass);
@@ -184,6 +195,8 @@ void FrameWorkCustomizer::CustomizeG() {
   // fuser
   m_slam_front_end_ptr->SetDgCheck(false);
   m_pose_fuser.SetDataAssociator(dass);
+  // loop detector
+  m_slam_front_end_ptr->SetLoopDetector(lpd);
 }
 
 void FrameWorkCustomizer::CustomizeH() {
@@ -191,15 +204,13 @@ void FrameWorkCustomizer::CustomizeH() {
   DataAssociator *dass = &m_data_associator_gt;
   CostFunction *cfunc = &m_cost_function_pd;
   PoseOptimizer *popt = &m_pose_optimizer_sl;
+  LoopDetector *lpd = &m_loop_detector;
 
   // customize
   // use PointCloudMapGT
   PointCloudMapSingleton::Create(&m_point_cloud_map_gt);
 
-  // common
-  m_slam_front_end_ptr->SetScanMatcher2D(&m_scan_matcher);
-  m_scan_matcher.SetEstimatorICP(&m_pose_estimator);
-  m_scan_matcher.SetPoseFuser(&m_pose_fuser);
+  CustomizeCommon();
 
   popt->SetCostFunction(cfunc);
   m_pose_estimator.SetDataAssociator(dass);
@@ -212,6 +223,8 @@ void FrameWorkCustomizer::CustomizeH() {
   // fuser
   m_slam_front_end_ptr->SetDgCheck(true);
   m_pose_fuser.SetDataAssociator(dass);
+  // loop detector
+  m_slam_front_end_ptr->SetLoopDetector(lpd);
 }
 
 void FrameWorkCustomizer::CustomizeI() {
@@ -219,15 +232,13 @@ void FrameWorkCustomizer::CustomizeI() {
   DataAssociator *dass = &m_data_associator_gt;
   CostFunction *cfunc = &m_cost_function_pd;
   PoseOptimizer *popt = &m_pose_optimizer_sl;
+  LoopDetector *lpd = &m_loop_detector_ss;
 
   // customize
   // use PointCloudMapGT
   PointCloudMapSingleton::Create(&m_point_cloud_map_lp);
 
-  // common
-  m_slam_front_end_ptr->SetScanMatcher2D(&m_scan_matcher);
-  m_scan_matcher.SetEstimatorICP(&m_pose_estimator);
-  m_scan_matcher.SetPoseFuser(&m_pose_fuser);
+  CustomizeCommon();
 
   popt->SetCostFunction(cfunc);
   m_pose_estimator.SetDataAssociator(dass);
@@ -240,6 +251,8 @@ void FrameWorkCustomizer::CustomizeI() {
   // fuser
   m_slam_front_end_ptr->SetDgCheck(true);
   m_pose_fuser.SetDataAssociator(dass);
+  // loop detector
+  m_slam_front_end_ptr->SetLoopDetector(lpd);
 }
 
 } /* namespace slam */

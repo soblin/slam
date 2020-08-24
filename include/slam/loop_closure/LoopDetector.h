@@ -38,6 +38,7 @@ public:
   LoopDetector() {}
   virtual ~LoopDetector() {}
 
+  virtual void Initialize() {}
   std::vector<LoopMatch> &loop_matches();
   void SetPoseGraph(PoseGraph *p);
   virtual bool DetectLoop(Scan2D *curScan, Pose2D &curPose, int cnt);

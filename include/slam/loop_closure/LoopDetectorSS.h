@@ -15,7 +15,7 @@ public:
   LoopDetectorSS() {}
   ~LoopDetectorSS() {}
 
-  void Initialize();
+  virtual void Initialize() override;
   virtual bool DetectLoop(Scan2D *curScan, Pose2D &curPose, int cnt) override;
   bool EstimateRevisitPose(const Scan2D *curScan,
                            const std::vector<ScanPoint2D> &refPoints,

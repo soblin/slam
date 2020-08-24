@@ -41,6 +41,7 @@ public:
   void CustomizeI();
 
 private:
+  void CustomizeCommon();
   RefScanMakerBS m_ref_scan_maker_bs;
   RefScanMakerLM m_ref_scan_maker_lm;
 

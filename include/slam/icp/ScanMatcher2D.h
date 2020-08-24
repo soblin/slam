@@ -29,6 +29,7 @@ public:
   void SetScanPointAnalyser(ScanPointAnalyser *p);
   void SetPoseFuser(PoseFuser *p);
   void SetDgCheck(bool t);
+  Eigen::Matrix3d &GetCovariance();
 
 private:
   Pose2D m_init_pose; // the pose of the origin of the map. default(0, 0, 0)
@@ -65,6 +66,7 @@ inline void ScanMatcher2D::SetScanPointAnalyser(ScanPointAnalyser *p) {
 }
 inline void ScanMatcher2D::SetPoseFuser(PoseFuser *p) { m_pose_fuser_ptr = p; }
 inline void ScanMatcher2D::SetDgCheck(bool t) { m_dgcheck = t; }
+inline Eigen::Matrix3d &ScanMatcher2D::GetCovariance() { return m_cov; }
 
 } /* namespace slam */
 #endif /* SCAN_MATCHER_2D_H */

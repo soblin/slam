@@ -30,6 +30,7 @@ private:
   PoseGraph *m_pose_graph_ptr = nullptr;
   LoopDetector *m_loop_detector_ptr = nullptr;
   SlamBackEnd m_slam_back_end;
+  int m_keyframe_skip = 0;
   void RegisterParams();
 };
 

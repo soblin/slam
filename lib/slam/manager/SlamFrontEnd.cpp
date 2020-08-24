@@ -17,14 +17,17 @@ void SlamFrontEnd::Initialize() {
   m_cloud_map_ptr = PointCloudMapSingleton::GetCloudMap();
   m_cloud_map_ptr->Initialize();
 
-  // Initialize the chained classes and update their parameters
-  assert(m_scan_matcher_ptr != nullptr);
-  m_scan_matcher_ptr->Initialize();
-
   m_pose_graph_ptr = new PoseGraph();
   m_pose_graph_ptr->Initialize();
 
+  // Initialize the chained classes and update their parameters
+  m_scan_matcher_ptr->Initialize();
+
   m_slam_back_end.Initialize(m_pose_graph_ptr);
+
+  m_loop_detector_ptr->Initialize();
+
+  m_keyframe_skip = ParamServer::Get("SlamFrontEnd_KEYFRAME_SKIP");
 }
 
 // process the scan data, which was generated at SensorDataReader
@@ -32,19 +35,57 @@ void SlamFrontEnd::Process(Scan2D &scan) {
   int cnt = CounterServer::Get();
 
   m_scan_matcher_ptr->MatchScan(scan);
+
   // get the estimated current pose with ICP
-  //  Pose2D curPose = m_point_m_cloud_map_ptr->GetLastPose();
-  const int gt_cell_num_thresh =
-      ParamServer::Get("PointCloudMapGT_CELL_POINT_NUM_COUNTER_THRESH");
+  Pose2D curPose = m_cloud_map_ptr->GetLastPose();
+  // and add to OdometryArc
+  if (cnt == 0)
+    m_pose_graph_ptr->AddNode(curPose);
+  else {
+    Eigen::Matrix3d &cov = m_scan_matcher_ptr->GetCovariance();
+    MakeOdometryArc(curPose, cov);
+  }
 
-  if (cnt < gt_cell_num_thresh) {
-    ParamServer::Set("PointCloudMapGT_CELL_POINT_NUM_THRESH", 1.0);
-  } else
-    ParamServer::Set("PointCloudMapGT_CELL_POINT_NUM_THRESH", 5.0);
+  // MapGen
+  if (cnt % m_keyframe_skip == 0) {
+    const int gt_cell_num_thresh =
+        ParamServer::Get("PointCloudMapGT_CELL_POINT_NUM_COUNTER_THRESH");
 
-  m_cloud_map_ptr->MakeGlobalMap();
+    if (cnt < gt_cell_num_thresh) {
+      ParamServer::Set("PointCloudMapGT_CELL_POINT_NUM_THRESH", 1.0);
+    } else
+      ParamServer::Set("PointCloudMapGT_CELL_POINT_NUM_THRESH", 5.0);
+
+    m_cloud_map_ptr->MakeGlobalMap();
+  }
+
+  // loop closure
+  if (cnt > m_keyframe_skip and cnt % m_keyframe_skip == 0) {
+    int i = i + 1;
+  }
 
   CounterServer::Increment();
+}
+
+bool SlamFrontEnd::MakeOdometryArc(Pose2D &curPose,
+                                   const Eigen::Matrix3d &fusedCov) {
+  if (m_pose_graph_ptr->nodes().size() == 0)
+    return false;
+
+  PoseNode *lastNode = m_pose_graph_ptr->nodes().back();
+  PoseNode *curNode = m_pose_graph_ptr->AddNode(curPose);
+
+  Pose2D &lastPose = lastNode->pose();
+  Pose2D relPose;
+  Pose2D::CalcRelativePose(curPose, lastPose, relPose);
+
+  Eigen::Matrix3d cov;
+  CovarianceCalculator::RotateCovariance(lastPose, fusedCov, cov, true);
+  PoseArc *arc =
+      m_pose_graph_ptr->MakeArc(lastNode->id(), curNode->id(), relPose, cov);
+  m_pose_graph_ptr->AddArc(arc);
+
+  return true;
 }
 
 void SlamFrontEnd::RegisterParams() {
@@ -63,14 +104,18 @@ void SlamFrontEnd::RegisterParams() {
   ParamServer::Set("SlamLauncher_SLEEP_TIME", param::SlamLauncher_SLEEP_TIME);
   ParamServer::Set("SlamLauncher_PLOT_SKIP", param::SlamLauncher_PLOT_SKIP);
 
+  // SlamFrontEnd
+  ParamServer::Set("PointCloudMapGT_CELL_POINT_NUM_COUNTER_THRESH",
+                   param::PointCloudMapGT_CELL_POINT_NUM_COUNTER_THRESH);
+  ParamServer::Set("SlamFrontEnd_KEYFRAME_SKIP",
+                   param::SlamFrontEnd_KEYFRAME_SKIP);
+
   // PointCloudMap
   ParamServer::Set("PointCloudMapBS_SKIP", param::PointCloudMapBS_SKIP);
   ParamServer::Set("PointCloudMap_MAX_POINT_NUM",
                    param::PointCloudMap_MAX_POINT_NUM);
   ParamServer::Set("PointCloudMapGT_CELL_POINT_NUM_THRESH",
                    param::PointCloudMapGT_CELL_POINT_NUM_THRESH1);
-  ParamServer::Set("PointCloudMapGT_CELL_POINT_NUM_COUNTER_THRESH",
-                   param::PointCloudMapGT_CELL_POINT_NUM_COUNTER_THRESH);
   ParamServer::Set("PointCloudMapLP_ACC_DIST_THRESH",
                    param::PointCloudMapLP_ACC_DIST_THRESH);
 
