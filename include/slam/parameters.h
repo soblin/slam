@@ -155,7 +155,9 @@ static const double LoopDetectorSS_DD = 0.2;
 // LoopDetectorSS.cpp, line100
 static constexpr double LoopDetectorSS_DA = 2 * M_PI / 180;
 // LoopDetectorSS.cpp, line101
-static double LoopDetectorSS_MATCH_THRESH = 0.8;
+static const double LoopDetectorSS_MATCH_THRESH = 0.8;
+// LoopDetectorSS.cpp, line102
+static const int LoopDetectorSS_MATCH_RATIO_THRESH = 0.9;
 
 } /* namespace param */
 } /* namespace slam */

@@ -10,6 +10,7 @@ namespace slam {
 void SlamFrontEnd::Initialize() {
   CounterServer::Create();
 
+  // Load Parameters
   ParamServer::Create();
   RegisterParams();
 
@@ -19,6 +20,11 @@ void SlamFrontEnd::Initialize() {
   // Initialize the chained classes and update their parameters
   assert(m_scan_matcher_ptr != nullptr);
   m_scan_matcher_ptr->Initialize();
+
+  m_pose_graph_ptr = new PoseGraph();
+  m_pose_graph_ptr->Initialize();
+
+  m_slam_back_end.Initialize(m_pose_graph_ptr);
 }
 
 // process the scan data, which was generated at SensorDataReader
@@ -173,6 +179,8 @@ void SlamFrontEnd::RegisterParams() {
   ParamServer::Set("LoopDetectorSS_DA", param::LoopDetectorSS_DA);
   ParamServer::Set("LoopDetectorSS_MATCH_THRESH",
                    param::LoopDetectorSS_MATCH_THRESH);
+  ParamServer::Set("LoopDetectorSS_MATCH_RATIO_THRESH",
+                   param::LoopDetectorSS_MATCH_RATIO_THRESH);
 }
 
 } /* namespace slam */

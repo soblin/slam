@@ -21,8 +21,7 @@ void P2oDriver2D::DoP2o(PoseGraph &graph, std::vector<Pose2D> &newPoses,
   for (size_t i = 0; i < nodes.size(); ++i) {
     PoseNode *node = nodes[i];
     Pose2D pose = node->pose();
-    pnodes.emplace_back(
-        p2o::Pose2D(pose.tx(), pose.ty(), normalize(pose.th())));
+    pnodes.emplace_back(pose.tx(), pose.ty(), normalize(pose.th()));
   }
 
   p2o::Con2DVec pcons;
@@ -47,8 +46,7 @@ void P2oDriver2D::DoP2o(PoseGraph &graph, std::vector<Pose2D> &newPoses,
 
   for (size_t i = 0; i < result.size(); ++i) {
     p2o::Pose2D newPose = result[i];
-    Pose2D pose(newPose.x, newPose.y, newPose.th);
-    newPoses.emplace_back(Pose2D(newPose.x, newPose.y, newPose.th));
+    newPoses.emplace_back(newPose.x, newPose.y, normalize(newPose.th));
   }
 }
 

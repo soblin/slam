@@ -11,11 +11,10 @@ class PoseArc;
 
 class PoseNode {
 public:
-  PoseNode();
+  PoseNode(){};
   PoseNode(const Pose2D &pose);
   ~PoseNode() {}
 
-  void Initialize();
   void SetPose(const Pose2D &pose);
   void SetId(int id);
   void AddArc(PoseArc *p);
@@ -28,7 +27,7 @@ public:
 private:
   Pose2D m_pose;                 // the pose of this node
   std::vector<PoseArc *> m_arcs; // the arcs pointing to this node
-  int m_id;
+  int m_id = -1;
 };
 
 class PoseArc {
@@ -57,7 +56,7 @@ class PoseGraph {
 public:
   PoseGraph() {}
   ~PoseGraph();
-  void Initiaize();
+  void Initialize();
   void Reset();
   PoseNode *AllocNode();
   PoseArc *AllocArc();
@@ -80,11 +79,6 @@ private:
   std::vector<PoseNode *> m_nodes;
   std::vector<PoseArc *> m_arcs;
 };
-
-inline void PoseNode::Initialize() {
-  m_id = -1;
-  m_arcs.clear();
-}
 
 inline void PoseNode::SetPose(const Pose2D &pose) { m_pose = pose; }
 

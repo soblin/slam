@@ -97,8 +97,10 @@ void SlamLauncher::CustomizeFrameWork(const std::string &type) {
     m_customizer.CustomizeG();
   else if (type == "customH")
     m_customizer.CustomizeH();
+  else if (type == "customI")
+    m_customizer.CustomizeI();
   else
-    m_customizer.CustomizeH();
+    m_customizer.CustomizeI();
 
   m_cloud_map_ptr = PointCloudMapSingleton::GetCloudMap();
 }

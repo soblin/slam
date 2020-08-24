@@ -4,6 +4,7 @@
 #include <slam/fuser/PoseFuser.h>
 #include <slam/geometry/PointCloudMapBS.h>
 #include <slam/geometry/PointCloudMapGT.h>
+#include <slam/geometry/PointCloudMapLP.h>
 #include <slam/icp/CostFunctionED.h>
 #include <slam/icp/CostFunctionPD.h>
 #include <slam/icp/DataAssociatorGT.h>
@@ -16,6 +17,8 @@
 #include <slam/icp/ScanMatcher2D.h>
 #include <slam/icp/ScanPointAnalyser.h>
 #include <slam/icp/ScanPointResampler.h>
+#include <slam/loop_closure/LoopDetectorSS.h>
+#include <slam/manager/SlamBackEnd.h>
 #include <slam/manager/SlamFrontEnd.h>
 
 namespace slam {
@@ -35,6 +38,7 @@ public:
   void CustomizeF();
   void CustomizeG();
   void CustomizeH();
+  void CustomizeI();
 
 private:
   RefScanMakerBS m_ref_scan_maker_bs;
@@ -52,6 +56,7 @@ private:
   // This is the only one instance of PointCloudMap
   PointCloudMapBS m_point_cloud_map_bs;
   PointCloudMapGT m_point_cloud_map_gt;
+  PointCloudMapLP m_point_cloud_map_lp;
 
   ScanPointAnalyser m_scan_point_analyser;
   ScanPointResampler m_scan_point_resampler;
@@ -63,6 +68,9 @@ private:
   SlamFrontEnd *m_slam_front_end_ptr = nullptr;
 
   PoseFuser m_pose_fuser;
+
+  LoopDetector m_loop_detector;
+  LoopDetectorSS m_loop_detector_ss;
 };
 
 inline void FrameWorkCustomizer::SetSlamFrontEnd(SlamFrontEnd *f) {

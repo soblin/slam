@@ -35,12 +35,7 @@ static Eigen::Matrix3d svdInverse(const Eigen::Matrix3d &A) {
 
 namespace slam {
 
-PoseNode::PoseNode() { Initialize(); }
-
-PoseNode::PoseNode(const Pose2D &pose) {
-  Initialize();
-  m_pose = pose;
-}
+PoseNode::PoseNode(const Pose2D &pose) { m_pose = pose; }
 
 PoseArc::PoseArc() : m_src(nullptr), m_dst(nullptr) {}
 PoseArc::PoseArc(PoseNode *s, PoseNode *d, Pose2D &rel,
@@ -61,7 +56,7 @@ PoseGraph::~PoseGraph() {
   m_arcs_pool.clear();
 }
 
-void PoseGraph::Initiaize() {
+void PoseGraph::Initialize() {
   m_pool_sz = ParamServer::Get("PoseGraph_POOL_SIZE");
   m_nodes_pool.reserve(m_pool_sz);
   m_arcs_pool.reserve(m_pool_sz);

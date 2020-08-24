@@ -19,6 +19,7 @@ void Submap::AddPoints(const std::vector<ScanPoint2D> &points) {
 
 std::vector<ScanPoint2D> Submap::SubsamplePoints(int nthre) {
   NNGridTable nntab;
+  nntab.Initialize();
   for (size_t i = 0; i < m_points.size(); ++i) {
     ScanPoint2D &lp = m_points[i];
     nntab.AddPoint(&lp);

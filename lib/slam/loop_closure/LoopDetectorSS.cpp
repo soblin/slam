@@ -99,6 +99,7 @@ bool LoopDetectorSS::EstimateRevisitPose(
   double dd = ParamServer::Get("LoopDetectorSS_DD");
   double da = ParamServer::Get("LoopDetectorSS_DA");
   double matchThresh = ParamServer::Get("LoopDetectorSS_MATCH_THRESH");
+  double mratio_thresh = ParamServer::Get("LoopDetectorSS_MATCH_RATIO_THRESH");
   double matchRateMax = 0;
   std::vector<double> scores;
   double scoreMin = HUGE_VAL;
@@ -114,7 +115,7 @@ bool LoopDetectorSS::EstimateRevisitPose(
             m_data_associator_ptr->FindCorrespondence(curScan, pose);
         size_t usedNum = m_data_associator_ptr->cur_points().size();
 
-        if (usedNum < usedNumMin or mratio < 0.9)
+        if (usedNum < usedNumMin or mratio < mratio_thresh)
           // skip bad score
           continue;
 
@@ -144,7 +145,7 @@ bool LoopDetectorSS::EstimateRevisitPose(
     double score = m_estimator_ptr->EstimatePose(p, estP);
     double match_rate = m_estimator_ptr->GetMatchRate();
     size_t usedNum = m_estimator_ptr->GetUsedNum();
-    if (score < smin && match_rate >= 0.9 && usedNum >= usedNumMin) {
+    if (score < smin && match_rate >= mratio_thresh && usedNum >= usedNumMin) {
       smin = score;
       best = estP;
     }
@@ -172,7 +173,8 @@ void LoopDetectorSS::MakeLoopArc(LoopInfo &info) {
   Eigen::Matrix3d cov;
   CovarianceCalculator::RotateCovariance(srcPose, info.cov, cov, true);
 
-  PoseArc *arc = m_pg->MakeArc(info.ref_ind, info.cur_ind, relPose, cov);
-  m_pg->AddArc(arc);
+  PoseArc *arc =
+      m_pose_graph_ptr->MakeArc(info.ref_ind, info.cur_ind, relPose, cov);
+  m_pose_graph_ptr->AddArc(arc);
 }
 } // namespace slam

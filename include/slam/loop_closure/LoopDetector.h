@@ -9,7 +9,7 @@
 namespace slam {
 
 struct LoopInfo {
-  LoopInfo() : arcked(false), cur_ind(-1), ref_ind(-1), score(-1.0) {}
+  LoopInfo() : arcked(false), cur_ind(-1), ref_ind(-1), score(0.0) {}
   bool arcked;
   int cur_ind;
   int ref_ind;
@@ -39,13 +39,15 @@ public:
   virtual ~LoopDetector() {}
 
   std::vector<LoopMatch> &loop_matches();
-  void SetPoseGraph(PoseGraph *p) { m_pg = p; }
+  void SetPoseGraph(PoseGraph *p);
   virtual bool DetectLoop(Scan2D *curScan, Pose2D &curPose, int cnt);
 
 protected:
-  PoseGraph *m_pg;
+  PoseGraph *m_pose_graph_ptr;
   std::vector<LoopMatch> m_loop_matches;
 };
+
+inline void LoopDetector::SetPoseGraph(PoseGraph *p) { m_pose_graph_ptr = p; }
 
 inline std::vector<LoopMatch> &LoopDetector::loop_matches() {
   return m_loop_matches;
